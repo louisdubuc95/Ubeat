@@ -14,6 +14,7 @@
         height: 400px;
         margin: 20px 0;
         overflow: hidden;
+        font-size: 16px;
     }
     article > div {
         height: 100%;
@@ -29,6 +30,9 @@
     article > div:first-child > * {
         margin: auto;
     }
+    article > div:first-child > img {
+        max-height: 80%;
+    }
     article > div:last-child {
         width: calc(100% - 30%);
     }
@@ -37,7 +41,7 @@
         overflow: hidden;
     }
     article > div:last-child > div:first-child {
-        height: 60%;
+        height: 70%;
     }
     .album_name {
         font-size: 30px;
@@ -56,7 +60,7 @@
         font-size: 20px;
     }
     article > div:last-child > div:last-child {
-        height: calc(100% - 60%);
+        height: calc(100% - 70%);
         display: flex;
     }
     article > div:last-child > div:last-child ul {
@@ -82,13 +86,41 @@
     }
 
     @media (max-width : 1024px) {
-        article > div:first-child > img {
+        article {
             max-height: 300px;
+            font-size: 14px;
+        }
+        .album_name {
+            font-size: 27px;
+            font-weight: bold;
+        }
+        .album_artist {
+            font-size: 18px;
+        }
+        .album_nb_songs {
+            font-size: 18px;
+        }
+        article > div:last-child > div:last-child ul li {
+            font-size: 13px;
         }
     }
-    @media (max-height:  : 768px) {
+    @media (max-width: 768px) {
         article {
             max-height: 250px;
+            font-size: 11px;
+        }
+        .album_name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .album_artist {
+            font-size: 13px;
+        }
+        .album_nb_songs {
+            font-size: 13px;
+        }
+        article > div:last-child > div:last-child ul li {
+            font-size: 10px;
         }
     }
 </style>
