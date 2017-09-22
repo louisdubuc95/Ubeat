@@ -69,12 +69,12 @@
         padding: 0;
         margin: 0;
         overflow: auto;
-        border: solid 1px black;
+        border: solid 1px white;
         font-family: 'Jura', sans-serif;
     }
     article > div:last-child > div:last-child ul li {
         font-size: 14px;
-        border-bottom: solid 1px black;
+        border-bottom: solid 1px white;
     }
     article > div:last-child > div:last-child ul li.active,
     article > div:last-child > div:last-child ul li:hover {
@@ -144,7 +144,7 @@
                             <span class="album_nb_songs">15</span> songs
                         </p>
                     </div>
-                    <div>
+                    <div style="color: white">
                         <button type="button" class="play">Play</button>
                         <ul>
                             <li class="active   ">
