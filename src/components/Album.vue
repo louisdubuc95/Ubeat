@@ -7,6 +7,7 @@
         margin: 0.7em 0;
     }
     img {
+        border-radius: 3px;
         max-width: 100%;
         max-height: 100%;
     }
@@ -127,7 +128,6 @@
 
 <template>
     <div>
-        <h1>Album</h1>
         <section>
             <article>
                 <div>

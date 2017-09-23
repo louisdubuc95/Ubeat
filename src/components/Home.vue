@@ -43,12 +43,11 @@
           <h2>About</h2>
           <p>Ce site web est fait dans le cadre du cours GLO-3102</p>
           <p>Auteurs:</p>
-          <p>Louis-Philippe Dubuc</p>
-          <p>Lionel Karmes</p>
+          <p>Enora Le Cavorzin-Metallinos</p>
           <p>Guillaume Binet</p>
+          <p>Lionel Karmes</p>
+          <p>Louis-Philippe Dubuc</p>
           <p>Rémi Weislinger</p>
-
-        <p>Enora Le Cavorzin-Metallinos</p>
 
       </div>
   </div>
