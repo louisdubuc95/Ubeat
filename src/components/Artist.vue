@@ -82,6 +82,12 @@
        font-weight: bold;
        text-align: left;
     }
+    .general_info
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
     @media (max-width : 1024px) {
         article {
@@ -126,7 +132,7 @@
                     <a href="https://itunes.apple.com/ca/artist/the-black-eyed-peas/id360391" style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/fr-fr/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;max-width:100%;max-height:100%;"></a>
                 </div>
                 <div>
-                    <div>
+                    <div class="general_info">
                         <p class="artist_name">The Black Eyed Peas</p>
                         <p class="artist_meta_info">
                             <span class="artist_genre">Hip-Hop/Rap</span><br />
