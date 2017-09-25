@@ -1,6 +1,11 @@
 <style>
   :root {--blue-color : #3498db;}
 
+  .icon {
+    width: 1em;
+    height: 1em;
+    margin: auto;
+  }
   /*
   ** Header Navbar
   */
@@ -19,7 +24,7 @@
     color: white;
     background-color: black;
   }
-  
+
   /*
   ** Navbar
   */
@@ -61,7 +66,7 @@
       display: none;
       position: absolute;
       background-color: black;
-      box-shadow: 2px 8px 16px 0px rgba(255, 255, 255, 0.5);
+      box-shadow: 4px 8px 16px 2px rgba(255, 255, 255, 0.9);
       z-index: 1;
   }
 
@@ -97,6 +102,19 @@
   /*
   ** Screen adaptation
   */
+  /* Tablet */
+  @media only screen and (max-width : 1080px) {
+    .header {
+      height: 2em;
+      line-height: 2em;
+    }
+
+    .header-container {
+        margin-bottom: 2em;
+    }
+  }
+
+  /* Cellphone */
   @media only screen and (max-width : 768px) {
     .header {
       position: static;
@@ -129,7 +147,7 @@
     .nav {
       /* Other */
       background-color: black;
-      width: 8em;
+      width: 10em;
       color: white;
 
       /* Position */
@@ -139,8 +157,8 @@
       bottom: 0;
 
       /* Animation */
-      -webkit-transform: translateX(-8em);
-      transform: translateX(-8em);
+      -webkit-transform: translateX(-10em);
+      transform: translateX(-10em);
     }
 
     .nav a {
@@ -151,15 +169,17 @@
     }
 
     .nav .dropdown {
-      padding: 0 2em;
-      float: none;
       display: block;
       height: 3em;
       text-align: center;
       line-height: 3em;
     }
 
-    .with--navbar {transform: translateX(8em);}
+    .nav .dropdown-content {
+      margin-left: 9em;
+      margin-top: -2em;
+    }
+    .with--navbar {transform: translateX(10em);}
 
     #app.with--navbar {
       position: absolute;
@@ -169,15 +189,28 @@
       bottom: 0;
       background-color: rgba(0, 0, 0, 0.6);
     }
+
+    /*
+    ** Researche
+    */
+    .research {
+      display: block;
+      width: 7em;
+      margin-top : 1em;
+      margin-left: 4em;
+      height: 3em;
+    }
   }
 </style>
 
 <script type="text/javascript">
+  // function resposiveNavbar(){
     // if (document.getElementById('app').className == '') {
     //   document.getElementById('app').className = 'with--navbar';
     // } else {
     //   document.getElementById('app').className = '';
     // }
+  // }
 </script>
 
 <template>
@@ -198,12 +231,17 @@
         <router-link to="/artist">Artist</router-link>
         <!-- User -->
         <div class="dropdown">
-          <button class="dropbtn">Our Name</button>
+          <button class="dropbtn">
+            <span id="username">Our Name</span>
+          </button>
           <div class="dropdown-content">
             <router-link to="/">Parameter</router-link>
-            <a href="#">Sign up</a>
+            <a href="#" onclick="document.getElementById('username').innerHTML = 'Our Name';">Sign in</a>
+            <a href="#" onclick="document.getElementById('username').innerHTML = 'Unknown';">Sign up</a>
           </div>
         </div>
+        <!-- Research -->
+        <input class="research" type="search" placeholder="Search"/>
       </nav>
     </header>
   </div>
