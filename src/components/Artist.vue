@@ -1,123 +1,4 @@
 <style>
-  /*:root {
-      --blue-color : #3498db;
-  }
-
-  p {
-      margin: 0.7em 0;
-  }
-  article {
-      font-size: 16px;
-      height: 400px;
-      margin: 20px 0;
-      overflow: hidden;
-  }
-  article > div {
-      box-sizing: border-box;
-      float: left;
-      height: 100%;
-      padding: 15px 5px;
-  }
-  article > div:first-child {
-      display: flex;
-      flex-direction: column;
-      width: 30%;
-  }
-  article > div:first-child > * {
-      margin: auto;
-  }
-  article > div:first-child > img {
-      max-height: 80%;
-  }
-  article > div:last-child {
-      width: calc(100% - 30%);
-  }
-
-  article > div:last-child > div {
-      overflow: hidden;
-  }
-  article > div:last-child > div:first-child {
-      height: 70%;
-  }
-  .artist_name {
-      font-size: 30px;
-      font-weight: bold;
-  }
-  .artist_meta_info {
-      font-style: italic;
-  }
-  article > div:last-child > div:last-child {
-      display: flex;
-      height: calc(100% - 70%);
-  }
-  article > div:last-child > div:last-child ul {
-      border: solid 1px white;
-      flex-grow: 1;
-      font-family: 'Jura', sans-serif;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      overflow: scroll;
-  }
-  article > div:last-child > div:last-child ul li {
-      border-bottom: solid 1px white;
-      font-size: 14px;
-
-  }
-  article > div:last-child > div:last-child ul li:hover {
-      color: var(--blue-color);
-  }
-  .album_year {
-      display: inline-block;
-      margin: 0 15px 0 0;
-  }
-  .albums_title
-  {
-     font-size: 24px;
-     font-weight: bold;
-     text-align: left;
-  }
-  .general_info
-  {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  @media (max-width : 1024px) {
-      article {
-          font-size: 14px;
-          max-height: 300px;
-      }
-      .artist_name {
-          font-size: 27px;
-          font-weight: bold;
-      }
-      .album_artist {
-          font-size: 18px;
-      }
-      article > div:last-child > div:last-child ul li {
-          font-size: 13px;
-      }
-  }
-  @media (max-width: 768px) {
-      article {
-          font-size: 11px;
-          max-height: 250px;
-      }
-      .artist_name {
-          font-size: 20px;
-          font-weight: bold;
-      }
-      .album_artist {
-          font-size: 13px;
-      }
-      article > div:last-child > div:last-child ul li {
-          font-size: 10px;
-      }
-  }*/
-
-  <meta name="viewport" content="width=device-width" />
 
   img {
     border-radius: 3px;
@@ -139,7 +20,6 @@
   color: #bdc3c7;
   font-size: 90%;
   font-weight: thin;
-  /*text-decoration: underline ;*/
 }
 .artist_genre {
   font-size: 120%;
@@ -203,8 +83,8 @@
   @media screen and (max-width: 568px) {
     img {
         align-content: center;
-        /*max-height: 80%;*/
-        /*max-width: 80%;*/
+        max-height: 80%;
+        max-width: 80%;
     }
     .info_and_albums {
       grid-template-columns: 100%;
@@ -214,8 +94,8 @@
   @media screen and (max-width: 768px) {
     img {
         align-content: center;
-        /*max-height: 80%;*/
-        /*max-width: 80%;*/
+        max-height: 80%;
+        max-width: 80%;
     }
     .info_and_albums {
       grid-template-columns: 100%;
