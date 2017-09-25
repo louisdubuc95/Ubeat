@@ -22,7 +22,7 @@
     height: 4em;
     line-height: 4em;
     color: white;
-    background-color: black;
+    background-color: #34495e;
   }
 
   /*
@@ -188,6 +188,8 @@
       right: 0;
       bottom: 0;
       background-color: rgba(0, 0, 0, 0.6);
+      /*background-color: rgba(52, 73, 94,1.0)*/
+;
     }
 
     /*

@@ -120,63 +120,85 @@
   <meta name="viewport" content="width=device-width" />
 
   img {
-      border-radius: 3px;
-      max-height: 27%;
-      max-width: 27%;
-  }
-
-  .albums_title {
-    border-bottom: thin double #ecf0f1;
-    border-top: thin double #ecf0f1;
-    font-size: 180%;
-    font-weight: normal;
-  }
-
-  .general_info {
-  }
-
-  .genre_label {
-    color: #bdc3c7;
-    font-size: 90%;
-    font-weight: thin;
-    /*text-decoration: underline ;*/
-  }
-  .artist_genre {
-    font-size: 120%;
-    font-weight: normal;
-    font-style: oblique;
-  }
-
-  .artist_name {
-    font-size: 200%;
-    text-shadow: 2px 2px #34495e;
-    text-align: left;
-  }
-
-  .album_list_element {
-    grid-template-columns: 30% 30% 30%;
-    list-style: none;
-    text-align: left;
-  }
-
-  .album_img {
     border-radius: 3px;
-    max-width: 100px;
-  }
-  .album_year {
-
-  }
-  .album_title {
-
-  }
-  .info_and_albums {
-    color: #ecf0f1;
-    display: grid;
-    font-family: 'Liberation Sans';
-    font-weight: bold;
-    grid-template-columns: 50% 50%;
-    align-content: left;
-  }
+    align-self: start;
+    justify-self: start;
+    height: auto;
+    width: 85%;
+}
+.albums_title {
+  border-bottom: thin double #ecf0f1;
+  border-top: thin double #ecf0f1;
+  font-size: 180%;
+  font-weight: normal;
+}
+.general_info {
+  grid-column: 3;
+}
+.genre_label {
+  color: #bdc3c7;
+  font-size: 90%;
+  font-weight: thin;
+  /*text-decoration: underline ;*/
+}
+.artist_genre {
+  font-size: 120%;
+  font-weight: normal;
+  font-style: oblique;
+}
+.artist_name {
+  font-size: 200%;
+  text-shadow: 2px 2px #34495e;
+  text-align: left;
+}
+.album_list_element {
+  align-items: center;
+  background: linear-gradient(175deg, #34495e, #34495e 75%, #1e1e1e);
+  border-bottom: thin solid #ecf0f1;
+  border-bottom-left-radius: 5px;
+  border-left: 5px solid #3498db;
+  border-top-left-radius: 5px;
+  box-shadow: -1px 0px 0px 0px #2c3e50;
+  display: grid;
+  grid-column-gap: 0px;
+  grid-template-columns: 15% 85%;
+  grid-template-rows: 50% 50%;
+  justify-items: start;
+  list-style: none;
+  text-align: left;
+}
+.album_list_element:hover {
+  background: linear-gradient(120deg, #34495e, #1e1e1e);
+  border-left: 5px solid #2c3e50;
+  /*color: #3498db;*/
+}
+.album_img {
+  border-radius: 3px;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  max-width: 100px;
+}
+.album_year {
+  font-family: 'Andalus';
+  font-weight: normal;
+  grid-column: 2;
+  grid-row: 1;
+}
+.album_title {
+  font-size: 120%;
+  grid-column: 2;
+  grid-row: 2;
+}
+.info_and_albums {
+   align-content: left;
+   color: #ecf0f1;
+   grid-column-gap: 20px;
+   display: grid;
+   font-family: 'Liberation Sans';
+   font-weight: bold;
+   grid-template-columns: 40% 60%;
+   justify-items: start;
+ }
 
   @media screen and (max-width: 568px) {
     img {
@@ -199,6 +221,7 @@
       grid-template-columns: 100%;
     }
   }
+
 </style>
 
 <template>
@@ -251,6 +274,11 @@
                           <img class="album_img" src="../../static/the-beginning.jpeg" />
                           <span class="album_year">2010</span>
                           <span class="album_title">The Beginning</span>
+                        </li>
+                        <li class="album_list_element">
+                          <img class="album_img" src="the-beginning.jpeg" />
+                          <span class="album_year">2010</span>
+                          <span class="album_title">Et si j'avais un titre vraiment interminable qu'est-ce qu'il ferait avec selon toi ?</span>
                         </li>
                       </ul>
                     </div>
