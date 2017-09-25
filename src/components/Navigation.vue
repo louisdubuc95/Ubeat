@@ -1,12 +1,9 @@
 <style>
+  :root {--blue-color : #3498db;}
 
-  :root {
-    --blue-color : #3498db;
-  }
-
-/*
-** Header Navbar
-*/
+  /*
+  ** Header Navbar
+  */
   .header-container {
       margin-bottom: 4em;
       font-size: 1.2em;
@@ -22,12 +19,11 @@
     color: white;
     background-color: black;
   }
-/*
-** Navbar
-*/
-  .nav {
-    float: left;
-  }
+  
+  /*
+  ** Navbar
+  */
+  .nav {float: left;}
 
   .nav a {
     padding: 0 2em;
@@ -35,9 +31,7 @@
     color: white;
   }
 
-  .nav a:hover {
-    color: var(--blue-color);
-  }
+  .nav a:hover {color: var(--blue-color);}
 
   /*
   ** Logo
@@ -52,10 +46,57 @@
       cursor: default;
   }
 
+  /*
+  ** Dropdown for the user information
+  ** And the sign up button
+  */
+  .dropdown {
+    /*padding-left: 55em;*/
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+  }
 
-/*
-** Screen adaptation
-*/
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: black;
+      box-shadow: 2px 8px 16px 0px rgba(255, 255, 255, 0.5);
+      z-index: 1;
+  }
+
+  .dropdown-content a {
+      color: white;
+      text-decoration: none;
+      display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: var(--blue-color);
+    color: white;
+  }
+
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+
+  .dropbtn {
+    background-color: black;
+    padding: 0 2em;
+    color: white;
+    font-size: 1em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .dropdown:hover .dropbtn {
+    color: var(--blue-color);
+  }
+
+  /*
+  ** Screen adaptation
+  */
   @media only screen and (max-width : 768px) {
     .header {
       position: static;
@@ -86,15 +127,18 @@
       }
 
     .nav {
+      /* Other */
       background-color: black;
+      width: 8em;
       color: white;
 
+      /* Position */
       position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
 
-      width: 8em;
+      /* Animation */
       -webkit-transform: translateX(-8em);
       transform: translateX(-8em);
     }
@@ -106,13 +150,16 @@
       line-height: 3em;
     }
 
-    /*.nav a:first-child {
-      padding-top: 2em;
-    }*/
-
-    .with--navbar {
-      transform: translateX(8em);
+    .nav .dropdown {
+      padding: 0 2em;
+      float: none;
+      display: block;
+      height: 3em;
+      text-align: center;
+      line-height: 3em;
     }
+
+    .with--navbar {transform: translateX(8em);}
 
     #app.with--navbar {
       position: absolute;
@@ -126,11 +173,11 @@
 </style>
 
 <script type="text/javascript">
-    // (function () {
-    //   document.getElementById('app').addEventListener('click', function () {
-    //     document.getElementById('app').className = '';
-    //   });
-    // });
+    // if (document.getElementById('app').className == '') {
+    //   document.getElementById('app').className = 'with--navbar';
+    // } else {
+    //   document.getElementById('app').className = '';
+    // }
 </script>
 
 <template>
@@ -143,11 +190,20 @@
                                                                   document.getElementById('app').className = '';
                                                                 }">
       </a>
+
       <nav id="navbar" class="nav">
         <router-link to="/" class="logo">Ubeat</router-link>
         <router-link to="/">Home</router-link>
         <router-link to="/album">Album</router-link>
         <router-link to="/artist">Artist</router-link>
+        <!-- User -->
+        <div class="dropdown">
+          <button class="dropbtn">Our Name</button>
+          <div class="dropdown-content">
+            <router-link to="/">Parameter</router-link>
+            <a href="#">Sign up</a>
+          </div>
+        </div>
       </nav>
     </header>
   </div>
