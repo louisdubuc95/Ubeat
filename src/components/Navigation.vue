@@ -65,7 +65,7 @@
   .dropdown-content {
       display: none;
       position: absolute;
-      background-color: black;
+      background-color: #34495e;
       box-shadow: 4px 8px 16px 2px rgba(255, 255, 255, 0.9);
       z-index: 1;
   }
@@ -86,7 +86,7 @@
   }
 
   .dropbtn {
-    background-color: black;
+    background-color: #34495e;
     padding: 0 2em;
     color: white;
     font-size: 1em;

@@ -5,7 +5,7 @@
     align-self: start;
     justify-self: start;
     height: auto;
-    width: 85%;
+    width: 75%;
 }
 .albums_title {
   border-bottom: thin double #ecf0f1;
@@ -79,12 +79,15 @@
    grid-template-columns: 40% 60%;
    justify-items: start;
  }
+ .album_list {
+   overflow: auto;
+ }
 
   @media screen and (max-width: 568px) {
     img {
         align-content: center;
-        max-height: 80%;
-        max-width: 80%;
+        height: auto;
+        width: 80%;
     }
     .info_and_albums {
       grid-template-columns: 100%;
@@ -94,8 +97,8 @@
   @media screen and (max-width: 768px) {
     img {
         align-content: center;
-        max-height: 80%;
-        max-width: 80%;
+        height: auto;
+        width: 80%;
     }
     .info_and_albums {
       grid-template-columns: 100%;
@@ -123,7 +126,7 @@
                         </p>
                         <p class="albums_title">Discography</p>
                     </div>
-                    <div>
+                    <div class="album_list">
                       <ul>
                         <li class="album_list_element">
                           <img class="album_img" src="../../static/behind-the-front.jpeg" />
@@ -145,11 +148,13 @@
                           <span class="album_year">2005</span>
                           <span class="album_title">Monkey Business</span>
                         </li>
+                        <router-link to="/album">
                         <li class="album_list_element">
                           <img class="album_img" src="../../static/the-end.jpeg" />
                           <span class="album_year">2009</span>
                           <span class="album_title">The END</span>
                         </li>
+                        </router-link>
                         <li class="album_list_element">
                           <img class="album_img" src="../../static/the-beginning.jpeg" />
                           <span class="album_year">2010</span>

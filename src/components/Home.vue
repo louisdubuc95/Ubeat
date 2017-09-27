@@ -3,7 +3,7 @@
 
   body, html {
     height: 100%;
-    background-color: black;
+    background-color: #34495e;
 
   }
 
