@@ -160,11 +160,6 @@
                           <span class="album_year">2010</span>
                           <span class="album_title">The Beginning</span>
                         </li>
-                        <li class="album_list_element">
-                          <img class="album_img" src="../../static/the-beginning.jpeg" />
-                          <span class="album_year">2010</span>
-                          <span class="album_title">Et si j'avais un titre vraiment interminable qu'est-ce qu'il ferait avec selon toi ?</span>
-                        </li>
                       </ul>
                     </div>
                   </div>
