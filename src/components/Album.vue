@@ -3,6 +3,11 @@
         margin: 0.7em 0;
     }
 
+    #page_album a {
+        text-decoration: none;
+        color: inherit;
+    }
+
     #page_album img {
         border-radius: 3px;
         max-width: 100%;
@@ -164,7 +169,9 @@
                 <div>
                     <div>
                         <p class="album_name">The E.N.D. (The Energy Never Dies)</p>
-                        <p class="album_artist">The Black Eyed Peas</p>
+                        <router-link to="/artist">
+                            <p class="album_artist">The Black Eyed Peas</p>
+                        </router-link>
                         <p class="album_meta_info">
                             <span class="album_genre">Pop</span><br />
                             <span class="album_release_date"><time datetime="Jun 3, 2009">Jun 3, 2009</time></span><br />
