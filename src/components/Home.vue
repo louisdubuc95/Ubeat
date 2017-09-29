@@ -240,153 +240,153 @@
 <template>
 
   <div id="page-home">
-
-
     <div class="banner" id="home">
       <div>
       <h1 style="color: white">Ubeat</h1>
-      <h3 style="color: gray">Bienvenue sur Ubeat</h3>
-      <h3 style="color: gray">Une nouvelle manière de consommer de la musique </h3>
-        <button class="button-choose pure-button">Sign In</button>
-      <p style="padding: 10%"></p>
-
+        <h3 style="color: gray">Bienvenue sur Ubeat</h3>
+        <h3 style="color: gray">Une nouvelle manière de consommer de la musique </h3>
+          <button class="button-choose pure-button">Sign In</button>
+          <p style="padding: 10%"></p>
       </div>
     </div>
 
-  <div class="row">
-    <div class="column"  style="background-color:#ccc;">
+  <div class="l-content">
+      <div class="row">
+        <div class="column"  style="background-color:#ccc;">
 
-      <div class="pure-u-1 pure-u-md-1-3">
+          <div class="pure-u-1 pure-u-md-1-3">
 
-        <!-- -->
-        <div class="content-table table-song">
+            <!-- -->
+            <div class="content-table table-song">
 
-          <!-- h eader de couleur Artiste-->
-          <div class="table-header">
-            <h2>Song</h2>
+              <!-- h eader de couleur Artiste-->
+              <div class="table-header">
+                <h2>Song</h2>
 
-            <span class="space-table">
-              <span></span>
-            </span>
+                <span class="space-table">
+                  <span></span>
+                </span>
 
+              </div>
+
+              <ul class="table-list">
+                <li>______</li>
+                <li>______</li>
+                <li>______</li>
+                <li>______</li>
+                <li>______</li>
+
+              </ul>
+
+              <div style="text-align: center;">
+                <button class="button-choose pure-button">Full List</button>
+              </div>
+            </div>
           </div>
 
-          <ul class="table-list">
-            <li>______</li>
-            <li>______</li>
-            <li>______</li>
-            <li>______</li>
-            <li>______</li>
 
-          </ul>
+        </div>
 
-          <div style="text-align: center;">
-            <button class="button-choose pure-button">Full List</button>
+
+        <div class="column" style="background-color:#bbb;">
+
+          <div class="pure-u-1 pure-u-md-1-3">
+            <div class="content-table table-album">
+              <div class="table-header">
+                <h2>Album</h2>
+
+                <span class="space-table">
+                  <span></span>
+                </span>
+
+              </div>
+
+              <ul class="table-list">
+                <li>
+                  <router-link to="/album" class="album-link">
+                    The END
+                  </router-link>
+                </li>
+                <li>______</li>
+                <li>______</li>
+                <li>______</li>
+                <li>______</li>
+              </ul>
+
+              <div style="text-align: center;">
+                <button class="button-choose pure-button">Full List</button>
+              </div>
+            </div>
           </div>
+
+
+
+
+        </div>
+        <div class="column" style="background-color:#ccc;">
+
+          <div class="pure-u-1 pure-u-md-1-3">
+            <div class="content-table">
+
+              <!-- h eader de couleur Artiste-->
+              <div class="table-header">
+                <h2>Artist</h2>
+
+                <span class="space-table">
+                  <span></span>
+                </span>
+
+              </div>
+
+              <ul class="table-list">
+                <li>
+                  <router-link to="/artist" class="album-link">
+                    The Black Eyed Peas
+                  </router-link>
+                </li>
+                <li>________</li>
+                <li>________</li>
+                <li>________</li>
+                <li>________</li>
+              </ul>
+
+              <div style="text-align: center;">
+                <button class="button-choose pure-button">Full List</button>
+              </div>
+            </div>
+          </div>
+
+
         </div>
       </div>
 
-
-    </div>
-
-
-    <div class="column" style="background-color:#bbb;">
-
-      <div class="pure-u-1 pure-u-md-1-3">
-        <div class="content-table table-album">
-          <div class="table-header">
-            <h2>Album</h2>
-
-            <span class="space-table">
-              <span></span>
-            </span>
-
+          <div>
+              <h2>About</h2>
           </div>
 
-          <ul class="table-list">
-            <li>
-              <router-link to="/album" class="album-link">
-                The END
-              </router-link>
-            </li>
-            <li>______</li>
-            <li>______</li>
-            <li>______</li>
-            <li>______</li>
-          </ul>
 
-          <div style="text-align: center;">
-            <button class="button-choose pure-button">Full List</button>
+        <div class="information pure-g">
+          <div class="pure-u-1 pure-u-md-1-2">
+            <div class="l-box">
+              <h3 class="information-head">Get started today</h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+              </p>
+            </div>
           </div>
-        </div>
+
+          <div class="pure-u-1 pure-u-md-1-2">
+            <div class="l-box">
+              <h3 class="information-head">Information</h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.
+              </p>
+            </div>
+          </div>
+        </div> <!-- end information -->
       </div>
-
-
-
-
-    </div>
-    <div class="column" style="background-color:#ccc;">
-
-      <div class="pure-u-1 pure-u-md-1-3">
-        <div class="content-table">
-
-          <!-- h eader de couleur Artiste-->
-          <div class="table-header">
-            <h2>Artist</h2>
-
-            <span class="space-table">
-              <span></span>
-            </span>
-
-          </div>
-
-          <ul class="table-list">
-            <li>
-              <router-link to="/artist" class="album-link">
-                The Black Eyed Peas
-              </router-link>
-            </li>
-            <li>________</li>
-            <li>________</li>
-            <li>________</li>
-            <li>________</li>
-          </ul>
-
-          <div style="text-align: center;">
-            <button class="button-choose pure-button">Full List</button>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
   </div>
 
-      <div>
-          <h2>About</h2>
-      </div>
-
-
-    <div class="information pure-g">
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="l-box">
-          <h3 class="information-head">Get started today</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-          </p>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="l-box">
-          <h3 class="information-head">Information</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.
-          </p>
-        </div>
-      </div>
-    </div> <!-- end information -->
-</div>
 
 </template>
