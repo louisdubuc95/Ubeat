@@ -280,7 +280,9 @@
 
           </ul>
 
-          <button class="button-choose pure-button">Full List</button>
+          <div style="text-align: center;">
+            <button class="button-choose pure-button">Full List</button>
+          </div>
         </div>
       </div>
 
@@ -313,7 +315,9 @@
             <li>______</li>
           </ul>
 
-          <button class="button-choose pure-button">Full List</button>
+          <div style="text-align: center;">
+            <button class="button-choose pure-button">Full List</button>
+          </div>
         </div>
       </div>
 
@@ -348,7 +352,9 @@
             <li>________</li>
           </ul>
 
-          <button class="button-choose pure-button">Full List</button>
+          <div style="text-align: center;">
+            <button class="button-choose pure-button">Full List</button>
+          </div>
         </div>
       </div>
 
