@@ -80,11 +80,16 @@
     margin-bottom: 3em;
     display: table;
   }
+
+  #page-home li {
+      text-decoration: none;
+      color: inherit;
+  }
 </style>
 
 <template>
 
-  <div>
+  <div id="page-home">
 
 
     <div class="banner" id="home">
@@ -141,14 +146,17 @@
             <h2>Album</h2>
 
             <span class="pricing-table-price">
-                        blabla
-              <span>______</span>
+                        <!-- blabla -->
+              <span>Top 5</span>
             </span>
           </div>
 
           <ul class="pricing-table-list">
-            <li>______</li>
-            <li>______</li>
+            <li>
+              <router-link to="/album" class="album-link">
+                The END
+              </router-link>
+            </li>
             <li>______</li>
             <li>______</li>
             <li>______</li>
@@ -171,14 +179,17 @@
             <h2>Artist</h2>
 
             <span class="pricing-table-price">
-                        blabla
-              <span>_____</span>
+                        <!-- blabla -->
+              <span>Top 5</span>
             </span>
           </div>
 
           <ul class="pricing-table-list">
-            <li>________</li>
-            <li>________</li>
+            <li>
+              <router-link to="/artist" class="album-link">
+                The Black Eyed Peas
+              </router-link>
+            </li>
             <li>________</li>
             <li>________</li>
             <li>________</li>
