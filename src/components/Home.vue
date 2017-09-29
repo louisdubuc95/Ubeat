@@ -61,7 +61,8 @@
   .content-table {
     border: 1px solid #ddd;
     margin: 0 0.5em 2em;
-    padding: 0 0 3em;
+    padding: 0 0 1em;
+    background-color: #f7f7f7;
   }
 
   /*
@@ -69,11 +70,11 @@
    *
    */
   .table-song .table-header {
-    background: #2ecc71;
+    background: #BBDEFB;
   }
 
   .table-album .table-header {
-    background: #1abc9c;
+    background: #90CAF9;
   }
 
   /*
@@ -81,7 +82,7 @@
    *
    */
   .table-header {
-    background: #3498db;
+    background: #64B5F6;
     color: #fff;
   }
   .table-header h2 {
@@ -146,7 +147,7 @@
     color: #333;
     border-radius: 2em;
     font-weight: bold;
-    /*position: relative;*/
+    position: inherit;
     bottom: -1.5em;
   }
 
@@ -200,7 +201,7 @@
     -ms-flex: 1;
     flex: 1;
     padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
+    height: 400px;
   }
 
   .row {
@@ -222,7 +223,7 @@
   }
 
 
-  /* This is the main heading that appears on the blue section */
+
   .splash-head {
     font-size: 20px;
     font-weight: bold;
