@@ -1,5 +1,193 @@
 
-<style xmlns="http://www.w3.org/1999/html">
+<style>
+
+  body {
+    color: #526066;
+  }
+
+  h2, h3 {
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  p {
+    line-height: 1.6em;
+  }
+
+
+
+  h1,h2,h3,p{
+
+    color: white;
+  }
+
+  h1,h2,h3{
+    text-align: center;
+  }
+
+  .banner {
+    background: transparent url('http://cdn.wallpapersafari.com/2/54/GzWCaZ.jpg')0 0 no-repeat fixed;;
+    text-align: center;
+    background-size: cover;
+    height: 200px;
+    width: 100%;
+    margin-bottom: 3em;
+    display: table;
+  }
+
+  #page-home li {
+    text-decoration: none;
+    color: inherit;
+  }
+
+
+  /*
+   * -- Layout Styles --
+   */
+
+  .l-content {
+    margin: 0 auto;
+  }
+
+  .l-box {
+    padding: 0.5em 2em;
+  }
+
+  /*
+   * -- Content Table --
+   *
+   */
+  .content-table {
+    border: 1px solid #ddd;
+    margin: 0 0.5em 2em;
+    padding: 0 0 3em;
+  }
+
+  /*
+   * -- Couleur Table HEader --
+   *
+   */
+  .table-song .table-header {
+    background: #2ecc71;
+  }
+
+  .table-album .table-header {
+    background: #1abc9c;
+  }
+
+  /*
+   * -- Table Header --
+   *
+   */
+  .table-header {
+    background: #3498db;
+    color: #fff;
+  }
+  .table-header h2 {
+    margin: 0;
+    padding-top: 2em;
+    font-size: 1em;
+    font-weight: normal;
+
+  }
+
+
+  /*
+   * -- Titre des tableau --
+   *
+   */
+  .space-table {
+    font-size: 6em;
+    margin: 0.2em 0 0;
+    font-weight: 100;
+  }
+  .space-table span {
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.2em;
+    padding-bottom: 2em;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    *color: #fff;
+  }
+
+
+
+  /*
+   * -- List des table --
+   *
+   */
+  .table-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+
+  /*
+   * -- List dans les table --
+   *
+   */
+  .table-list li {
+    padding: 0.8em 0;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e7e7e7;
+  }
+
+
+  /*
+   * -- Button de tableaux  --
+   */
+  .button-choose {
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+    border-radius: 2em;
+    font-weight: bold;
+    /*position: relative;*/
+    bottom: -1.5em;
+  }
+
+  .information-head {
+    color: black;
+    font-weight: 500;
+  }
+
+  .footer {
+    background: #111;
+    color: #888;
+    text-align: center;
+  }
+  .footer a {
+    color: #ddd;
+  }
+
+
+
+
+  @media(min-width: 767px) {
+
+    .banner-head {
+      font-size: 4em;
+    }
+    .content-table {
+      margin-bottom: 0;
+    }
+
+  }
+
+
+  @media (min-width: 480px) {
+    .banner {
+      height: 400px;
+    }
+    .banner-head {
+      font-size: 3em;
+    }
+  }
+
 
   body, html {
     height: 100%;
@@ -20,11 +208,7 @@
     display: flex;
   }
 
-  .footer {
-    background-color: #f1f1f1;
-    padding: 10px;
-    text-align: center;
-  }
+
 
   .splash-container {
     background: #1f8dd6;
@@ -50,41 +234,6 @@
     line-height: 1em;
   }
 
-  .bgimg-1 {
-    background-image: url('http://cdn.wallpapersafari.com/2/54/GzWCaZ.jpg');
-    min-height: 100%;
-    background-position: center;
-    background-size: cover;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: auto;
-    margin-top: auto;
-  }
-
-  h1,h2,h3,p{
-
-    color: white;
-  }
-
-  h1,h2,h3{
-    text-align: center;
-  }
-
-  .banner {
-    background: transparent url('http://cdn.wallpapersafari.com/2/54/GzWCaZ.jpg')0 0 no-repeat fixed;;
-    text-align: center;
-    background-size: cover;
-
-    height: 200px;
-    width: 100%;
-    margin-bottom: 3em;
-    display: table;
-  }
-
-  #page-home li {
-      text-decoration: none;
-      color: inherit;
-  }
 </style>
 
 <template>
@@ -93,44 +242,44 @@
 
 
     <div class="banner" id="home">
-      <div  >
-
+      <div>
       <h1 style="color: white">Ubeat</h1>
-      <h3 style="color: white">Bienvenue sur Ubeat</h3>
-      <h3 style="color: white">Une nouvelle manière de consommer de la musique </h3>
-        <button class="pure-button">Log In </button>
+      <h3 style="color: gray">Bienvenue sur Ubeat</h3>
+      <h3 style="color: gray">Une nouvelle manière de consommer de la musique </h3>
+        <button class="button-choose pure-button">Sign In</button>
       <p style="padding: 10%"></p>
 
       </div>
     </div>
 
-
-
-
   <div class="row">
     <div class="column"  style="background-color:#ccc;">
 
       <div class="pure-u-1 pure-u-md-1-3">
-        <div class="pricing-table pricing-table-free">
-          <div class="pricing-table-header">
+
+        <!-- -->
+        <div class="content-table table-song">
+
+          <!-- h eader de couleur Artiste-->
+          <div class="table-header">
             <h2>Song</h2>
 
-            <span class="pricing-table-price">
-               description de l'option + lien ("chose")
-              <span>vers la page</span>
-                    </span>
+            <span class="space-table">
+              <span></span>
+            </span>
+
           </div>
 
-          <ul class="pricing-table-list">
+          <ul class="table-list">
             <li>______</li>
             <li>______</li>
             <li>______</li>
             <li>______</li>
             <li>______</li>
-            <li>______</li>
+
           </ul>
 
-          <button class="button-choose pure-button">Choose</button>
+          <button class="button-choose pure-button">Full List</button>
         </div>
       </div>
 
@@ -141,17 +290,17 @@
     <div class="column" style="background-color:#bbb;">
 
       <div class="pure-u-1 pure-u-md-1-3">
-        <div class="pricing-table pricing-table-biz pricing-table-selected">
-          <div class="pricing-table-header">
+        <div class="content-table table-album">
+          <div class="table-header">
             <h2>Album</h2>
 
-            <span class="pricing-table-price">
-                        <!-- blabla -->
-              <span>Top 5</span>
+            <span class="space-table">
+              <span></span>
             </span>
+
           </div>
 
-          <ul class="pricing-table-list">
+          <ul class="table-list">
             <li>
               <router-link to="/album" class="album-link">
                 The END
@@ -163,7 +312,7 @@
             <li>______</li>
           </ul>
 
-          <button class="button-choose pure-button">Choose</button>
+          <button class="button-choose pure-button">Full List</button>
         </div>
       </div>
 
@@ -174,17 +323,19 @@
     <div class="column" style="background-color:#ccc;">
 
       <div class="pure-u-1 pure-u-md-1-3">
-        <div class="pricing-table pricing-table-enterprise">
-          <div class="pricing-table-header">
+        <div class="content-table">
+
+          <!-- h eader de couleur Artiste-->
+          <div class="table-header">
             <h2>Artist</h2>
 
-            <span class="pricing-table-price">
-                        <!-- blabla -->
-              <span>Top 5</span>
+            <span class="space-table">
+              <span></span>
             </span>
+
           </div>
 
-          <ul class="pricing-table-list">
+          <ul class="table-list">
             <li>
               <router-link to="/artist" class="album-link">
                 The Black Eyed Peas
@@ -196,7 +347,7 @@
             <li>________</li>
           </ul>
 
-          <button class="button-choose pure-button">Choose</button>
+          <button class="button-choose pure-button">Full List</button>
         </div>
       </div>
 
