@@ -243,7 +243,7 @@
           </div>
         </div>
         <!-- Research -->
-        <input class="research" type="search" placeholder="Search"/>
+        <input  style="color: black" class="research" type="search" placeholder="Search"/>
       </nav>
     </header>
   </div>
