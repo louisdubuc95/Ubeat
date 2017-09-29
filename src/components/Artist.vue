@@ -1,6 +1,6 @@
 <style>
 
-  img {
+  .album_img, .artist_img {
     border-radius: 3px;
     align-self: start;
     justify-self: start;
@@ -81,10 +81,12 @@
  }
  .album_list {
    overflow: auto;
+   height: auto;
+   width: 247%;
  }
 
   @media screen and (max-width: 568px) {
-    img {
+    .album_img, .artist_img {
         align-content: center;
         height: auto;
         width: 80%;
@@ -95,7 +97,7 @@
   }
 
   @media screen and (max-width: 768px) {
-    img {
+    .album_img, .artist_img {
         align-content: center;
         height: auto;
         width: 80%;
@@ -113,7 +115,7 @@
             <article>
                 <div class="info_and_albums">
                   <div>
-                      <img src="../../static/black-eyed-peas-general.jpg" />
+                      <img class="artist_img" src="../../static/black-eyed-peas-general.jpg" />
                       <br>
                       <a href="https://itunes.apple.com/ca/artist/the-black-eyed-peas/id360391" style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/fr-fr/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;max-width:100%;max-height:100%;"></a>
                   </div>
