@@ -7,30 +7,36 @@
     height: auto;
     width: 75%;
 }
+
 .albums_title {
   border-bottom: thin double #ecf0f1;
   border-top: thin double #ecf0f1;
   font-size: 180%;
   font-weight: normal;
 }
+
 .general_info {
   grid-column: 3;
 }
+
 .genre_label {
   color: #bdc3c7;
   font-size: 90%;
   font-weight: thin;
 }
+
 .artist_genre {
   font-size: 120%;
   font-weight: normal;
   font-style: oblique;
 }
+
 .artist_name {
   font-size: 200%;
   text-shadow: 2px 2px #34495e;
   text-align: left;
 }
+
 .album_list_element {
   align-items: center;
   background: linear-gradient(175deg, #34495e, #34495e 75%, #1e1e1e);
@@ -47,28 +53,33 @@
   list-style: none;
   text-align: left;
 }
+
 .album_list_element:hover {
   background: linear-gradient(120deg, #34495e, #1e1e1e);
   border-left: 5px solid #2c3e50;
   /*color: #3498db;*/
 }
+
 .album_img {
   border-radius: 3px;
   grid-column: 1;
   grid-row: 1 / span 2;
   max-width: 100px;
 }
+
 .album_year {
   font-family: 'Andalus';
   font-weight: normal;
   grid-column: 2;
   grid-row: 1;
 }
+
 .album_title {
   font-size: 120%;
   grid-column: 2;
   grid-row: 2;
 }
+
 .info_and_albums {
    align-content: left;
    color: #ecf0f1;
@@ -79,11 +90,13 @@
    grid-template-columns: 40% 60%;
    justify-items: start;
  }
+
  .album_list {
    overflow: auto;
    height: auto;
    width: 247%;
  }
+
  .album-link {
    text-decoration: none;
    color: inherit;
@@ -95,9 +108,26 @@
         height: auto;
         width: 80%;
     }
+
     .info_and_albums {
       grid-template-columns: 100%;
     }
+
+    .album_list {
+      overflow: auto;
+      height: auto;
+      max-width: 150%;
+    }
+
+    .info_and_albums {
+       align-content: left;
+       grid-template-columns: 50% 50%;
+       justify-items: start;
+     }
+
+     .album_img {
+       min-width: 50%;
+     }
   }
 
   @media screen and (max-width: 768px) {
@@ -106,8 +136,15 @@
         height: auto;
         width: 80%;
     }
+
     .info_and_albums {
       grid-template-columns: 100%;
+    }
+
+    .album_list {
+      overflow: auto;
+      height: auto;
+      width: 219%;
     }
   }
 
