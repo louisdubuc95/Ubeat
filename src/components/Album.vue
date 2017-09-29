@@ -1,133 +1,160 @@
 <style>
-    :root {
-        --blue-color : #3498db;
-    }
-
-    p {
+    #page_album p {
         margin: 0.7em 0;
     }
-    img {
+
+    #page_album img {
         border-radius: 3px;
         max-width: 100%;
         max-height: 100%;
     }
-    article {
+
+    #page_album article {
         height: 400px;
         margin: 20px 0;
         overflow: hidden;
         font-size: 16px;
     }
-    article > div {
+
+    #page_album article > div {
         height: 100%;
         float: left;
         box-sizing: border-box;
         padding: 15px 5px;
     }
-    article > div:first-child {
+
+    #page_album article > div:first-child {
         width: 30%;
         display: flex;
         flex-direction: column;
     }
-    article > div:first-child > * {
+
+    #page_album article > div:first-child > * {
         margin: auto;
     }
-    article > div:first-child > img {
+
+    #page_album article > div:first-child > img {
         max-height: 80%;
     }
-    article > div:last-child {
+
+    #page_album article > div:last-child {
         width: calc(100% - 30%);
     }
 
-    article > div:last-child > div {
+    #page_album article > div:last-child > div {
         overflow: hidden;
     }
-    article > div:last-child > div:first-child {
+
+    #page_album article > div:last-child > div:first-child {
         height: 70%;
     }
-    .album_name {
+
+    #page_album .album_name {
         font-size: 30px;
         font-weight: bold;
     }
-    .album_artist {
+
+    #page_album .album_artist {
         font-size: 20px;
     }
-    .album_meta_info {
+
+    #page_album .album_meta_info {
         font-style: italic;
     }
-    .album_release_date {
+
+    #page_album .album_release_date {
         font-weight: lighter;
     }
-    .album_nb_songs {
+
+    #page_album .album_nb_songs {
         font-size: 20px;
     }
-    article > div:last-child > div:last-child {
+
+    #page_album article > div:last-child > div:last-child {
         height: calc(100% - 70%);
         display: flex;
     }
-    article > div:last-child > div:last-child ul {
+
+    #page_album article > div:last-child > div:last-child ul {
         flex-grow: 1;
         list-style: none;
         padding: 0;
         margin: 0;
         overflow: auto;
         border: solid 1px white;
-        font-family: 'Jura', sans-serif;
+        font-family:
+            "Jura",
+            sans-serif;
     }
-    article > div:last-child > div:last-child ul li {
+
+    #page_album article > div:last-child > div:last-child ul li {
         font-size: 14px;
         border-bottom: solid 1px white;
     }
-    article > div:last-child > div:last-child ul li.active,
-    article > div:last-child > div:last-child ul li:hover {
+
+    #page_album article > div:last-child > div:last-child ul li.active,
+    #page_album article > div:last-child > div:last-child ul li:hover {
         color: var(--blue-color);
     }
-    .song_num {
+
+    #page_album .song_num {
         display: inline-block;
         margin: 0 15px 0 0;
     }
 
     @media (max-width : 1024px) {
-        article {
+        #page_album article {
             max-height: 300px;
             font-size: 14px;
         }
-        .album_name {
+
+        #page_album .album_name {
             font-size: 27px;
             font-weight: bold;
         }
-        .album_artist {
+
+        #page_album .album_artist {
             font-size: 18px;
         }
-        .album_nb_songs {
+
+        #page_album .album_nb_songs {
             font-size: 18px;
         }
-        article > div:last-child > div:last-child ul li {
+
+        #page_album article > div:last-child > div:last-child ul li {
             font-size: 13px;
         }
+
     }
+
     @media (max-width: 768px) {
-        article {
+        #page_album article {
             max-height: 250px;
             font-size: 11px;
         }
-        .album_name {
+
+        #page_album .album_name {
             font-size: 20px;
             font-weight: bold;
         }
-        .album_artist {
+
+        #page_album .album_artist {
             font-size: 13px;
         }
-        .album_nb_songs {
+
+        #page_album .album_nb_songs {
             font-size: 13px;
         }
-        article > div:last-child > div:last-child ul li {
+
+        #page_album article > div:last-child > div:last-child ul li {
             font-size: 10px;
         }
+
     }
 </style>
 
 <template>
-    <div>
+    <div id="page_album">
         <section>
             <article>
                 <div>
