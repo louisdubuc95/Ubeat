@@ -84,6 +84,10 @@
    height: auto;
    width: 247%;
  }
+ .album-link {
+   text-decoration: none;
+   color: inherit;
+ }
 
   @media screen and (max-width: 568px) {
     .album_img, .artist_img {
@@ -150,7 +154,7 @@
                           <span class="album_year">2005</span>
                           <span class="album_title">Monkey Business</span>
                         </li>
-                        <router-link to="/album">
+                        <router-link to="/album" class="album-link">
                         <li class="album_list_element">
                           <img class="album_img" src="../../static/the-end.jpeg" />
                           <span class="album_year">2009</span>
