@@ -6,9 +6,8 @@
     height: 1em;
     margin: auto;
   }
-  /*
-  ** Header Navbar
-  */
+
+  /* Header Navbar */
   .header-container {
       margin-bottom: 4em;
       font-size: 1.2em;
@@ -25,22 +24,22 @@
     background-color: #34495e;
   }
 
-  /*
-  ** Navbar
-  */
-  .nav {float: left;}
+  /* Navbar */
+  .nav {
+    /*float: left;*/
+    display: flex;
+    justify-content: space-between;
+  }
 
   .nav a {
-    padding: 0 2em;
+    padding: 5px;
     text-decoration: none;
     color: white;
   }
 
   .nav a:hover {color: var(--blue-color);}
 
-  /*
-  ** Logo
-  */
+  /* Logo */
   .nav .logo {
     /*font-style: italic;
     text-decoration: underline;*/
@@ -48,7 +47,7 @@
 
   .nav .logo:hover {
       color: white;
-      cursor: default;
+      cursor: help;
   }
 
   .img_logo {
@@ -56,24 +55,24 @@
     border-style: groove;
     border-width: medium;
     border-color: #505050;
+    width: 135px;
   }
 
-  /*
-  ** Dropdown for the user information
-  ** And the sign up button
-  */
+  /* Dropdown for the user information
+  ** And the sign up button             */
   .dropdown {
     /*padding-left: 55em;*/
-    text-decoration: none;
     color: white;
     display: inline-block;
+    text-decoration: none;
   }
 
   .dropdown-content {
-      display: none;
-      position: absolute;
       background-color: #34495e;
-      box-shadow: 4px 8px 16px 2px rgba(255, 255, 255, 0.9);
+      box-shadow: 4px 5px 7px 2px rgba(255, 255, 255, 0.9);
+      display: none;
+      height: 100%;
+      position: absolute;
       z-index: 1;
   }
 
@@ -94,21 +93,30 @@
 
   .dropbtn {
     background-color: #34495e;
-    padding: 0 2em;
-    color: white;
-    font-size: 1em;
-    text-decoration: none;
     border: none;
+    color: white;
     cursor: pointer;
+    font-size: 1em;
+    height: 20px;
+    padding: 0 2em;
+    text-decoration: none;
   }
 
   .dropdown:hover .dropbtn {
     color: var(--blue-color);
   }
 
-  /*
-  ** Screen adaptation
-  */
+  .research {
+    border-radius: 10px;
+    display: inline;
+    height: 12px;
+    margin-top : 0px;
+    margin-left: 0px;
+    position: relative;
+    width: 13%;
+  }
+
+  /* Screen adaptation */
   /* Tablet */
   @media only screen and (max-width : 1080px) {
     .header {
@@ -118,6 +126,19 @@
 
     .header-container {
         margin-bottom: 2em;
+    }
+
+    .img_logo {
+      height: auto;
+      width: 35%;
+    }
+
+    .home_link {
+      font-size: medium;
+    }
+
+    .research {
+      width: 80px;
     }
   }
 
@@ -177,14 +198,14 @@
 
     .nav .dropdown {
       display: block;
-      height: 3em;
+      height: 2em;
       text-align: center;
-      line-height: 3em;
+      line-height: 2em;
     }
 
     .nav .dropdown-content {
       margin-left: 9em;
-      margin-top: -2em;
+      margin-top: 0em;
     }
     .with--navbar {transform: translateX(10em);}
 
@@ -192,35 +213,28 @@
       position: absolute;
       top: 0;
       left: 0;
-      right: 0;
+      right: 0;5
       bottom: 0;
       background-color: rgba(0, 0, 0, 0.6);
-      /*background-color: rgba(52, 73, 94,1.0)*/
-;
+      /*background-color: rgba(52, 73, 94,1.0)*/;
     }
 
-    /*
-    ** Researche
-    */
+    /* Researche */
     .research {
+      border-radius: 60px;
       display: block;
-      width: 7em;
-      margin-top : 1em;
+      height: 10px;
+      margin-top : 0px;
       margin-left: 4em;
-      height: 3em;
+      position: absolute;
+      width: 70px;
     }
+
+    .img_logo { display: none;}
   }
 </style>
 
-<script type="text/javascript">
-  // function resposiveNavbar(){
-    // if (document.getElementById('app').className == '') {
-    //   document.getElementById('app').className = 'with--navbar';
-    // } else {
-    //   document.getElementById('app').className = '';
-    // }
-  // }
-</script>
+<script type="text/javascript"></script>
 
 <template>
   <div class="header-container">
@@ -237,7 +251,7 @@
         <router-link to="/" class="logo">
           <img class="img_logo" src="../../static/ubeat1.png" />
         </router-link>
-        <router-link to="/">Home</router-link>
+        <router-link to="/" class="home_link">Home</router-link>
         <router-link to="/album">Album</router-link>
         <router-link to="/artist">Artist</router-link>
         <!-- User -->
@@ -248,7 +262,8 @@
           <div class="dropdown-content">
             <router-link to="/">Parameter</router-link>
             <a href="#" onclick="document.getElementById('username').innerHTML = 'Our Name';">Sign in</a>
-            <a href="#" onclick="document.getElementById('username').innerHTML = 'Unknown';">Sign up</a>
+            <a href="#" onclick="document.getElementById('username').innerHTML = 'Disconnected';">Sign up</a>
+            <a href="#" onclick="document.getElementById('username').innerHTML = 'Disconnected';">Sign out</a>
           </div>
         </div>
         <!-- Research -->
