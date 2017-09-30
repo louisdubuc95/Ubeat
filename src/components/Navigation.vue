@@ -1,252 +1,182 @@
 <style>
-  :root {--blue-color : #3498db;}
-
-  .icon {
-    width: 1em;
-    height: 1em;
-    margin: auto;
-  }
-  /*
-  ** Header Navbar
-  */
-  .header-container {
-      margin-bottom: 4em;
-      font-size: 1.2em;
+  :root {
+    --blue-color : #BBDEFB;
   }
 
-  .header {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 4em;
-    line-height: 4em;
-    color: white;
-    background-color: #34495e;
+  .pure-menu-scrollable {
+      overflow-x: visible !important;
+      overflow-y: visible !important;
   }
 
-  /*
-  ** Navbar
-  */
-  .nav {float: left;}
-
-  .nav a {
-    padding: 0 2em;
-    text-decoration: none;
-    color: white;
+  .custom-menu-wrapper {
+      white-space: nowrap;
+      position: relative;
   }
 
-  .nav a:hover {color: var(--blue-color);}
-
-  /*
-  ** Logo
-  */
-  .nav .logo {
-    font-style: italic;
-    text-decoration: underline;
+  .custom-menu {
+      display: inline-block;
+      width: auto;
+      vertical-align: middle;
   }
 
-  .nav .logo:hover {
+  .custom-menu .pure-menu-link,
+  .custom-menu .pure-menu-heading {
       color: white;
-      cursor: default;
   }
 
-  /*
-  ** Dropdown for the user information
-  ** And the sign up button
-  */
-  .dropdown {
-    /*padding-left: 55em;*/
-    text-decoration: none;
-    color: white;
-    display: inline-block;
+  .custom-menu-top {
+      position: relative;
+      padding-top: .5em;
+      padding-bottom: .5em;
   }
 
-  .dropdown-content {
-      display: none;
+  .custom-menu-brand {
+    display: block;
+    text-align: center;
+    position: relative;
+  }
+
+  .custom-menu-toggle {
+      width: 44px;
+      height: 44px;
+      display: block;
       position: absolute;
-      background-color: #34495e;
-      box-shadow: 4px 8px 16px 2px rgba(255, 255, 255, 0.9);
-      z-index: 1;
+      top: 3px;
+      right: 0;
+      display: none;
   }
 
-  .dropdown-content a {
-      color: white;
-      text-decoration: none;
+  .custom-menu-toggle .bar {
+      background-color: white;
       display: block;
+      width: 20px;
+      height: 2px;
+      border-radius: 100px;
+      position: absolute;
+      top: 22px;
+      right: 12px;
   }
 
-  .dropdown-content a:hover {
+  .custom-menu-toggle .bar:first-child {
+      -webkit-transform: translateY(-6px);
+      -moz-transform: translateY(-6px);
+      -ms-transform: translateY(-6px);
+      transform: translateY(-6px);
+  }
+
+  .custom-menu-screen {
+      background-color: rgba(0, 102, 205, 0.7);
+      width: 70em;
+      height: 3em;
+      position: absolute;
+      top: 0;
+      z-index: -1;
+  }
+
+  .pure-menu-link:hover {
     background-color: var(--blue-color);
-    color: white;
-  }
-
-  .dropdown:hover .dropdown-content {
-      display: block;
-  }
-
-  .dropbtn {
-    background-color: #34495e;
-    padding: 0 2em;
-    color: white;
-    font-size: 1em;
-    text-decoration: none;
-    border: none;
     cursor: pointer;
   }
 
-  .dropdown:hover .dropbtn {
-    color: var(--blue-color);
+  #dropdownUser li a {
+    color: black;
   }
 
-  /*
-  ** Screen adaptation
-  */
-  /* Tablet */
-  @media only screen and (max-width : 1080px) {
-    .header {
-      height: 2em;
-      line-height: 2em;
-    }
-
-    .header-container {
-        margin-bottom: 2em;
-    }
+  #dropdownUser li a:hover {
+    background-color: var(--blue-color);
   }
 
-  /* Cellphone */
-  @media only screen and (max-width : 768px) {
-    .header {
-      position: static;
-      height: 2em;
-      line-height: 2em;
-    }
 
-    .header-icon {
-      position: relative;
-      display: block;
-      float: left;
-      top : 0;
-      left: 0;
-      right: 0;
-      width: 3em;
-      height: 4em;
-      cursor: pointer;
-    }
+  @media (max-width: 62em) {
 
-    .header-icon:after {
-        content: '';
-        position: absolute;
-        display: block;
-        width: 1.5em;
-        top: 0.1em;
-        left: 0.5em;
-        box-shadow: 0 10px 0 1px #fff, 0 16px 0 1px #fff, 0 22px 0 1px #fff;
+      .custom-menu {
+          display: block;
       }
 
-    .nav {
-      /* Other */
-      background-color: black;
-      width: 10em;
-      color: white;
+      .custom-menu-toggle {
+          display: block;
+          display: none\9;
+      }
 
-      /* Position */
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
+      .custom-menu-bottom {
+          position: absolute;
+          width: 100%;
+          border-top: 1px solid #eee;
+          background-color: #808080\9;
+          z-index: 100;
+      }
 
-      /* Animation */
-      -webkit-transform: translateX(-10em);
-      transform: translateX(-10em);
-    }
+      .custom-menu-bottom .pure-menu-link {
+          opacity: 1;
+          -webkit-transform: translateX(0);
+          -moz-transform: translateX(0);
+          -ms-transform: translateX(0);
+          transform: translateX(0);
+          -webkit-transition: all 0.5s;
+          -moz-transition: all 0.5s;
+          -ms-transition: all 0.5s;
+          transition: all 0.5s;
+      }
 
-    .nav a {
-      display: block;
-      height: 3em;
-      text-align: center;
-      line-height: 3em;
-    }
+      .custom-menu-bottom.custom-menu-tucked .pure-menu-link {
+          -webkit-transform: translateX(-140px);
+          -moz-transform: translateX(-140px);
+          -ms-transform: translateX(-140px);
+          transform: translateX(-140px);
+          opacity: 0;
+          opacity: 1\9;
+      }
 
-    .nav .dropdown {
-      display: block;
-      height: 3em;
-      text-align: center;
-      line-height: 3em;
-    }
+      .pure-menu-horizontal.custom-menu-tucked {
+          z-index: -1;
+          top: 45px;
+          position: absolute;
+          overflow: hidden;
+      }
 
-    .nav .dropdown-content {
-      margin-left: 9em;
-      margin-top: -2em;
-    }
-    .with--navbar {transform: translateX(10em);}
-
-    #app.with--navbar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.6);
-      /*background-color: rgba(52, 73, 94,1.0)*/
-;
-    }
-
-    /*
-    ** Researche
-    */
-    .research {
-      display: block;
-      width: 7em;
-      margin-top : 1em;
-      margin-left: 4em;
-      height: 3em;
-    }
   }
 </style>
 
-<script type="text/javascript">
-  // function resposiveNavbar(){
-    // if (document.getElementById('app').className == '') {
-    //   document.getElementById('app').className = 'with--navbar';
-    // } else {
-    //   document.getElementById('app').className = '';
-    // }
-  // }
-</script>
-
 <template>
-  <div class="header-container">
-    <header class="header">
-      <!-- icon for the mobile/tablet nav  -->
-      <a id="header-icon" class="header-icon" onclick="if (document.getElementById('app').className == '') {
-                                                                  document.getElementById('app').className = 'with--navbar';
-                                                                } else {
-                                                                  document.getElementById('app').className = '';
-                                                                }">
-      </a>
-
-      <nav id="navbar" class="nav">
-        <router-link to="/" class="logo">
-          <img class="" src="../../static/ubeat.png" />
-        </router-link>
-        <router-link to="/">Home</router-link>
-        <router-link to="/album">Album</router-link>
-        <router-link to="/artist">Artist</router-link>
-        <!-- User -->
-        <div class="dropdown">
-          <button class="dropbtn">
-            <span id="username">Our Name</span>
-          </button>
-          <div class="dropdown-content">
-            <router-link to="/">Parameter</router-link>
-            <a href="#" onclick="document.getElementById('username').innerHTML = 'Our Name';">Sign in</a>
-            <a href="#" onclick="document.getElementById('username').innerHTML = 'Unknown';">Sign up</a>
-          </div>
-        </div>
-        <!-- Research -->
-        <input  style="color: black" class="research" type="search" placeholder="Search"/>
-      </nav>
-    </header>
+  <div class="custom-menu-wrapper">
+    <div class="pure-menu custom-menu custom-menu-top">
+        <a href="#" class="pure-menu-heading custom-menu-brand">Ubeat</a>
+        <a id="toggle" href="#" class="custom-menu-toggle" onclick="document.getElementById('menu').classList.toggle('custom-menu-tucked');">
+          <s class="bar"></s>
+          <s class="bar"></s>
+        </a>
+    </div>
+    <div id="menu" class="pure-menu pure-menu-horizontal pure-menu-scrollable custom-menu custom-menu-bottom custom-menu-tucked">
+      <div class="custom-menu-screen"></div>
+      <ul class="pure-menu-list">
+          <li class="pure-menu-item pure-menu-selected">
+            <router-link to="/" class="pure-menu-link">Home</router-link>
+          </li>
+          <li class="pure-menu-item">
+            <router-link to="/album" class="pure-menu-link">Album</router-link>
+          </li>
+          <li class="pure-menu-item pure-menu">
+            <router-link to="/artist" class="pure-menu-link">Artist</router-link>
+          </li>
+          <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+              <a class="pure-menu-link">Ubeat-team11</a>
+              <ul id="dropdownUser" class="pure-menu-children">
+                  <li class="pure-menu-item">
+                    <a href="#" class="pure-menu-link">Parameter</a>
+                  </li>
+                  <li class="pure-menu-item">
+                    <router-link to="/" class="pure-menu-link">Sign up</router-link>
+                  </li>
+              </ul>
+          </li>
+          <li class="pure-menu-item pure-menu">
+            <form class="pure-form">
+              <input type="text" class="pure-input-rounded">
+              <button type="button" class="pure-button">Search</button>
+            </form>
+          </li>
+      </ul>
+    </div>
   </div>
+
 </template>
