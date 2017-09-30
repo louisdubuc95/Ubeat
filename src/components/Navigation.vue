@@ -3,11 +3,6 @@
     --blue-color : #BBDEFB;
   }
 
-  .pure-menu-scrollable {
-      overflow-x: visible !important;
-      overflow-y: visible !important;
-  }
-
   .custom-menu-wrapper {
       white-space: nowrap;
       position: relative;
@@ -17,11 +12,16 @@
       display: inline-block;
       width: auto;
       vertical-align: middle;
+      -webkit-font-smoothing: antialiased;
   }
 
   .custom-menu .pure-menu-link,
   .custom-menu .pure-menu-heading {
       color: white;
+  }
+
+  .custom-menu .pure-menu-link:hover {
+      background-color: var(--blue-color);
   }
 
   .custom-menu-top {
@@ -31,9 +31,9 @@
   }
 
   .custom-menu-brand {
-    display: block;
-    text-align: center;
-    position: relative;
+      display: block;
+      text-align: center;
+      position: relative;
   }
 
   .custom-menu-toggle {
@@ -46,6 +46,10 @@
       display: none;
   }
 
+  .custom-menu-toggle:hover {
+    cursor: pointer;
+  }
+
   .custom-menu-toggle .bar {
       background-color: white;
       display: block;
@@ -55,6 +59,10 @@
       position: absolute;
       top: 22px;
       right: 12px;
+      -webkit-transition: all 0.5s;
+      -moz-transition: all 0.5s;
+      -ms-transition: all 0.5s;
+      transition: all 0.5s;
   }
 
   .custom-menu-toggle .bar:first-child {
@@ -64,30 +72,42 @@
       transform: translateY(-6px);
   }
 
+  .custom-menu-toggle.x .bar {
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+  }
+
+  .custom-menu-toggle.x .bar:first-child {
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+  }
+
   .custom-menu-screen {
-      background-color: rgba(0, 102, 205, 0.7);
-      width: 70em;
+      background-color: rgba(0, 0, 0, 0.5);
+      -webkit-transition: all 0.5s;
+      -moz-transition: all 0.5s;
+      -ms-transition: all 0.5s;
+      transition: all 0.5s;
       height: 3em;
+      width: 90em;
       position: absolute;
       top: 0;
       z-index: -1;
   }
 
-  .pure-menu-link:hover {
-    background-color: var(--blue-color);
-    cursor: pointer;
-  }
-
-  #dropdownUser li a {
-    color: black;
-  }
-
-  #dropdownUser li a:hover {
-    background-color: var(--blue-color);
+  .custom-menu-tucked .custom-menu-screen {
+      -webkit-transform: translateY(-44px);
+      -moz-transform: translateY(-44px);
+      -ms-transform: translateY(-44px);
+      transform: translateY(-44px);
   }
 
 
-  @media (max-width: 62em) {
+  @media only screen and (max-width: 1280px) {
 
       .custom-menu {
           display: block;
@@ -101,8 +121,6 @@
       .custom-menu-bottom {
           position: absolute;
           width: 100%;
-          border-top: 1px solid #eee;
-          background-color: #808080\9;
           z-index: 100;
       }
 
@@ -123,8 +141,6 @@
           -moz-transform: translateX(-140px);
           -ms-transform: translateX(-140px);
           transform: translateX(-140px);
-          opacity: 0;
-          opacity: 1\9;
       }
 
       .pure-menu-horizontal.custom-menu-tucked {
@@ -133,53 +149,35 @@
           position: absolute;
           overflow: hidden;
       }
+    }
 
-  }
 </style>
 
 <template>
   <div class="custom-menu-wrapper">
     <div class="pure-menu custom-menu custom-menu-top">
-        <a href="#" class="pure-menu-heading custom-menu-brand">Ubeat</a>
-        <a id="toggle" href="#" class="custom-menu-toggle" onclick="document.getElementById('menu').classList.toggle('custom-menu-tucked');">
+        <span class="pure-menu-heading custom-menu-brand">Ubeat</span>
+        <a class="custom-menu-toggle" id="toggle" onclick="document.getElementById('menu').classList.toggle('custom-menu-tucked');
+                                                                    document.getElementById('toggle').classList.toggle('x');">
           <s class="bar"></s>
           <s class="bar"></s>
         </a>
     </div>
-    <div id="menu" class="pure-menu pure-menu-horizontal pure-menu-scrollable custom-menu custom-menu-bottom custom-menu-tucked">
+    <div class="pure-menu pure-menu-horizontal pure-menu-scrollable custom-menu custom-menu-bottom custom-menu-tucked" id="menu">
       <div class="custom-menu-screen"></div>
       <ul class="pure-menu-list">
-          <li class="pure-menu-item pure-menu-selected">
-            <router-link to="/" class="pure-menu-link">Home</router-link>
-          </li>
-          <li class="pure-menu-item">
-            <router-link to="/album" class="pure-menu-link">Album</router-link>
-          </li>
-          <li class="pure-menu-item pure-menu">
-            <router-link to="/artist" class="pure-menu-link">Artist</router-link>
-          </li>
-          <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-              <a class="pure-menu-link">Ubeat-team11</a>
-              <ul id="dropdownUser" class="pure-menu-children">
-                  <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">Parameter</a>
-                  </li>
-                  <li class="pure-menu-item">
-                    <router-link to="/" class="pure-menu-link">Sign In</router-link>
-                  </li>
-                  <li class="pure-menu-item">
-                    <router-link to="/" class="pure-menu-link">Log up</router-link>
-                  </li>
-              </ul>
-          </li>
-          <li class="pure-menu-item pure-menu">
-            <form class="pure-form">
-              <input type="text" class="pure-input-rounded">
-              <button type="button" class="pure-button">Search</button>
-            </form>
-          </li>
+        <li class="pure-menu-item"><router-link to="/" class="pure-menu-link">Home</router-link></li>
+        <li class="pure-menu-item"><router-link to="/album" class="pure-menu-link">Album</router-link></li>
+        <li class="pure-menu-item"><router-link to="/artist" class="pure-menu-link">Artist</router-link></li>
+        <li class="pure-menu-item">
+          <input type="text" class="pure-input-rounded">
+          <button type="button" class="pure-button">Search</button>
+        </li>
+        <span class="space"></span>
+        <li class="pure-menu-item"><a class="pure-menu-link">Ubeat-team11</a></li>
+        <li class="pure-menu-item"><a href=""class="pure-menu-link">Parameter</a></li>
+        <li class="pure-menu-item"><a href=""class="pure-menu-link">Log Up</a></li>
       </ul>
     </div>
   </div>
-
 </template>
