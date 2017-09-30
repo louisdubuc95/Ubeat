@@ -227,7 +227,9 @@
       </a>
 
       <nav id="navbar" class="nav">
-        <router-link to="/" class="logo">Ubeat</router-link>
+        <router-link to="/" class="logo">
+          <img class="album_img" src="../../static/ubeat.png" />
+        </router-link>
         <router-link to="/">Home</router-link>
         <router-link to="/album">Album</router-link>
         <router-link to="/artist">Artist</router-link>
