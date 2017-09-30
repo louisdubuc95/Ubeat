@@ -32,9 +32,9 @@
   }
 
   .nav a {
+    color: white;
     padding: 5px;
     text-decoration: none;
-    color: white;
   }
 
   .nav a:hover {color: var(--blue-color);}
@@ -65,21 +65,27 @@
     color: white;
     display: inline-block;
     text-decoration: none;
+    width: 13%;
   }
 
   .dropdown-content {
       background-color: #34495e;
+      border-radius: 0px 10px 5px 60px;
       box-shadow: 4px 5px 7px 2px rgba(255, 255, 255, 0.9);
       display: none;
-      height: 100%;
+      height: auto;
       position: absolute;
+      width: 13%;
       z-index: 1;
   }
 
   .dropdown-content a {
+      border-radius: 0px 10px 5px 60px;
       color: white;
-      text-decoration: none;
       display: block;
+      height: 60px;
+      text-align: center;
+      text-decoration: none;
   }
 
   .dropdown-content a:hover {
@@ -97,9 +103,10 @@
     color: white;
     cursor: pointer;
     font-size: 1em;
-    height: 20px;
+    height: auto;
     padding: 0 2em;
     text-decoration: none;
+    width: auto;
   }
 
   .dropdown:hover .dropbtn {
@@ -107,11 +114,12 @@
   }
 
   .research {
-    border-radius: 10px;
+    align-self: center;
+    border-radius: 7px;
     display: inline;
-    height: 12px;
-    margin-top : 0px;
-    margin-left: 0px;
+    font-size: 16px;
+    height: 13px;
+    margin-right: 5px;
     position: relative;
     width: 13%;
   }
@@ -200,7 +208,7 @@
       display: block;
       height: 2em;
       text-align: center;
-      line-height: 2em;
+      line-height: 0em;
     }
 
     .nav .dropdown-content {
