@@ -42,13 +42,20 @@
   ** Logo
   */
   .nav .logo {
-    font-style: italic;
-    text-decoration: underline;
+    /*font-style: italic;
+    text-decoration: underline;*/
   }
 
   .nav .logo:hover {
       color: white;
       cursor: default;
+  }
+
+  .img_logo {
+    border-radius: 10px;
+    border-style: groove;
+    border-width: medium;
+    border-color: #505050;
   }
 
   /*
@@ -228,7 +235,7 @@
 
       <nav id="navbar" class="nav">
         <router-link to="/" class="logo">
-          <img class="" src="../../static/ubeat.png" />
+          <img class="img_logo" src="../../static/ubeat1.png" />
         </router-link>
         <router-link to="/">Home</router-link>
         <router-link to="/album">Album</router-link>
