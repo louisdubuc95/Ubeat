@@ -158,7 +158,7 @@
                   <div>
                       <img class="artist_img" src="../../static/black-eyed-peas-general.jpg" />
                       <br>
-                      <a href="https://itunes.apple.com/ca/artist/the-black-eyed-peas/id360391" style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/fr-fr/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;max-width:100%;max-height:100%;"></a>
+                      <a href="https://itunes.apple.com/ca/artist/the-black-eyed-peas/id360391" style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/itunes-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;max-width:100%;max-height:100%;"></a>
                   </div>
                   <div>
                     <div class="general_info">

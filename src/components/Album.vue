@@ -164,7 +164,7 @@
             <article>
                 <div>
                     <img src="https://is4-ssl.mzstatic.com/image/thumb/Music/v4/54/e9/3a/54e93a28-1bcd-7ee0-9f21-9adb62a0d327/source/268x0w.jpg" />
-                    <a href="https://geo.itunes.apple.com/us/album/i-gotta-feeling/id318390146?i=318393999&mt=1&app=music" style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/fr-fr/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;max-width:100%;max-height:100%;"></a>
+                    <a href="https://geo.itunes.apple.com/us/album/i-gotta-feeling/id318390146?i=318393999&mt=1&app=music" style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/itunes-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;max-width:100%;max-height:100%;"></a>
                 </div>
                 <div>
                     <div>
