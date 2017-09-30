@@ -165,7 +165,10 @@
                     <a href="#" class="pure-menu-link">Parameter</a>
                   </li>
                   <li class="pure-menu-item">
-                    <router-link to="/" class="pure-menu-link">Sign up</router-link>
+                    <router-link to="/" class="pure-menu-link">Sign In</router-link>
+                  </li>
+                  <li class="pure-menu-item">
+                    <router-link to="/" class="pure-menu-link">Log up</router-link>
                   </li>
               </ul>
           </li>
