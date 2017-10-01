@@ -6,8 +6,22 @@ header {
     z-index: 3;
 }
 
+header nav {
+    position: relative;
+}
+
+header nav #menu-bars {
+    float: right;
+    padding: 25px;
+    color: #FFF;
+}
+
+header nav #menu-bars:hover {
+    cursor: pointer;
+}
+
 header nav a {
-    display: inline-block;
+    display: none;
     padding: 30px 20px;
     color: #fff;
     text-transform: uppercase;
@@ -16,20 +30,86 @@ header nav a {
     font-weight: bold;
 }
 
-header nav #menu-left {
-    float: left;
+header nav a.menu-opened,
+header nav #menu-search.menu-opened {
+    display: block;
 }
 
-header nav #menu-right {
-    float:right;
+header nav a:hover {
+    background-color: #16a085;
+}
+
+header nav a i.fa {
+    display: none;
+}
+
+header nav #menu-home {
+    display: block;
 }
 
 header nav #menu-search {
+    display: none;
     background-color: transparent;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, .5);
     color: #FFF;
     padding: 10px 0;
+    margin: 0 0 30px 20px;
     font-size: 11px;
-    width: 200px;
+    width: calc(100% - 40px);
+    order: 4;
+}
+
+header nav #menu-right {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 35.5em) {
+
+    header nav a,
+    header nav #menu-home {
+        display: inline-block;
+    }
+
+    header nav a i.fa {
+        display: inline-block;
+    }
+
+    header nav a span {
+        display: none;
+    }
+
+    header nav #menu-bars {
+        display: none;
+    }
+
+    header nav #menu-left,
+    header nav #menu-right {
+        display: block;
+    }
+
+    header nav #menu-left {
+        float: left;
+    }
+
+    header nav #menu-right {
+        float: right;
+        display: block;
+    }
+
+    header nav #menu-search {
+        display: inline;
+        margin: 0;
+        width: 200px;
+    }
+
+}
+
+@media screen and (min-width: 48em) {
+
+    header nav a span {
+        display: inline;
+    }
+
 }
