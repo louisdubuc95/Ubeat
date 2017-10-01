@@ -174,7 +174,6 @@
           <input type="text" class="pure-input-rounded">
           <button type="button" class="pure-button">Search</button>
         </li>
-        <span class="space"></span>
         <li class="pure-menu-item"><a class="pure-menu-link">Ubeat-team11</a></li>
         <li class="pure-menu-item"><a href=""class="pure-menu-link">Parameter</a></li>
         <li class="pure-menu-item"><a href=""class="pure-menu-link">Log Up</a></li>
