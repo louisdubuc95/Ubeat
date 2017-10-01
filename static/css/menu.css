@@ -1,0 +1,35 @@
+header {
+    width: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    position: fixed;
+    top: 0;
+    z-index: 3;
+}
+
+header nav a {
+    display: inline-block;
+    padding: 30px 20px;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+header nav #menu-left {
+    float: left;
+}
+
+header nav #menu-right {
+    float:right;
+}
+
+header nav #menu-search {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, .5);
+    color: #FFF;
+    padding: 10px 0;
+    font-size: 11px;
+    width: 200px;
+}
