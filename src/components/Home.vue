@@ -14,19 +14,19 @@
                 <div class="description-entry pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <div class="description-content">
                         <h4><i class="description-icon fa fa-folder-open"></i> Browse</h4>
-                        <p>Browse through a variety of playlist with different genre!</p>
+                        <p>Browse through a variety of playlists with different genres!</p>
                     </div>
                 </div>
                 <div class="description-entry pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <div class="description-content">
                         <h4><i class="description-icon fa fa-plus-circle"></i> Create</h4>
-                        <p>Create your own playlist and listen to it whenever you want!</p>
+                        <p>Create your own playlists and listen to them whenever you want!</p>
                     </div>
                 </div>
                 <div class="description-entry pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <div class="description-content">
                         <h4><i class="description-icon fa fa-pencil"></i> Edit</h4>
-                        <p>Edit and customize your own playlist so it suit you!</p>
+                        <p>Edit and customize your own playlists so it suits you!</p>
                     </div>
                 </div>
                 <div class="description-entry pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
