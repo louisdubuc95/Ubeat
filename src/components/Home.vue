@@ -7,6 +7,7 @@
                 <p>With UBeat, you can easily create your playlists and share them with your friends!</p>
             </div>
         </div>
+
         <section id="description">
             <h3>See what you can do with UBeat</h3>
             <div class="pure-g">

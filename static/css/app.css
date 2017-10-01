@@ -14,7 +14,7 @@ body {
 
 #home #landing::before {
     content: "";
-    background-image: url('../images/home-background.jpg');
+    background: url('../images/home-background.jpg')  0 0 no-repeat fixed;
     background-size: cover;
     position: absolute;
     top: 0;
@@ -99,3 +99,6 @@ body {
 #home #templates .templates-content a:hover {
     font-size: 1.8em;
 }
+
+
+
