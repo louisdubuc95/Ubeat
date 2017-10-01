@@ -32,7 +32,7 @@
                 <div class="description-entry pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <div class="description-content">
                         <h4><i class="description-icon fa fa-share-alt"></i> Share</h4>
-                        <p>Share playlist that you liked or created with your freinds!</p>
+                        <p>Share playlist that you liked or created with your friends!</p>
                     </div>
                 </div>
             </div>
