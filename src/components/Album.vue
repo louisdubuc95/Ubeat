@@ -11,6 +11,7 @@
                     <div class="album-specs">
                         <p><span>Release date :</span> 2010</p>
                         <p><span>Tracks :</span> 12</p>
+                        <p><span>Genre :</span> Pop</p>
                         <p><a href="https://geo.itunes.apple.com/ca/album/the-beginning-deluxe-version/id403881301?mt=1&app=music" style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;"></a></p>
                     </div>
                 </div>
