@@ -169,6 +169,7 @@
         <li class="pure-menu-item"><router-link to="/" class="pure-menu-link">Home</router-link></li>
         <li class="pure-menu-item"><router-link to="/album" class="pure-menu-link">Album</router-link></li>
         <li class="pure-menu-item"><router-link to="/artist" class="pure-menu-link">Artist</router-link></li>
+        <li class="pure-menu-item"><router-link to="" class="pure-menu-link">Playlist</router-link></li>
         <li class="pure-menu-item">
           <input type="text" class="pure-input-rounded">
           <button type="button" class="pure-button">Search</button>
