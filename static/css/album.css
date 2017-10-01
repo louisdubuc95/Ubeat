@@ -38,6 +38,11 @@
     color: #FFF;
 }
 
+#album-group {
+  text-decoration:none;
+  color: inherit;
+}
+
 @media screen and (min-width: 35.5em) {
 
     #album #album-infos #album-cover img {

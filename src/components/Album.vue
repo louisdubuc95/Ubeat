@@ -7,7 +7,9 @@
                 </div>
                 <div id="album-text" class="pure-u-sm-3-4 pure-u-1">
                     <h1>The Beginning</h1>
-                    <h2>The Black Eyed Peas</h2>
+                    <router-link to="/artist" id="album-group">
+                      <h2>The Black Eyed Peas</h2>
+                    </router-link>
                     <div class="album-specs">
                         <p><span>Release date :</span> 2010</p>
                         <p><span>Tracks :</span> 12</p>

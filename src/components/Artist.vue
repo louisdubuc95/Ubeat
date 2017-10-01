@@ -25,8 +25,10 @@
                         <h4>Behind the front</h4>
                     </div>
                     <div class="artist-album pure-u-lg-1-5 pure-u-md-1-3 pure-u-sm-1-2 pure-u-1">
+                      <router-link to="/album">
                         <img class="pure-img" src="/static/images/artists/black-eyed-peas/albums/the-beginning.jpeg" />
                         <h4>The beginning</h4>
+                      </router-link>
                     </div>
                     <div class="artist-album pure-u-lg-1-5 pure-u-md-1-3 pure-u-sm-1-2 pure-u-1">
                         <img class="pure-img" src="/static/images/artists/black-eyed-peas/albums/bridging-the-gap.jpeg" />
