@@ -31,7 +31,8 @@
                   <audio
                       :id="item.number"
                       :src="item.link"></audio>
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play" :id="['a-' + item.number]" v-on:click="manageAudio(item.number)"><i class="fa fa-play" :id="['i-' + item.number]">                    </i></a></div>
+                      <div class="pure-u-2-24" v-if="!item.isPlaying"><a class="pure-button pure-button-play" v-on:click="manageAudio(item.number)"><i class="fa fa-play" >                    </i></a></div>
+                      <div class="pure-u-2-24" v-if="item.isPlaying"><a class="pure-button pure-button-pause" v-on:click="manageAudio(item.number)"><i class="fa fa-pause" >                    </i></a></div>
                     <div class="pure-u-2-24">  {{ item.number }}  </div>
                     <div class="pure-u-17-24">  {{ item.title }} </div>
                     <div class="pure-u-3-24">  {{ item.length }} </div>
@@ -70,38 +71,22 @@ export default {
   methods: {
 
     manageAudio(number) {
-      if (!this.infoAlbum[number].isPlaying) {
-        this.infoAlbum[number].isPlaying = true;
+      if (!this.infoAlbum[number - 1].isPlaying) {
+        this.infoAlbum[number - 1].isPlaying = true;
         this.play(number);
       } else {
-        this.infoAlbum[number].isPlaying = false;
+        this.infoAlbum[number - 1].isPlaying = false;
         this.pause(number);
       }
     },
 
     play(number) {
       document.getElementById(number).play();
-      this.swapClasses(number, 'pause');
     },
 
     pause(number) {
       document.getElementById(number).pause();
-      this.swapClasses(number, 'play');
     },
-
-    swapClasses(number, whatAdd) {
-      if (whatAdd === 'pause') {
-        document.getElementById(`a-${number}`).classList.add('pure-button-pause');
-        document.getElementById(`a-${number}`).classList.remove('pure-button-play');
-        document.getElementById(`i-${number}`).classList.add('fa-pause');
-        document.getElementById(`i-${number}`).classList.remove('fa-play');
-      } else {
-        document.getElementById(`a-${number}`).classList.add('pure-button-play');
-        document.getElementById(`a-${number}`).classList.remove('pure-button-pause');
-        document.getElementById(`i-${number}`).classList.add('fa-play');
-        document.getElementById(`i-${number}`).classList.remove('fa-pause');
-      }
-    }
   }
 };
 </script>
