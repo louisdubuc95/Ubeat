@@ -36,9 +36,6 @@
                     <div class="pure-u-17-24">  {{ item.title }} </div>
                     <div class="pure-u-3-24">  {{ item.length }} </div>
                 </div>
-
-                <h1 id="test"></h1>
-
             </div>
         </section>
     </main>
