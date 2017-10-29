@@ -8,7 +8,7 @@
                 <div id="album-text" class="pure-u-sm-3-4 pure-u-1">
                     <h1>The Beginning</h1>
                     <h2><router-link to="/artist" id="album-group">The Black Eyed Peas</router-link></h2>
-                    
+
                     <div class="album-specs">
                         <p><span>Release date :</span> 2010</p>
                         <p><span>Tracks :</span> 12</p>
@@ -27,90 +27,69 @@
                     <div class="pure-u-3-24">Length</div>
                 </div>
 
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">1.</div>
-                    <div class="pure-u-17-24">The Time (Dirty Bit)</div>
-                    <div class="pure-u-3-24">5:07</div>
+                <div class="album-track pure-g" v-for="item in infoAlbum">
+                  <audio
+                      :id="item.number"
+                      :src="item.link"></audio>
+                    <div class="pure-u-2-24"><a class="pure-button pure-button-play" v-on:click="manageAudio(item.number)"><i class="fa fa-play">                    </i></a></div>
+                    <div class="pure-u-2-24">  {{ item.number }}  </div>
+                    <div class="pure-u-17-24">  {{ item.title }} </div>
+                    <div class="pure-u-3-24">  {{ item.length }} </div>
                 </div>
 
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">2.</div>
-                    <div class="pure-u-17-24">Light Up The Night</div>
-                    <div class="pure-u-3-24">4:21</div>
-                </div>
+                <h1 id="test"></h1>
 
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">3.</div>
-                    <div class="pure-u-17-24">Love You Long Time</div>
-                    <div class="pure-u-3-24">3:45</div>
-                </div>
-
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">4.</div>
-                    <div class="pure-u-17-24">XOXOXO</div>
-                    <div class="pure-u-3-24">3:45</div>
-                </div>
-
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">5.</div>
-                    <div class="pure-u-17-24">Someday</div>
-                    <div class="pure-u-3-24">4:33</div>
-                </div>
-
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">6.</div>
-                    <div class="pure-u-17-24">Whenever</div>
-                    <div class="pure-u-3-24">3:16</div>
-                </div>
-
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">7.</div>
-                    <div class="pure-u-17-24">Fashion Beats</div>
-                    <div class="pure-u-3-24">5:20</div>
-                </div>
-
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">8.</div>
-                    <div class="pure-u-17-24">Don't Stop The Party</div>
-                    <div class="pure-u-3-24">6:07</div>
-                </div>
-
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">9.</div>
-                    <div class="pure-u-17-24">Do It Like This</div>
-                    <div class="pure-u-3-24">5:29</div>
-                </div>
-
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">10.</div>
-                    <div class="pure-u-17-24">The Best One Yet (The Boy)</div>
-                    <div class="pure-u-3-24">4:25</div>
-                </div>
-
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">11.</div>
-                    <div class="pure-u-17-24">Just Can't Get Enough</div>
-                    <div class="pure-u-3-24">3:39</div>
-                </div>
-
-                <div class="album-track pure-g">
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play"><i class="fa fa-play"></i></a></div>
-                    <div class="pure-u-2-24">12.</div>
-                    <div class="pure-u-17-24">Play It Loud</div>
-                    <div class="pure-u-3-24">4:21</div>
-                </div>
             </div>
         </section>
     </main>
 </template>
+
+<script>
+
+export default {
+  data() {
+    return {
+      infoAlbum: [
+        { number: '1', title: 'The Time (Dirty Bit)', length: '5:07', link: 'https://audio-ssl.itunes.apple.com/apple-assets-us-std-000001/Music/00/03/29/mzm.lofaqvzx.aac.ep.m4a', isPlaying: false },
+        { number: '2', title: 'Light Up The Night', length: '4:21', link: 'https://audio-ssl.itunes.apple.com/apple-assets-us-std-000001/Music/ab/da/02/mzm.ahfimrgt.aac.ep.m4a', isPlaying: false },
+        { number: '3', title: 'Love You Long Time', length: '3:45', link: '', isPlaying: false },
+        { number: '4', title: 'XOXOXO', length: '3:45', link: '', isPlaying: false },
+        { number: '5', title: 'Someday', length: '4:33', link: '', isPlaying: false },
+        { number: '6', title: 'Whenever', length: '3:16', link: '', isPlaying: false },
+        { number: '7', title: 'Fashion Beats', length: '5:20', link: '', isPlaying: false },
+        { number: '8', title: 'Don\'t Stop The Party', length: '6:07', link: '', isPlaying: false },
+        { number: '9', title: 'Do It Like This', length: '5:29', link: '', isPlaying: false },
+        { number: '10', title: 'The Best One Yet (The Boy)', length: '4:25', link: '', isPlaying: false },
+        { number: '11', title: 'Just Can\'t Get Enough', length: '3:39', link: '', isPlaying: false },
+        { number: '12', title: 'Play It Loud', length: '4:21', link: '', isPlaying: false },
+      ],
+    };
+  },
+
+  mounted() {
+
+  },
+
+  methods: {
+
+    manageAudio(number) {
+      if (!this.infoAlbum[number].isPlaying) {
+        this.infoAlbum[number].isPlaying = true;
+        document.getElementById(number).play();
+      } else {
+        this.infoAlbum[number].isPlaying = false;
+        document.getElementById(number).pause();
+      }
+    },
+
+    play(number) {
+      document.getElementById(number).play();
+    },
+
+    stop(number) {
+      document.getElementById(number).pause();
+    },
+
+  }
+};
+</script>
