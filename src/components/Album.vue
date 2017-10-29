@@ -36,8 +36,6 @@
                     <div class="pure-u-17-24">  {{ item.title }} </div>
                     <div class="pure-u-3-24">  {{ item.length }} </div>
                 </div>
-
-                <h1 id="test">Hell'o</h1>
             </div>
         </section>
     </main>
@@ -97,13 +95,11 @@ export default {
         document.getElementById(`a-${number}`).classList.remove('pure-button-play');
         document.getElementById(`i-${number}`).classList.add('fa-pause');
         document.getElementById(`i-${number}`).classList.remove('fa-play');
-        document.getElementById('test').innerHTML = document.getElementById(number).classList;
       } else {
         document.getElementById(`a-${number}`).classList.add('pure-button-play');
         document.getElementById(`a-${number}`).classList.remove('pure-button-pause');
         document.getElementById(`i-${number}`).classList.add('fa-play');
         document.getElementById(`i-${number}`).classList.remove('fa-pause');
-        document.getElementById('test').innerHTML = document.getElementById(number).classList;
       }
     }
   }
