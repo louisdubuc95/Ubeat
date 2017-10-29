@@ -31,7 +31,7 @@
                   <audio
                       :id="item.number"
                       :src="item.link"></audio>
-                    <div class="pure-u-2-24"><a class="pure-button pure-button-play" v-on:click="manageAudio(item.number)"><i class="fa fa-play">                    </i></a></div>
+                    <div class="pure-u-2-24"><a class="pure-button pure-button-play" :id="['a-' + item.number]" v-on:click="manageAudio(item.number)"><i class="fa fa-play" :id="['i-' + item.number]">                    </i></a></div>
                     <div class="pure-u-2-24">  {{ item.number }}  </div>
                     <div class="pure-u-17-24">  {{ item.title }} </div>
                     <div class="pure-u-3-24">  {{ item.length }} </div>
@@ -83,17 +83,28 @@ export default {
 
     play(number) {
       document.getElementById(number).play();
-      this.swapClasses(number, 'pure-button-pause', 'pure-button-play');
+      this.swapClasses(number, 'pause');
     },
 
     pause(number) {
       document.getElementById(number).pause();
-      this.swapClasses(number, 'pure-button-play', 'pure-button-pause');
+      this.swapClasses(number, 'play');
     },
 
-    swapClasses(number, whatAdd, whatRemove) {
-      document.getElementById(number).classList.add(whatAdd);
-      document.getElementById(number).classList.remove(whatRemove);
+    swapClasses(number, whatAdd) {
+      if (whatAdd === 'pause') {
+        document.getElementById(`a-${number}`).classList.add('pure-button-pause');
+        document.getElementById(`a-${number}`).classList.remove('pure-button-play');
+        document.getElementById(`i-${number}`).classList.add('fa-pause');
+        document.getElementById(`i-${number}`).classList.remove('fa-play');
+        document.getElementById('test').innerHTML = document.getElementById(number).classList;
+      } else {
+        document.getElementById(`a-${number}`).classList.add('pure-button-play');
+        document.getElementById(`a-${number}`).classList.remove('pure-button-pause');
+        document.getElementById(`i-${number}`).classList.add('fa-play');
+        document.getElementById(`i-${number}`).classList.remove('fa-pause');
+        document.getElementById('test').innerHTML = document.getElementById(number).classList;
+      }
     }
   }
 };
