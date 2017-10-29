@@ -24,3 +24,20 @@ a.pure-button-play i {
     left: 50%;
     transform: translateX(-40%) translateY(-50%);
 }
+
+a.pure-button-pause {
+    position: relative;
+    background-color: #ffa500;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 50%;
+    color: #FFF;
+}
+
+a.pure-button-pause i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-40%) translateY(-50%);
+}

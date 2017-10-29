@@ -36,6 +36,8 @@
                     <div class="pure-u-17-24">  {{ item.title }} </div>
                     <div class="pure-u-3-24">  {{ item.length }} </div>
                 </div>
+
+                <h1 id="test">Hell'o</h1>
             </div>
         </section>
     </main>
@@ -72,21 +74,27 @@ export default {
     manageAudio(number) {
       if (!this.infoAlbum[number].isPlaying) {
         this.infoAlbum[number].isPlaying = true;
-        document.getElementById(number).play();
+        this.play(number);
       } else {
         this.infoAlbum[number].isPlaying = false;
-        document.getElementById(number).pause();
+        this.pause(number);
       }
     },
 
     play(number) {
       document.getElementById(number).play();
+      this.swapClasses(number, 'pure-button-pause', 'pure-button-play');
     },
 
-    stop(number) {
+    pause(number) {
       document.getElementById(number).pause();
+      this.swapClasses(number, 'pure-button-play', 'pure-button-pause');
     },
 
+    swapClasses(number, whatAdd, whatRemove) {
+      document.getElementById(number).classList.add(whatAdd);
+      document.getElementById(number).classList.remove(whatRemove);
+    }
   }
 };
 </script>
