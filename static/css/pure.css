@@ -39,5 +39,23 @@ a.pure-button-pause i {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-40%) translateY(-50%);
+    transform: translateX(-45%) translateY(-50%);
+}
+
+
+.pure-button-add {
+    position: relative;
+    background-color: #53b9e8;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border-radius: 50%;
+    color: #FFF;
+}
+
+a.pure-button-add i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-47%) translateY(-50%);
 }

@@ -10,9 +10,9 @@
                     <h2><router-link to="/artist" id="album-group">The Black Eyed Peas</router-link></h2>
 
                     <div class="album-specs">
-                        <p><span>Release date :</span> 2010</p>
-                        <p><span>Tracks :</span> 12</p>
-                        <p><span>Genre :</span> Pop</p>
+                        <p><span>Release date :</span> {{ releaseDate }} </p>
+                        <p><span>Tracks :</span> {{ tracks }} </p>
+                        <p><span>Genre :</span> {{ genre }} </p>
                         <p><a href="https://geo.itunes.apple.com/ca/album/the-beginning-deluxe-version/id403881301?mt=1&app=music" style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;"></a></p>
                     </div>
                 </div>
@@ -28,14 +28,15 @@
                 </div>
 
                 <div class="album-track pure-g" v-for="item in infoAlbum">
+                  <div class="pure-u-2-24"><a class="pure-button pure-button-add" v-on:click="addSongToPlayList(item.number)" title='Add song to playlist'><i class="fa fa-plus" ></i></a></div>
                   <audio
                       :id="item.number"
                       :src="item.link"></audio>
                       <div class="pure-u-2-24" v-if="!item.isPlaying"><a class="pure-button pure-button-play" v-on:click="manageAudio(item.number)"><i class="fa fa-play" >                    </i></a></div>
                       <div class="pure-u-2-24" v-if="item.isPlaying"><a class="pure-button pure-button-pause" v-on:click="manageAudio(item.number)"><i class="fa fa-pause" >                    </i></a></div>
-                    <div class="pure-u-2-24">  {{ item.number }}  </div>
-                    <div class="pure-u-17-24">  {{ item.title }} </div>
-                    <div class="pure-u-3-24">  {{ item.length }} </div>
+                      <div class="pure-u-2-24">  {{ item.number }}  </div>
+                      <div class="pure-u-15-24">  {{ item.title }} </div>
+                      <div class="pure-u-3-24">  {{ item.length }} </div>
                 </div>
             </div>
         </section>
@@ -61,6 +62,10 @@ export default {
         { number: '11', title: 'Just Can\'t Get Enough', length: '3:39', link: '', isPlaying: false },
         { number: '12', title: 'Play It Loud', length: '4:21', link: '', isPlaying: false },
       ],
+
+      releaseDate: '2010-11-03',
+      tracks: 12,
+      genre: 'Pop',
     };
   },
 
@@ -69,6 +74,10 @@ export default {
   },
 
   methods: {
+
+    addSongToPlayList(number) {
+      return number;
+    },
 
     manageAudio(number) {
       if (!this.infoAlbum[number - 1].isPlaying) {
@@ -80,12 +89,12 @@ export default {
       }
     },
 
-    play(number) {
-      document.getElementById(number).play();
-    },
-
     pause(number) {
       document.getElementById(number).pause();
+    },
+
+    play(number) {
+      document.getElementById(number).play();
     },
   }
 };
