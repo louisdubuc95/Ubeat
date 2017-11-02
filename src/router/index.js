@@ -4,6 +4,9 @@ import Home from '@/components/Home';
 import Album from '@/components/Album';
 import Artist from '@/components/Artist';
 
+// test
+import Playlist from '@/components/Playlist';
+
 Vue.use(Router);
 
 export default new Router({
@@ -20,6 +23,10 @@ export default new Router({
       path: '/album',
       name: 'Album',
       component: Album
+    }, {
+      path: '/playlist_test',
+      name: 'Playlist',
+      component: Playlist
     }
   ],
 });
