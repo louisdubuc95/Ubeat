@@ -14,7 +14,7 @@
                 <div class="description-entry pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <div class="description-content">
                         <h4><i class="description-icon fa fa-folder-open"></i> Browse</h4>
-                        <p>nos with different genres!</p>
+                      <p>Browse through a variety of playlists with different genres!</p>
                     </div>
                 </div>
                 <div class="description-entry pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
