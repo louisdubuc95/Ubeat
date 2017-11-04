@@ -45,6 +45,10 @@
 
 <script>
 
+
+import UBeatUnsecureAPI from '@/UBeatUnsecureAPI';
+
+
 export default {
   data() {
     return {
@@ -63,12 +67,13 @@ export default {
         { number: '12', title: 'Play It Loud', length: '4:21', link: '', isPlaying: false },
       ],
 
+      id: '403881301',
       releaseDate: '2010-11-03',
       tracks: 12,
       genre: 'Pop',
+
     };
   },
-
   mounted() {
 
   },
@@ -96,6 +101,36 @@ export default {
     play(number) {
       document.getElementById(number).play();
     },
+
+    getAlbumByID(id) {
+      UBeatUnsecureAPI.albumByID(id)
+        .then();
+    },
+
+
   }
 };
+
+const baseUrl = 'http://ubeat.herokuapp.com/unsecure';
+
+export const getAlbumId = albumid => (
+  fetch(`${baseUrl}albums/${albumid}`)
+    .then((response) => {
+      const x = response.json();
+      return x;
+    })
+    .catch(() => {
+      console.error('unable to fetch tasks');
+    })
+);
+export const getTracksAlbumId = albumid => (
+  fetch(`${baseUrl}albums/${albumid}/Tracks`)
+    .then((response) => {
+      const x = response.json();
+      return x;
+    })
+    .catch(() => {
+      console.error('unable to fetch tasks');
+    })
+);
 </script>

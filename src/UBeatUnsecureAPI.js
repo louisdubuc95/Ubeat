@@ -44,4 +44,14 @@ export default class UBeatUnsecureAPI {
     return getJsonPromise(Vue.http.post(`${UBeatUnsecureAPI.url}/playlists/${idPlaylist}/tracks`, d)
       );
   }
+  static searchAlbumtest() {
+    return getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}search/albums/?q=back%20in%20black`));
+  }
+  static albumById(idAlbum) {
+    return getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}/albums/${idAlbum}`));
+  }
+  static albumTracksById(idAlbum) {
+    return getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}/albums/${idAlbum}/Tracks`));
+  }
+
 }
