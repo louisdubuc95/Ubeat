@@ -9,6 +9,7 @@
 
 <script>
 import UBeatUnsecureAPI from '@/UBeatUnsecureAPI';
+import Track from './Track';
 
 export default {
   data: () => ({
@@ -99,6 +100,9 @@ export default {
         radioStationUrl: 'https://itunes.apple.com/station/idra.325479'
       }
     );
+  },
+  components: {
+    track: Track
   }
 };
 </script>
