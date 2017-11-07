@@ -1,5 +1,6 @@
 <template>
   <div id="rootElemTrack">
+    <span>{{idPlaylist}}</span>
     <span>{{taskData.trackName}}</span>
     <span>{{taskData.artistName}}</span>
     <span>{{taskData.collectionName}}</span>
@@ -17,7 +18,6 @@
       convertToMin(ms) {
         const minutes = Math.floor(ms / 60000);
         const seconds = ((ms % 60000) / 1000).toFixed(0);
-        /* `${UBeatUnsecureAPI.url}/playlists` */
         let tmp = '';
         if (seconds < 10) {
           tmp = 0;
@@ -27,6 +27,7 @@
     },
     created() {
       this.time = this.convertToMin(this.taskData.trackTimeMillis);
+      document.getElementById('test').innerHTML = `time = ${this.time}, name = ${this.taskData.trackName}, artist = ${this.taskData.artistName}, album = ${this.taskData.collectionName}`;
     }
   };
 </script>

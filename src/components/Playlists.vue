@@ -7,7 +7,7 @@
     </div>
     <ul id="list">
       <li v-for='playlist in playlists'>
-        <playlist :id="playlists.id"></playlist>
+        <playlist :id="playlist.id" :name="playlist.name"></playlist>
       </li>
     </ul>
     <div id="test"></div>
@@ -29,13 +29,17 @@ export default {
   },
   created() {
     Vue.http.get(`${UBeatUnsecureAPI.url}/playlists`).then((response) => {
-      for (let i = 0; i < response.length; i += 1) {
+      for (let i = 0; response.data[i].id !== undefined; i += 1) {
         const tmp = response.data[i];
         this.playlists.push({
-          id: tmp.id
+          id: tmp.id,
+          name: tmp.name
         });
       }
     });
+  },
+  components: {
+    playlist: Playlist
   },
   methods: {
     addPlaylist() {
@@ -54,15 +58,19 @@ export default {
         })) // End Promise
       ); // End Then
     } // end addPlaylist
-  }, // End Methods
-  components: {
-    playlist: Playlist
-  }
+  } // End Methods
 };
 </script>
 
 <style>
   #rootElementPlaylists {
     margin-top: 5em;
+  }
+  ul {
+    list-style: none;
+  }
+
+  li {
+    margin: 1em;
   }
 </style>

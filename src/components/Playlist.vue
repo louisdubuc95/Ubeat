@@ -1,9 +1,11 @@
 <template>
   <!-- https://github.com/vuejs/vue-loader/issues/384 vive le <div> obligatoire, que du bonheur ! -->
   <div>
-    <input type="text" placeholder="Renommer la playslist" v-model="nameRenommed" /><button @click="rename(nameRenommed)"></button>
+    <span>{{this.name}}</span>
+    <input type="text" placeholder="Renommer la playslist" v-model="nameRenommed" />
+    <button @click="rename(nameRenommed)">Rename</button>
     <track v-for="track in tracks" :idPlaylist="id" :id="track.id" :taskData="track.data"
-        @removeTrack="removeTrack(track.id)"></track>
+        @removeTrack="removeTrack(track.id)" target="_blank"></track>
   </div>
 </template>
 
@@ -18,6 +20,9 @@ export default {
     tracks: [] // initialisé dans created, contient tous les data d'une tâche
   }),
   props: ['id', 'name'],
+  components: {
+    track: Track
+  },
   methods: {
     rename(newName) {
       UBeatUnsecureAPI.changePlaylistName(this.id, newName)
@@ -100,9 +105,6 @@ export default {
         radioStationUrl: 'https://itunes.apple.com/station/idra.325479'
       }
     );
-  },
-  components: {
-    track: Track
   }
 };
 </script>
