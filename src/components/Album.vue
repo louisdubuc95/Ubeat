@@ -3,17 +3,17 @@
         <section id="album-infos">
             <div class="pure-g container">
                 <div id="album-cover" class="pure-u-sm-1-4 pure-u-1">
-                    <img class="pure-img" src="/static/images/artists/black-eyed-peas/albums/the-beginning.jpeg" />
+                    <img class="pure-img" :src='albumimg' width="100%"/>
                 </div>
                 <div id="album-text" class="pure-u-sm-3-4 pure-u-1">
-                    <h1>The Beginning</h1>
-                    <h2><router-link to="/artist" id="album-group">The Black Eyed Peas</router-link></h2>
+                    <h1>{{albumname}}</h1>
+                    <h2><router-link to="/artist" id="album-group">{{artistname}}</router-link></h2>
 
                     <div class="album-specs">
-                        <p><span>Release date :</span> {{ releaseDate }} </p>
+                        <p><span>Release date :</span> {{releaseDate}} </p>
                         <p><span>Tracks :</span> {{ tracks }} </p>
                         <p><span>Genre :</span> {{ genre }} </p>
-                        <p><a href="https://geo.itunes.apple.com/ca/album/the-beginning-deluxe-version/id403881301?mt=1&app=music" style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;"></a></p>
+                        <p><a :href='lienItune' style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;"></a></p>
                     </div>
                 </div>
             </div>
@@ -43,11 +43,12 @@
     </main>
 </template>
 
+
 <script>
 
 
 import UBeatUnsecureAPI from '@/UBeatUnsecureAPI';
-
+import Vue from 'vue';
 
 export default {
   data() {
@@ -68,16 +69,28 @@ export default {
       ],
 
       id: '403881301',
-      releaseDate: '2010-11-03',
-      tracks: 12,
-      genre: 'Pop',
-
+      info: [],
+      releaseDate: '',
+      tracks: 0,
+      genre: '',
+      artistname: '',
+      albumname: '',
+      albumimg: '',
+      lienItune: ''
     };
   },
-  mounted() {
-
+  created() {
+    Vue.http.get(`${UBeatUnsecureAPI.url}/albums/${this.id}`).then(response => (response.json()))
+      .then((json) => {
+        this.releaseDate = json.results.length;
+        this.tracks = json.results[0].trackCount;
+        this.genre = json.results[0].primaryGenreName;
+        this.artistname = json.results[0].artistName;
+        this.albumname = json.results[0].collectionName;
+        this.albumimg = json.results[0].artworkUrl100;
+        this.lienItune = json.results[0].collectionViewUrl;
+      });
   },
-
   methods: {
 
     addSongToPlayList(number) {
@@ -106,31 +119,6 @@ export default {
       UBeatUnsecureAPI.albumByID(id)
         .then();
     },
-
-
   }
 };
-
-const baseUrl = 'http://ubeat.herokuapp.com/unsecure';
-
-export const getAlbumId = albumid => (
-  fetch(`${baseUrl}albums/${albumid}`)
-    .then((response) => {
-      const x = response.json();
-      return x;
-    })
-    .catch(() => {
-      console.error('unable to fetch tasks');
-    })
-);
-export const getTracksAlbumId = albumid => (
-  fetch(`${baseUrl}albums/${albumid}/Tracks`)
-    .then((response) => {
-      const x = response.json();
-      return x;
-    })
-    .catch(() => {
-      console.error('unable to fetch tasks');
-    })
-);
 </script>
