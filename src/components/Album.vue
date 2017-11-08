@@ -49,6 +49,7 @@
 
 
 import UBeatUnsecureAPI from '@/UBeatUnsecureAPI';
+import JSOperation from '@/JSOperation';
 
 export default {
   data() {
@@ -68,7 +69,7 @@ export default {
   created() {
     UBeatUnsecureAPI.getalbumById(this.id)
       .then((json) => {
-        this.releaseDate = json.results[0].releaseDate;
+        this.releaseDate = JSOperation.setreleasedate(json.results[0].releaseDate);
         this.tracks = json.results[0].trackCount;
         this.genre = json.results[0].primaryGenreName;
         this.artistname = json.results[0].artistName;
@@ -82,7 +83,7 @@ export default {
           this.infoAlbum.push({
             number: json.results[x].trackNumber,
             title: json.results[x].trackName,
-            length: json.results[x].trackTimeMillis,
+            length: JSOperation.setmillistominute(json.results[x].trackTimeMillis),
             link: json.results[x].previewUrl,
             isPlaying: false
           });
