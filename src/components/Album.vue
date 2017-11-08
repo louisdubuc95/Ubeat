@@ -21,9 +21,9 @@
         <section id="album-tracks">
             <div class="container">
                 <div id="album-track-header" class=" album-track pure-g">
-                    <div class="pure-u-2-24"></div>
+                    <div class="pure-u-4-24"></div>
                     <div class="pure-u-2-24">#</div>
-                    <div class="pure-u-17-24">Title</div>
+                    <div class="pure-u-11-24">Title</div>
                     <div class="pure-u-3-24">Length</div>
                 </div>
 
@@ -35,7 +35,7 @@
                   <div class="pure-u-2-24" v-if="!item.isPlaying"><a class="pure-button pure-button-play" v-on:click="manageAudio(item.number)"><i class="fa fa-play" >                    </i></a></div>
                   <div class="pure-u-2-24" v-if="item.isPlaying"><a class="pure-button pure-button-pause" v-on:click="manageAudio(item.number)"><i class="fa fa-pause" >                    </i></a></div>
                   <div class="pure-u-2-24">  {{ item.number }}  </div>
-                  <div class="pure-u-15-24">  {{ item.title }} </div>
+                  <div class="pure-u-11-24">  {{ item.title }} </div>
                   <div class="pure-u-3-24">  {{ item.length }} </div>
                 </div>
             </div>
