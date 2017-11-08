@@ -49,7 +49,6 @@
 
 
 import UBeatUnsecureAPI from '@/UBeatUnsecureAPI';
-import Vue from 'vue';
 
 export default {
   data() {
@@ -60,13 +59,14 @@ export default {
       releaseDate: '',
       tracks: 0,
       genre: '',
+      albumimg: '',
       lienItune: '',
       infoAlbum: [],
     };
   },
   beforeCreated: {},
   created() {
-    Vue.http.get(`${UBeatUnsecureAPI.url}/albums/${this.id}`).then(response => (response.json()))
+    UBeatUnsecureAPI.getalbumById(this.id)
       .then((json) => {
         this.releaseDate = json.results[0].releaseDate;
         this.tracks = json.results[0].trackCount;
@@ -76,7 +76,7 @@ export default {
         this.albumimg = json.results[0].artworkUrl100;
         this.lienItune = json.results[0].collectionViewUrl;
       });
-    Vue.http.get(`${UBeatUnsecureAPI.url}/albums/${this.id}/Tracks`).then(response => (response.json()))
+    UBeatUnsecureAPI.getalbumTracksById(this.id)
       .then((json) => {
         for (let x = 0; x < json.results.length; x += 1) {
           this.infoAlbum.push({

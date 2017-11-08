@@ -47,10 +47,10 @@ export default class UBeatUnsecureAPI {
   static searchAlbumtest() {
     return getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}search/albums/?q=back%20in%20black`));
   }
-  static albumById(idAlbum) {
+  static getalbumById(idAlbum) {
     return getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}/albums/${idAlbum}`));
   }
-  static albumTracksById(idAlbum) {
+  static getalbumTracksById(idAlbum) {
     return getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}/albums/${idAlbum}/Tracks`));
   }
 
