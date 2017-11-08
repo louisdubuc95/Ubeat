@@ -14,6 +14,7 @@
                         <p><span>Tracks :</span> {{ tracks }} </p>
                         <p><span>Genre :</span> {{ genre }} </p>
                         <p><a :href='lienItune' style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;"></a></p>
+                        <p><a class="pure-button pure-button-primary" v-on:click="addAlbumToPlayList()" title='Add Album to Playlist'>Add Album</a></p>
                     </div>
                 </div>
             </div>
@@ -23,7 +24,7 @@
                 <div id="album-track-header" class=" album-track pure-g">
                     <div class="pure-u-4-24"></div>
                     <div class="pure-u-2-24">#</div>
-                    <div class="pure-u-11-24">Title</div>
+                    <div class="pure-u-15-24">Title</div>
                     <div class="pure-u-3-24">Length</div>
                 </div>
 
@@ -35,7 +36,7 @@
                   <div class="pure-u-2-24" v-if="!item.isPlaying"><a class="pure-button pure-button-play" v-on:click="manageAudio(item.number)"><i class="fa fa-play" >                    </i></a></div>
                   <div class="pure-u-2-24" v-if="item.isPlaying"><a class="pure-button pure-button-pause" v-on:click="manageAudio(item.number)"><i class="fa fa-pause" >                    </i></a></div>
                   <div class="pure-u-2-24">  {{ item.number }}  </div>
-                  <div class="pure-u-11-24">  {{ item.title }} </div>
+                  <div class="pure-u-15-24">  {{ item.title }} </div>
                   <div class="pure-u-3-24">  {{ item.length }} </div>
                 </div>
             </div>
@@ -63,6 +64,7 @@ export default {
       infoAlbum: [],
     };
   },
+  beforeCreated: {},
   created() {
     Vue.http.get(`${UBeatUnsecureAPI.url}/albums/${this.id}`).then(response => (response.json()))
       .then((json) => {
@@ -92,7 +94,8 @@ export default {
     addSongToPlayList(number) {
       return number;
     },
-
+    addAlbumToPlaylist() {
+    },
     manageAudio(number) {
       if (!this.infoAlbum[number - 1].isPlaying) {
         this.infoAlbum[number - 1].isPlaying = true;
@@ -114,6 +117,13 @@ export default {
     getAlbumByID(id) {
       UBeatUnsecureAPI.albumByID(id)
         .then();
+    },
+    millisToMinutesAndSeconds(num) {
+      const seconds = Math.floor(num / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const seconds2 = seconds - (minutes * 60);
+      const format = `${minutes}:${seconds2}`;
+      return format;
     },
   }
 };
