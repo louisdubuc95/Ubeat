@@ -6,13 +6,16 @@ Vue.use(VueResource);
 
 // vive eslint.. @@@@@!
 
-function getJsonPromise(promise) {
+export function getJsonPromise(promise) {
   return promise
     .then(res =>
       (new Promise((resolve, reject) => {
         let ret;
 
         try {
+          // d'après la doc ret est une promise
+          // mais le .then() chainé à getJsonPromise prend bien en paramètre du resolve
+          // un objet son au lieu de le promise ret
           ret = res.json();
         } catch (e) {
           reject(e); // invalid json format
