@@ -32,7 +32,8 @@
                   <div class="pure-u-2-24"><a class="pure-button pure-button-add" v-on:click="addSongToPlayList(item.number)" title='Add song to playlist'><i class="fa fa-plus" ></i></a></div>
                   <audio
                     :id="item.number"
-                    :src="item.link"></audio>
+                    :src="item.link"
+                    @ended="setPlayings(false)"></audio>
                   <div class="pure-u-2-24" v-if="!item.isPlaying"><a class="pure-button pure-button-play" v-on:click="manageAudio(item.number)"><i class="fa fa-play" >                    </i></a></div>
                   <div class="pure-u-2-24" v-if="item.isPlaying"><a class="pure-button pure-button-pause" v-on:click="manageAudio(item.number)"><i class="fa fa-pause" >                    </i></a></div>
                   <div class="pure-u-2-24">  {{ item.number }}  </div>
@@ -92,7 +93,6 @@ export default {
       });
   },
   methods: {
-
     addSongToPlayList(number) {
       return number;
     },
@@ -109,7 +109,6 @@ export default {
         this.pause(number);
       }
     },
-
     pause(number) {
       document.getElementById(number).pause();
     },
@@ -129,6 +128,12 @@ export default {
       const format = `${minutes}:${seconds2}`;
       return format;
     },
+    setPlayings(isPlayed) {
+      this.playASong = false;
+      for (let i = 0; i < this.infoAlbum.length; i += 1) {
+        this.infoAlbum[i].isPlaying = isPlayed;
+      }
+    }
   }
 };
 </script>
