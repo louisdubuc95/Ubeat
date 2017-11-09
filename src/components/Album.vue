@@ -3,18 +3,18 @@
         <section id="album-infos">
             <div class="pure-g container">
                 <div id="album-cover" class="pure-u-sm-1-4 pure-u-1">
-                    <img class="pure-img" :src='albumimg'/>
+                    <img class="pure-img" :src='informationAlbum.artworkUrl100'/>
                 </div>
                 <div id="album-text" class="pure-u-sm-3-4 pure-u-1">
-                    <h1>{{albumname}}</h1>
-                    <h2><router-link to="/artist" id="album-group">{{artistname}}</router-link></h2>
+                    <h1>{{informationAlbum.collectionName}}</h1>
+                    <h2><router-link to="/artist" id="album-group">{{informationAlbum.artistName}}</router-link></h2>
 
                     <div class="album-specs">
                         <p><span>Release date :</span> {{releaseDate}} </p>
-                        <p><span>Tracks :</span> {{ tracks }} </p>
-                        <p><span>Genre :</span> {{ genre }} </p>
-                        <p><a :href='lienItune' style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;"></a></p>
-                        <p><a class="pure-button pure-button-primary" v-on:click="addAlbumToPlayList()" title='Add Album to Playlist'>Add Album</a></p>
+                        <p><span>Tracks :</span> {{ informationAlbum.trackCount }} </p>
+                        <p><span>Genre :</span> {{ informationAlbum.primaryGenreName }} </p>
+                        <p><a :href='informationAlbum.collectionViewUrl' style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;"></a></p>
+                        <p><a class="pure-button pure-button-primary" v-on:click="addAlbumToPlayList()" title='Add Album to Playlist'>Add to playlist</a></p>
                     </div>
                 </div>
             </div>
@@ -55,17 +55,11 @@ import JSOperation from '@/JSOperation';
 export default {
   data() {
     return {
-      albumimg: '',
-      albumname: '',
-      artistname: '',
-      genre: '',
-      id: '',
+      informationAlbum: {},
       playASong: false,
       infoAlbum: [],
-      lienItune: '',
+      infotrack: {},
       releaseDate: '',
-      tracks: 0,
-
       wrapperType: '',
       kind: '',
       artistId: 0,
@@ -99,17 +93,11 @@ export default {
       radioStationUrl: '',
     };
   },
-  beforeCreated: {},
   created() {
     UBeatUnsecureAPI.getalbumById(this.$route.params.id)
       .then((json) => {
+        this.informationAlbum = json.results[0];
         this.releaseDate = JSOperation.setreleasedate(json.results[0].releaseDate);
-        this.tracks = json.results[0].trackCount;
-        this.genre = json.results[0].primaryGenreName;
-        this.artistname = json.results[0].artistName;
-        this.albumname = json.results[0].collectionName;
-        this.albumimg = json.results[0].artworkUrl100;
-        this.lienItune = json.results[0].collectionViewUrl;
       });
     UBeatUnsecureAPI.getalbumTracksById(this.$route.params.id)
       .then((json) => {
