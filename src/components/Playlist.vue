@@ -5,8 +5,8 @@
     <input type="text" placeholder="Renommer la playslist" v-model="nameRenommed" />
     <button @click="rename(nameRenommed)">Rename</button>
     <!-- le built-in html <track> existe déjà en HTML5 -->
-    <song v-for="track in tracks" :key="track.id" :idPlaylist="id" :id="track.id"
-        :taskData="track.data" @removeTrack="removeTrack(track.id)" target="_blank"></song>
+    <song v-for="track in tracks" :key="track.trackId" :idPlaylist="id" :track="track"
+        @removeTrack="removeTrack(track.trackId)"></song>
   </div>
 </template>
 
@@ -16,19 +16,16 @@ import Track from './Track';
 
 export default {
   data: () => ({
-    nameRenommed: '',
-    tracks: [] // initialisé dans created, contient tous les data d'une tâche
+    nameRenommed: ''
   }),
-  props: ['id', 'name'],
+  props: ['id', 'name', 'tracks'],
   components: {
     song: Track
   },
   methods: {
     rename(newName) {
       UBeatUnsecureAPI.changePlaylistName(this.id, newName)
-        // apparement eslint ne connait pas les fonction anonyme
-        // np we can fix it by making the code even more disgusting :)
-        .then(function uselessNameOfFonction(res) {
+        .then((res) => {
           this.name = res.name;
         }/* , function (rej) { */
 
@@ -40,26 +37,18 @@ export default {
       /* perso je comprend pas comment l'utilisateur peut ajouter des chansons valide..
           il doit renseigner idTrack ? (Puisque les filtre de recherche sont à la livrable 3) */
     },
-    addTrackTest(trackId, trackData) {
-      UBeatUnsecureAPI.addTrack(this.id, trackId, trackData)
-        .then(function uselessNameOfFonction(res) {
+    addTrackTest(track) {
+      UBeatUnsecureAPI.addTrack(this.id, track)
+        .then(() => {
           debugger;
-          res.ok = this;
           // c'est là où ça me manque le
           //    (void)res du C ou le res = res du C pour enlever le flag de -Wextra..
           // fortunately eslint is smarter otherwise it would be a lot less fun for me :)
-          if (Array.isArray(res.tracks)) {
-            for (let i = 0; i < res.tracks.length; i += 1) {
-                // la track a bien été ajouté côté serveur
-              if (res.tracks[i].id === trackId) {
-                delete res.tracks[i].trackId;
-                this.tracks.push({
-                  id: trackId,
-                  data: res.tracks[i]
-                });
-              }
-            }
-          }
+
+          // une playlist peut avoir plusieurs fois la même track..
+          // (difficile de chercher le trackId dans le résultat si la track y été déjà..)
+          // l'ajout est OK
+          this.tracks.push(track);
         }/* , (rej) => { */
           // alright too no log for you !
         /* } */);
@@ -68,7 +57,7 @@ export default {
     // http://eslint.org/docs/rules/no-plusplus  gg tout ce que j'aime, maybe create a new language ?
     removeTrack(trackId) {
       for (let i = 0; i < this.tracks.length; i += 1) {
-        if (this.tracks[i].id === trackId) {
+        if (this.tracks[i].trackId === trackId) {
           return (this.tracks.splice(i, 1))[0];
         }
       }
@@ -82,8 +71,8 @@ export default {
         // il faut faire une requête GET /playlists/:id pour chercher son @name
     */
     this.addTrackTest(
-      325479,
       {
+        trackId: 325479,
         wrapperType: 'track',
         kind: 'song',
         artistId: 116851,

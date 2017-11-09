@@ -1,9 +1,9 @@
 <template>
   <div id="rootElemTrack">
     <span>{{idPlaylist}}</span>
-    <span>{{taskData.trackName}}</span>
-    <span>{{taskData.artistName}}</span>
-    <span>{{taskData.collectionName}}</span>
+    <span>{{track.trackName}}</span>
+    <span>{{track.artistName}}</span>
+    <span>{{track.collectionName}}</span>
     <span>{{time}}</span>
   </div>
 </template>
@@ -13,7 +13,7 @@
     data: () => ({
       time: ''
     }),
-    props: ['idPlaylist', 'idTrack', 'taskData'],
+    props: ['idPlaylist', 'track'],
     methods: {
       convertToMin(ms) {
         const minutes = Math.floor(ms / 60000);
@@ -26,8 +26,8 @@
       }
     },
     created() {
-      this.time = this.convertToMin(this.taskData.trackTimeMillis);
-      document.getElementById('test').innerHTML = `time = ${this.time}, name = ${this.taskData.trackName}, artist = ${this.taskData.artistName}, album = ${this.taskData.collectionName}`;
+      this.time = this.convertToMin(this.track.trackTimeMillis);
+      document.getElementById('test').innerHTML = `time = ${this.time}, name = ${this.track.trackName}, artist = ${this.track.artistName}, album = ${this.track.collectionName}`;
     }
   };
 </script>

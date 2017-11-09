@@ -196,7 +196,7 @@ export default {
         radioStationUrl: this.infoAlbum[number].radioStationUrl,
       };
 
-      UBeatUnsecureAPI.addTrack(idPlaylist, this.infoAlbum[number].trackId, trackData)
+      UBeatUnsecureAPI.addTrack(idPlaylist, trackData)
         .then();
     },
     addAlbumToPlaylist() {
