@@ -27,6 +27,7 @@ export function getJsonPromise(promise) {
 
 export default class UBeatUnsecureAPI {
   static get url() { return 'http://ubeat.herokuapp.com/unsecure'; }
+  static get Url() { return 'http://ubeat.herokuapp.com'; }
 
   static changePlaylistName(idPlaylist, name) {
     return getJsonPromise(Vue.http.put(`${UBeatUnsecureAPI.url}/playlists/${idPlaylist}`,
@@ -42,9 +43,9 @@ export default class UBeatUnsecureAPI {
   }
 
   static addTrack(idPlaylist, idTrack, trackData) {
-    const d = Object.assign(trackData, { trackId: idTrack });
+    const d = Object.assign(trackData, { trackId: idTrack }, { tokken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1OWQyZGJjMjAzOWJiMDAwMDQzNjAxNTUiLCJleHAiOjE1MTAyNzcwNDM0ODl9.FP3PEcnER7K2ZNiLIbazj4p6_II-dpF2zfI3mcq3cIA' });
 
-    return getJsonPromise(Vue.http.post(`${UBeatUnsecureAPI.url}/playlists/${idPlaylist}/tracks`, d)
+    return getJsonPromise(Vue.http.post(`${UBeatUnsecureAPI.Url}/playlists/${idPlaylist}/tracks`, d)
       );
   }
   static searchAlbumtest() {
