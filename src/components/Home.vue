@@ -42,12 +42,12 @@
             <div class="pure-g">
                 <div class="templates-entry pure-u-1 pure-u-md-1-2">
                     <div class="templates-content">
-                        <p><router-link to="/artist">View our artist page</router-link></p>
+                        <p><router-link to="/artist/3941697">View our artist page</router-link></p>
                     </div>
                 </div>
                 <div class="templates-entry pure-u-1 pure-u-md-1-2">
                     <div class="templates-content">
-                        <p><router-link to="/album">View our album page</router-link></p>
+                        <p><router-link to="/album/1132982010">View our album page</router-link></p>
                     </div>
                 </div>
             </div>
