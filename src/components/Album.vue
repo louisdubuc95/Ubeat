@@ -59,7 +59,7 @@ export default {
       albumname: '',
       artistname: '',
       genre: '',
-      id: '1223592280',
+      id: '',
       playASong: false,
       infoAlbum: [],
       lienItune: '',
@@ -101,7 +101,7 @@ export default {
   },
   beforeCreated: {},
   created() {
-    UBeatUnsecureAPI.getalbumById(this.id)
+    UBeatUnsecureAPI.getalbumById(this.$route.params.id)
       .then((json) => {
         this.releaseDate = JSOperation.setreleasedate(json.results[0].releaseDate);
         this.tracks = json.results[0].trackCount;
@@ -111,7 +111,7 @@ export default {
         this.albumimg = json.results[0].artworkUrl100;
         this.lienItune = json.results[0].collectionViewUrl;
       });
-    UBeatUnsecureAPI.getalbumTracksById(this.id)
+    UBeatUnsecureAPI.getalbumTracksById(this.$route.params.id)
       .then((json) => {
         for (let x = 0; x < json.results.length; x += 1) {
           this.infoAlbum.push({
@@ -224,14 +224,6 @@ export default {
       UBeatUnsecureAPI.albumByID(id)
         .then();
     },
-    // millisToMinutesAndSeconds(num) {
-    //   let seconds = Math.floor(num / 1000);
-    //   const minutes = Math.floor(seconds / 60);
-    //   seconds -= (minutes * 60);
-    //   seconds = seconds < 10 ? String(0, seconds) : seconds;
-    //   const format = `${minutes}:${seconds}`;
-    //   return format;
-    // },
     setPlayings(isPlayed) {
       this.playASong = false;
       for (let i = 0; i < this.infoAlbum.length; i += 1) {
