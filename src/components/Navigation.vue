@@ -6,7 +6,7 @@
             </div>
             <div id="menu-left">
                 <router-link to="/" id="menu-home"><i class="fa fa-home"></i> <span>Home</span></router-link>
-                <router-link to="/Playlists" class="menu-link"><i class="fa fa-folder-open"></i> Browse playlists</router-link>
+                <router-link to="/playlists" class="menu-link"><i class="fa fa-folder-open"></i> Browse playlists</router-link>
             </div>
             <div id="menu-right">
                 <input id="menu-search" type="search" placeholder="Looking for something ?" />
