@@ -18,7 +18,7 @@
 
 import Vue from 'vue';
 
-import UBeatUnsecureAPI from '@/UBeatUnsecureAPI';
+import UBeatUnsecureAPI, { getJsonPromise } from '@/UBeatUnsecureAPI';
 import Playlist from './Playlist';
 
 export default {
@@ -28,9 +28,9 @@ export default {
     };
   },
   created() {
-    Vue.http.get(`${UBeatUnsecureAPI.url}/playlists`).then((response) => {
-      for (let i = 0; response.data[i].id !== undefined; i += 1) {
-        const tmp = response.data[i];
+    getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}/playlists`)).then((response) => {
+      for (let i = 0; i < response.length; i += 1) {
+        const tmp = response[i];
         this.playlists.push({
           id: tmp.id,
           name: tmp.name

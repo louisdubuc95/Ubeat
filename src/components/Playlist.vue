@@ -4,8 +4,9 @@
     <span>{{this.name}}</span>
     <input type="text" placeholder="Renommer la playslist" v-model="nameRenommed" />
     <button @click="rename(nameRenommed)">Rename</button>
-    <track v-for="track in tracks" :idPlaylist="id" :id="track.id" :taskData="track.data"
-        @removeTrack="removeTrack(track.id)" target="_blank"></track>
+    <!-- le built-in html <track> existe déjà en HTML5 -->
+    <song v-for="track in tracks" :key="track.id" :idPlaylist="id" :id="track.id"
+        :taskData="track.data" @removeTrack="removeTrack(track.id)" target="_blank"></song>
   </div>
 </template>
 
@@ -15,13 +16,12 @@ import Track from './Track';
 
 export default {
   data: () => ({
-    id_test: '59fa5789b692160004967fb1', // a supp
     nameRenommed: '',
     tracks: [] // initialisé dans created, contient tous les data d'une tâche
   }),
   props: ['id', 'name'],
   components: {
-    track: Track
+    song: Track
   },
   methods: {
     rename(newName) {
@@ -41,14 +41,26 @@ export default {
           il doit renseigner idTrack ? (Puisque les filtre de recherche sont à la livrable 3) */
     },
     addTrackTest(trackId, trackData) {
-      UBeatUnsecureAPI.addTrack(this.id_test, trackId, trackData)
-        .then(/* (res) => { */
+      UBeatUnsecureAPI.addTrack(this.id, trackId, trackData)
+        .then(function uselessNameOfFonction(res) {
+          debugger;
+          res.ok = this;
           // c'est là où ça me manque le
           //    (void)res du C ou le res = res du C pour enlever le flag de -Wextra..
           // fortunately eslint is smarter otherwise it would be a lot less fun for me :)
-
-          // alright
-        /* }, */ /* (rej) => { */
+          if (Array.isArray(res.tracks)) {
+            for (let i = 0; i < res.tracks.length; i += 1) {
+                // la track a bien été ajouté côté serveur
+              if (res.tracks[i].id === trackId) {
+                delete res.tracks[i].trackId;
+                this.tracks.push({
+                  id: trackId,
+                  data: res.tracks[i]
+                });
+              }
+            }
+          }
+        }/* , (rej) => { */
           // alright too no log for you !
         /* } */);
     },

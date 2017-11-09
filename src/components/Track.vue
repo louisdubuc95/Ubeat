@@ -4,15 +4,15 @@
     <span>{{taskData.trackName}}</span>
     <span>{{taskData.artistName}}</span>
     <span>{{taskData.collectionName}}</span>
-    <span>{{data.time}}</span>
+    <span>{{time}}</span>
   </div>
 </template>
 
 <script>
   export default {
-    data: {
+    data: () => ({
       time: ''
-    },
+    }),
     props: ['idPlaylist', 'idTrack', 'taskData'],
     methods: {
       convertToMin(ms) {
