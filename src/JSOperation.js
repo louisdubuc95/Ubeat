@@ -5,7 +5,8 @@ function modifyreleaseDate(releaseDate) {
 }
 function millisToMinutesAndSeconds(millis) {
   const minutes = Math.floor(millis / 60000);
-  const seconds = ((millis % 60000) / 1000).toFixed(0);
+  let seconds = ((millis % 60000) / 1000).toFixed(0);
+  seconds = seconds < 10 ? `0${seconds}` : seconds;
   const temps = `${minutes}:${seconds}`;
   return temps;
 }

@@ -121,13 +121,14 @@ export default {
       UBeatUnsecureAPI.albumByID(id)
         .then();
     },
-    millisToMinutesAndSeconds(num) {
-      const seconds = Math.floor(num / 1000);
-      const minutes = Math.floor(seconds / 60);
-      const seconds2 = seconds - (minutes * 60);
-      const format = `${minutes}:${seconds2}`;
-      return format;
-    },
+    // millisToMinutesAndSeconds(num) {
+    //   let seconds = Math.floor(num / 1000);
+    //   const minutes = Math.floor(seconds / 60);
+    //   seconds -= (minutes * 60);
+    //   seconds = seconds < 10 ? String(0, seconds) : seconds;
+    //   const format = `${minutes}:${seconds}`;
+    //   return format;
+    // },
     setPlayings(isPlayed) {
       this.playASong = false;
       for (let i = 0; i < this.infoAlbum.length; i += 1) {
