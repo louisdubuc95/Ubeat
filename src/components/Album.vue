@@ -54,15 +54,16 @@ import JSOperation from '@/JSOperation';
 export default {
   data() {
     return {
-      id: '1223592280',
-      artistname: '',
+      albumimg: '',
       albumname: '',
+      artistname: '',
+      genre: '',
+      id: '1223592280',
+      playASong: false,
+      infoAlbum: [],
+      lienItune: '',
       releaseDate: '',
       tracks: 0,
-      genre: '',
-      albumimg: '',
-      lienItune: '',
-      infoAlbum: [],
     };
   },
   beforeCreated: {},
@@ -98,10 +99,12 @@ export default {
     addAlbumToPlaylist() {
     },
     manageAudio(number) {
-      if (!this.infoAlbum[number - 1].isPlaying) {
+      if (!this.infoAlbum[number - 1].isPlaying && !this.playASong) {
         this.infoAlbum[number - 1].isPlaying = true;
+        this.playASong = true;
         this.play(number);
-      } else {
+      } else if (this.infoAlbum[number - 1].isPlaying) {
+        this.playASong = false;
         this.infoAlbum[number - 1].isPlaying = false;
         this.pause(number);
       }
