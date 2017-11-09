@@ -17,12 +17,7 @@
             <div class="container">
                 <h3>Albums</h3>
                 <div class="pure-g">
-                    <div v-for="album in albums" class="artist-album pure-u-lg-1-5 pure-u-md-1-3 pure-u-sm-1-2 pure-u-1">
-                        <router-link :to="`/album/${album.collectionId}`">
-                            <img class="pure-img" :src="album.artworkUrl100" />
-                            <h4>{{ album.collectionName }}</h4>
-                        </router-link>
-                    </div>
+                    <artist-album v-for="album in albums" :album="album" :key="album.collectionId"></artist-album>
                 </div>
             </div>
         </section>
@@ -30,8 +25,13 @@
 </template>
 
 <script>
+import ArtistAlbum from '@/components/artist/ArtistAlbum';
+
 export default {
   name: 'Artist',
+  components: {
+    ArtistAlbum
+  },
   data() {
     return {
       artist: {},
