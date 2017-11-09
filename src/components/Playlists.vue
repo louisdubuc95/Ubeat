@@ -7,7 +7,7 @@
     </div>
     <ul id="list">
       <li v-for='playlist in playlists'>
-        <playlist :id="playlist.id" :name="playlist.name"></playlist>
+        <playlist :id="playlist.id" :name="playlist.name" :tracks="playlist.tracks"></playlist>
       </li>
     </ul>
     <div id="test"></div>
@@ -33,7 +33,8 @@ export default {
         const tmp = response[i];
         this.playlists.push({
           id: tmp.id,
-          name: tmp.name
+          name: tmp.name,
+          tracks: tmp.tracks
         });
       }
     });
@@ -43,8 +44,8 @@ export default {
   },
   methods: {
     addPlaylist() {
-      const namePlaylist = document.getElementById('namePlaylistInput').value();
-      const nameOwner = document.getElementById('nameOwnerInput').value();
+      const namePlaylist = document.getElementById('namePlaylistInput').value;
+      const nameOwner = document.getElementById('nameOwnerInput').value;
 
       Vue.http.post(`${UBeatUnsecureAPI.url}/playlists`, { name: namePlaylist, owner: nameOwner }).then(response =>
         (new Promise((resolve, reject) => {
