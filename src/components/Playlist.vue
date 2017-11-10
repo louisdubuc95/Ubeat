@@ -1,12 +1,32 @@
 <template>
   <!-- https://github.com/vuejs/vue-loader/issues/384 vive le <div> obligatoire, que du bonheur ! -->
-  <div>
-    <span>{{this.name}}</span>
-    <input type="text" placeholder="Renommer la playslist" v-model="nameRenommed" />
-    <button @click="rename(nameRenommed)">Rename</button>
-    <!-- le built-in html <track> existe déjà en HTML5 -->
-    <song v-for="track in tracks" :key="track.trackId" :idPlaylist="id" :track="track"
-        @removeTrack="removeTrack(track.trackId)"></song>
+  <div id="rootElemPlaylist" class="pure-u-1-1">
+    <div class="pure-u-1-3 name_playlist" @click="toggleSee()">
+        {{this.name}}
+    </div>
+    <div class="pure-u-1-3">
+        <input type="text" placeholder="Renommer la playslist" v-model="nameRenommed" />
+    </div>
+    <div class="pure-u-1-6">
+        <button @click="rename(nameRenommed)">Rename</button>
+    </div>
+    <div class="pure-u-1-6">
+        <button @click="rename(nameRenommed)">Supprimer</button>
+    </div>
+    <div class="pure-g" v-for="track in tracks" style="clear:left;" v-if="see">
+      <!-- <div class="pure-u-2-24"><a class="pure-button pure-button-add" v-on:click="addSongToPlayList(item.number)" title='Add song to playlist'><i class="fa fa-plus" ></i></a></div> -->
+      <audio 
+        :src="tracksPlaying.link"
+        @ended="setPlayings(false)"></audio>
+        <!-- v-if="!item.isPlaying" -->
+        <!-- v-on:click="manageAudio(item.number)" -->
+
+        <!-- v-if="item.isPlaying" -->
+      <!-- v-on:click="manageAudio(item.number)" -->
+      <song class="pure-g" style="clear:left;" :key="track.trackId" :idPlaylist="id" :track="track"
+        @removeTrack="removeTrack(track.trackId)" >  
+      </song>
+    </div>
   </div>
 </template>
 
@@ -16,17 +36,22 @@ import Track from './Track';
 
 export default {
   data: () => ({
-    nameRenommed: ''
+    nameRenommed: '',
+    see: false,
+    trackPlaying: []
   }),
   props: ['id', 'name', 'tracks'],
   components: {
     song: Track
   },
   methods: {
+    toggleSee() {
+      this.see = !this.see;
+    },
     rename(newName) {
       UBeatUnsecureAPI.changePlaylistName(this.id, newName)
         .then((res) => {
-          this.name = res.name;
+          this.name = !res.name ? 'Not name...' : res.name;
         }/* , function (rej) { */
 
           // https://eslint.org/docs/rules/no-console, c'était volontaire enfin bon.. no problem yaura pas de log
@@ -70,7 +95,7 @@ export default {
         // la playlist n'a pas été chargé en amont,
         // il faut faire une requête GET /playlists/:id pour chercher son @name
     */
-    this.addTrackTest(
+    /* this.addTrackTest(
       {
         trackId: 325479,
         wrapperType: 'track',
@@ -105,7 +130,17 @@ export default {
         contentAdvisoryRating: 'Explicit',
         radioStationUrl: 'https://itunes.apple.com/station/idra.325479'
       }
-    );
+    ); */
   }
 };
 </script>
+
+<style>
+#rootElemPlaylist > div {
+    float: left;
+}
+
+.name_playlist:hover {
+    cursor: pointer;
+}
+</style>
