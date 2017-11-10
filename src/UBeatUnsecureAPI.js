@@ -27,6 +27,7 @@ export function getJsonPromise(promise) {
 
 export default class UBeatUnsecureAPI {
   static get url() { return 'http://ubeat.herokuapp.com/unsecure'; }
+  // static get url() { return 'http://localhost:3000'; }
   static get Url() { return 'http://ubeat.herokuapp.com'; }
 
   static changePlaylistName(idPlaylist, name) {
@@ -43,10 +44,8 @@ export default class UBeatUnsecureAPI {
   }
 
   static addTrack(idPlaylist, track) {
-    const d = Object.assign(track, { tokken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1OWQyZGJjMjAzOWJiMDAwMDQzNjAxNTUiLCJleHAiOjE1MTAyNzcwNDM0ODl9.FP3PEcnER7K2ZNiLIbazj4p6_II-dpF2zfI3mcq3cIA' });
-
-    return getJsonPromise(Vue.http.post(`${UBeatUnsecureAPI.url}/playlists/${idPlaylist}/tracks`, d)
-      );
+    const d = Object.assign(track);
+    return getJsonPromise(Vue.http.post(`${UBeatUnsecureAPI.Url}/playlists/${idPlaylist}/tracks`, d, { headers: { authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1OWQyZGJjMjAzOWJiMDAwMDQzNjAxNTUiLCJleHAiOjE1MTAzNjQzMDY1MTV9.SeVWVozFYz3qyCn8CUpWPlcuc4B07gs4vYjTsaCVhUg' } }));
   }
   static searchAlbumtest() {
     return getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}search/albums/?q=back%20in%20black`));

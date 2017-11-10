@@ -9,6 +9,7 @@ Vue.use(VueResource);
 
 Vue.config.productionTip = false;
 Vue.http.options.root = 'http://ubeat.herokuapp.com/unsecure/';
+// Vue.http.options.root = 'http://localhost:3000';
 
 /* eslint-disable no-new */
 new Vue({

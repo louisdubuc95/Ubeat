@@ -148,7 +148,7 @@ export default {
   },
   methods: {
     addSongToPlayList(number) {
-      const idPlaylist = '5a03ae9b5d843b0004feb743';
+      const idPlaylist = '5a04f9e413b62a0004fcd4a8';
       const trackData = {
         wrapperType: this.infoAlbum[number].wrapperType,
         kind: this.infoAlbum[number].kind,
@@ -188,6 +188,9 @@ export default {
         .then();
     },
     addAlbumToPlaylist() {
+      for (let i = 0; i < this.infoAlbum.length; i += 1) {
+        this.addSongToPlayList(i);
+      }
     },
     manageAudio(number) {
       if (!this.infoAlbum[number - 1].isPlaying && !this.playASong) {
