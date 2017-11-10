@@ -45,7 +45,7 @@ export default class UBeatUnsecureAPI {
 
   static addTrack(idPlaylist, track) {
     const d = Object.assign(track);
-    return getJsonPromise(Vue.http.post(`${UBeatUnsecureAPI.Url}/playlists/${idPlaylist}/tracks`, d, { headers: { authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1OWQyZGJjMjAzOWJiMDAwMDQzNjAxNTUiLCJleHAiOjE1MTAzNjQzMDY1MTV9.SeVWVozFYz3qyCn8CUpWPlcuc4B07gs4vYjTsaCVhUg' } }));
+    return getJsonPromise(Vue.http.post(`${UBeatUnsecureAPI.url}/playlists/${idPlaylist}/tracks`, d));
   }
   static searchAlbumtest() {
     return getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}search/albums/?q=back%20in%20black`));

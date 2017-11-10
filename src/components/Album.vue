@@ -3,6 +3,13 @@
         <section id="album-infos">
             <div class="pure-g container">
                 <div id="album-cover" class="pure-u-sm-1-4 pure-u-1">
+                    <input type="pure-button pure-button-primary" class="playlist-button" />
+                    <div id="plyalists">
+                      <p v-for="item in playlists">
+                        {{ item }}
+                      </p>
+                    </div>
+                    <br />
                     <img class="pure-img" :src='informationAlbum.artworkUrl100'/>
                 </div>
                 <div id="album-text" class="pure-u-sm-3-4 pure-u-1">
@@ -14,7 +21,7 @@
                         <p><span>Tracks :</span> {{ informationAlbum.trackCount }} </p>
                         <p><span>Genre :</span> {{ informationAlbum.primaryGenreName }} </p>
                         <p><a :href='informationAlbum.collectionViewUrl' style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;"></a></p>
-                        <p><a class="pure-button pure-button-primary" v-on:click="addAlbumToPlayList()" title='Add Album to Playlist'>Add to playlist</a></p>
+                        <p><a class="pure-button pure-button-primary" v-on:click="addAlbumToPlaylist()" title='Add Album to Playlist'>Add to playlist</a></p>
                     </div>
                 </div>
             </div>
@@ -47,7 +54,6 @@
 
 
 <script>
-
 
 import UBeatUnsecureAPI from '@/UBeatUnsecureAPI';
 import JSOperation from '@/JSOperation';
@@ -91,6 +97,7 @@ export default {
       primaryGenreName: '',
       contentAdvisoryRating: '',
       radioStationUrl: '',
+      playlists: [],
     };
   },
   created() {
@@ -148,7 +155,7 @@ export default {
   },
   methods: {
     addSongToPlayList(number) {
-      const idPlaylist = '5a04f9e413b62a0004fcd4a8';
+      const idPlaylist = '5a062ec0cde6210004b47620';
       const trackData = {
         wrapperType: this.infoAlbum[number].wrapperType,
         kind: this.infoAlbum[number].kind,
@@ -189,7 +196,7 @@ export default {
     },
     addAlbumToPlaylist() {
       for (let i = 0; i < this.infoAlbum.length; i += 1) {
-        this.addSongToPlayList(i);
+        this.addSongToPlayList(this.infoAlbum[i]);
       }
     },
     manageAudio(number) {
