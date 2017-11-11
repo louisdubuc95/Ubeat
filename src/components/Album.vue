@@ -10,7 +10,7 @@
                                 <ul class="pure-menu-children">
                                   <div v-for="item in playlists">
                                     <li class="pure-menu-item">
-                                      <a href="#" class="pure-menu-link"> {{ item }} </a>
+                                      <a href="#" class="pure-menu-link"> {{ item.name }} {{ item.id }} </a>
                                     </li>
                                   </div>
                                 </ul>
@@ -213,8 +213,7 @@ export default {
     },
     addAlbumToPlaylist() {
       for (let i = 0; i < this.infoAlbum.length; i += 1) {
-        // console.log(this.infoAlbum[i]);
-        this.addSongToPlayList(this.infoAlbum[i]);
+        this.addSongToPlayList(i);
       }
     },
     manageAudio(number) {
