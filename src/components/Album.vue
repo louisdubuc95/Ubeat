@@ -10,7 +10,7 @@
                                 <ul class="pure-menu-children">
                                   <div v-for="item in playlists">
                                     <li class="pure-menu-item">
-                                      <a href="#" class="pure-menu-link"> {{ item.name }} {{ item.id }} </a>
+                                      <a href="#" v-on:click="setPlaylist(item.id)" class="pure-menu-link"> {{ item.name }} {{ item.id }} </a>
                                     </li>
                                   </div>
                                 </ul>
@@ -106,6 +106,7 @@ export default {
       contentAdvisoryRating: '',
       radioStationUrl: '',
       playlists: [],
+      currentPlaylist: '',
     };
   },
   created() {
@@ -145,7 +146,7 @@ export default {
             trackPrice: json.results[x].trackPrice,
             releaseDate: json.results[x].releaseDate,
             collectionExplicitness: json.results[x].collectionExplicitness,
-            trackExplicitness: json.results[x].trackExplicitness,
+            trackExplidPlaylisticitness: json.results[x].trackExplicitness,
             discCount: json.results[x].discCount,
             discNumber: json.results[x].discNumber,
             trackCount: json.results[x].trackCount,
@@ -172,7 +173,6 @@ export default {
   },
   methods: {
     addSongToPlayList(number) {
-      const idPlaylist = '5a062ec0cde6210004b47620';
       const trackData = {
         wrapperType: this.infoAlbum[number].wrapperType,
         kind: this.infoAlbum[number].kind,
@@ -208,7 +208,7 @@ export default {
         radioStationUrl: this.infoAlbum[number].radioStationUrl,
       };
 
-      UBeatUnsecureAPI.addTrack(idPlaylist, trackData)
+      UBeatUnsecureAPI.addTrack(this.currentPlaylist, trackData)
         .then();
     },
     addAlbumToPlaylist() {
@@ -244,6 +244,10 @@ export default {
       for (let i = 0; i < this.infoAlbum.length; i += 1) {
         this.infoAlbum[i].isPlaying = isPlayed;
       }
+    },
+    setPlaylist(id) {
+      console.log(`Set : ${id}`);
+      this.currentPlaylist = id;
     }
   }
 };
