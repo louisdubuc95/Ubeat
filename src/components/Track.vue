@@ -1,29 +1,9 @@
 <template>
-  <div id="rootElemTrack" class="pure-u-1-1">
-  <!-- <audio
-        :id="item.number"
-        :src="item.link"
-        @ended="setPlayings(false)"></audio> -->
-        <!-- v-if="!item.isPlaying" -->
-        <!-- v-on:click="manageAudio(item.number)" -->
-
-        <!-- v-if="item.isPlaying" -->
-      <!-- v-on:click="manageAudio(item.number)" -->
-      <!-- <div class="pure-u-2-24">
-        <a class="pure-button pure-button-play">
-          <i class="fa fa-play" ></i>
-        </a>
-      </div>
-      
-      <div class="pure-u-2-24">
-        <a class="pure-button pure-button-pause" >
-          <i class="fa fa-pause" ></i>
-        </a>
-      </div> -->
-      <div class="pure-u-8-24">
+  <div class="rootElemTrack">
+      <div class="pure-u-7-24">
         {{ track.trackName }}
       </div>
-      <div class="pure-u-8-24">
+      <div class="pure-u-1-4">
         {{ track.artistName }}
       </div>
       <div class="pure-u-5-24">
@@ -31,6 +11,9 @@
       </div>
       <div class="pure-u-3-24">
         {{ time }}
+      </div>
+      <div class="pure-u-3-24" @click="remove">
+        DELETE
       </div>
   </div>
 </template>
@@ -50,6 +33,9 @@
           tmp = 0;
         }
         return `${minutes}: ${tmp}${seconds}`;
+      },
+      remove() {
+        this.$emit('removeTrack', this.track.trackId);
       }
     },
     created() {
@@ -57,3 +43,12 @@
     }
   };
 </script>
+
+<style>
+.rootElemTrack > div {
+  float: left;
+}
+.rootElemTrack.active {
+  color: red;
+}
+</style>

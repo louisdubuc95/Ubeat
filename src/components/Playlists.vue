@@ -14,8 +14,8 @@
     <div class="pure-g playlist_header">
         <div class="pure-u-1-1">Name</div>
     </div>
-    <div v-for="playlist in playlists" class="pure-g playlist_list">
-      <playlist :id="playlist.id" :name="playlist.name" :tracks="playlist.tracks" class="playlist">
+    <div v-for="playlist in playlists" class="playlist_list">
+      <playlist :id="playlist.id" :name="playlist.name" :tracks="playlist.tracks" class="pure-g playlist" @removePlaylist="removePlaylist(playlist.id);">
       </playlist>
     </div>
   </div>
@@ -62,6 +62,17 @@ export default {
           tracks: response.tracks
         });
       }); // End Then
+    },
+    removePlaylist(idPlaylist) {
+      UBeatUnsecureAPI.removePlaylist(idPlaylist)
+      .then(() => {
+        for (let i = 0; i < this.playlists.length; i += 1) {
+          if (this.playlists[i].id === idPlaylist) {
+            this.playlists.splice(i, 1);
+            break;
+          }
+        }
+      });
     }
   } // End Methods
 };

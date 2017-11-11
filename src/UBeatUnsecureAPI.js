@@ -43,6 +43,10 @@ export default class UBeatUnsecureAPI {
     return getJsonPromise(Vue.http.delete(`${UBeatUnsecureAPI.url}/playlists/${idPlaylist}/tracks/${idTrack}`));
   }
 
+  static removePlaylist(idPlaylist) {
+    return getJsonPromise(Vue.http.delete(`${UBeatUnsecureAPI.url}/playlists/${idPlaylist}`));
+  }
+
   static addTrack(idPlaylist, track) {
     const d = Object.assign(track);
     return getJsonPromise(Vue.http.post(`${UBeatUnsecureAPI.url}/playlists/${idPlaylist}/tracks`, d));
