@@ -56,5 +56,7 @@ export default class UBeatUnsecureAPI {
   static getalbumTracksById(idAlbum) {
     return getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}/albums/${idAlbum}/Tracks`));
   }
-
+  static getPlaylists() {
+    return getJsonPromise(Vue.http.get(`${UBeatUnsecureAPI.url}/playlists`));
+  }
 }

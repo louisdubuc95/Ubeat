@@ -3,11 +3,19 @@
         <section id="album-infos">
             <div class="pure-g container">
                 <div id="album-cover" class="pure-u-sm-1-4 pure-u-1">
-                    <input type="pure-button pure-button-primary" class="playlist-button" />
-                    <div id="plyalists">
-                      <p v-for="item in playlists">
-                        {{ item }}
-                      </p>
+                    <div class="pure-menu pure-menu-horizontal">
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                                <a href="#" id="menuLink1" class="pure-menu-link">Choose playlist</a>
+                                <ul class="pure-menu-children">
+                                  <div v-for="item in playlists">
+                                    <li class="pure-menu-item">
+                                      <a href="#" class="pure-menu-link"> {{ item }} </a>
+                                    </li>
+                                  </div>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                     <br />
                     <img class="pure-img" :src='informationAlbum.artworkUrl100'/>
@@ -152,6 +160,15 @@ export default {
           });
         }
       });
+    UBeatUnsecureAPI.getPlaylists(this.$route.params.id)
+        .then((json) => {
+          for (let i = 0; i < json.length; i += 1) {
+            if (json[i].name) {
+              console.log(`${json[i].id} ${json[i].name}`);
+              this.playlists[i] = { id: json[i].id, name: json[i].name };
+            }
+          }
+        });
   },
   methods: {
     addSongToPlayList(number) {
@@ -196,6 +213,7 @@ export default {
     },
     addAlbumToPlaylist() {
       for (let i = 0; i < this.infoAlbum.length; i += 1) {
+        // console.log(this.infoAlbum[i]);
         this.addSongToPlayList(this.infoAlbum[i]);
       }
     },
