@@ -60,7 +60,6 @@
     </main>
 </template>
 
-
 <script>
 
 import UBeatUnsecureAPI from '@/UBeatUnsecureAPI';
