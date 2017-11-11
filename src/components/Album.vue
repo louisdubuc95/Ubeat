@@ -3,20 +3,6 @@
         <section id="album-infos">
             <div class="pure-g container">
                 <div id="album-cover" class="pure-u-sm-1-4 pure-u-1">
-                    <div class="pure-menu pure-menu-horizontal">
-                        <ul class="pure-menu-list">
-                            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                                <a href="#" id="menuLink1" class="pure-menu-link">Choose playlist</a>
-                                <ul class="pure-menu-children">
-                                  <div v-for="item in playlists">
-                                    <li class="pure-menu-item">
-                                      <a href="#" v-on:click="setPlaylist(item.id)" class="pure-menu-link"> {{ item.name }} {{ item.id }} </a>
-                                    </li>
-                                  </div>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
                     <br />
                     <img class="pure-img" :src='informationAlbum.artworkUrl100'/>
                 </div>
@@ -29,35 +15,48 @@
                         <p><span>Tracks :</span> {{ informationAlbum.trackCount }} </p>
                         <p><span>Genre :</span> {{ informationAlbum.primaryGenreName }} </p>
                         <p><a :href='informationAlbum.collectionViewUrl' style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/music-lrg.svg) no-repeat;width:110px;height:40px;background-size:contain;"></a></p>
-                        <p><a class="pure-button pure-button-primary" v-on:click="addAlbumToPlaylist()" title='Add Album to Playlist'>Add to playlist</a></p>
-                    </div>
+                        <div class="pure-menu pure-menu-horizontal">
+                          <ul class="pure-menu-list">
+                            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                              <a href="#" id="menuLink1" class="pure-menu-link" title='Add Album to Playlist'>Add album to playlist</a>
+                              <ul class="pure-menu-children">
+                                <div v-for="item in playlists">
+                                  <li class="pure-menu-item">
+                                    <a href="#" class="pure-menu-link" v-on:click="addAlbumToPlaylist()"> {{ item.name }} {{ item.id }} </a>
+                                  </li>
+                                </div>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                  </div>
                 </div>
-            </div>
-        </section>
-        <section id="album-tracks">
-            <div class="container">
-                <div id="album-track-header" class=" album-track pure-g">
-                    <div class="pure-u-4-24"></div>
-                    <div class="pure-u-2-24">#</div>
-                    <div class="pure-u-15-24">Title</div>
-                    <div class="pure-u-3-24">Length</div>
-                </div>
+            </section>
+            <section id="album-tracks">
+              <div class="container">
+                  <div id="album-track-header" class=" album-track pure-g">
+                      <div class="pure-u-4-24"></div>
+                      <div class="pure-u-2-24">#</div>
+                      <div class="pure-u-15-24">Title</div>
+                      <div class="pure-u-3-24">Length</div>
+                  </div>
 
-                <div class="album-track pure-g" v-for="item in infoAlbum">
-                  <div class="pure-u-2-24"><a class="pure-button pure-button-add" v-on:click="addSongToPlayList(item.number)" title='Add song to playlist'><i class="fa fa-plus" ></i></a></div>
-                  <audio
-                    :id="item.number"
-                    :src="item.link"
-                    @ended="setPlayings(false)"></audio>
-                  <div class="pure-u-2-24" v-if="!item.isPlaying"><a class="pure-button pure-button-play" v-on:click="manageAudio(item.number)"><i class="fa fa-play" >                    </i></a></div>
-                  <div class="pure-u-2-24" v-if="item.isPlaying"><a class="pure-button pure-button-pause" v-on:click="manageAudio(item.number)"><i class="fa fa-pause" >                    </i></a></div>
-                  <div class="pure-u-2-24">  {{ item.number }}  </div>
-                  <div class="pure-u-15-24">  {{ item.title }} </div>
-                  <div class="pure-u-3-24">  {{ item.length }} </div>
-                </div>
-            </div>
-        </section>
-    </main>
+                  <div class="album-track pure-g" v-for="item in infoAlbum">
+                    <div class="pure-u-2-24"><a class="pure-button pure-button-add" v-on:click="addSongToPlayList(item.number)" title='Add song to playlist'><i class="fa fa-plus" ></i></a></div>
+                    <audio
+                      :id="item.number"
+                      :src="item.link"
+                      @ended="setPlayings(false)"></audio>
+                    <div class="pure-u-2-24" v-if="!item.isPlaying"><a class="pure-button pure-button-play" v-on:click="manageAudio(item.number)"><i class="fa fa-play" >                    </i></a></div>
+                    <div class="pure-u-2-24" v-if="item.isPlaying"><a class="pure-button pure-button-pause" v-on:click="manageAudio(item.number)"><i class="fa fa-pause" >                    </i></a></div>
+                    <div class="pure-u-2-24">  {{ item.number }}  </div>
+                    <div class="pure-u-15-24">  {{ item.title }} </div>
+                    <div class="pure-u-3-24">  {{ item.length }} </div>
+                  </div>
+              </div>
+            </section>
+      </main>
 </template>
 
 
@@ -106,7 +105,6 @@ export default {
       contentAdvisoryRating: '',
       radioStationUrl: '',
       playlists: [],
-      currentPlaylist: '',
     };
   },
   created() {
@@ -146,7 +144,7 @@ export default {
             trackPrice: json.results[x].trackPrice,
             releaseDate: json.results[x].releaseDate,
             collectionExplicitness: json.results[x].collectionExplicitness,
-            trackExplidPlaylisticitness: json.results[x].trackExplicitness,
+            trackExplicitness: json.results[x].trackExplicitness,
             discCount: json.results[x].discCount,
             discNumber: json.results[x].discNumber,
             trackCount: json.results[x].trackCount,
@@ -173,6 +171,7 @@ export default {
   },
   methods: {
     addSongToPlayList(number) {
+      const idPlaylist = '5a062ec0cde6210004b47620';
       const trackData = {
         wrapperType: this.infoAlbum[number].wrapperType,
         kind: this.infoAlbum[number].kind,
@@ -208,7 +207,7 @@ export default {
         radioStationUrl: this.infoAlbum[number].radioStationUrl,
       };
 
-      UBeatUnsecureAPI.addTrack(this.currentPlaylist, trackData)
+      UBeatUnsecureAPI.addTrack(idPlaylist, trackData)
         .then();
     },
     addAlbumToPlaylist() {
@@ -244,10 +243,6 @@ export default {
       for (let i = 0; i < this.infoAlbum.length; i += 1) {
         this.infoAlbum[i].isPlaying = isPlayed;
       }
-    },
-    setPlaylist(id) {
-      console.log(`Set : ${id}`);
-      this.currentPlaylist = id;
     }
   }
 };
