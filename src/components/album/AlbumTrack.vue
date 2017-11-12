@@ -95,6 +95,9 @@ export default {
     removeFromPlaylist() {
       PlaylistApi.removeFromPlaylist(this.playlistData.id, this.track.trackId)
         .then(() => {
+          if (this.playing) {
+            this.resetAudio();
+          }
           this.$emit('trackRemoved', this.playlistData.index);
         });
     },
