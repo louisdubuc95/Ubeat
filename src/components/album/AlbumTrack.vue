@@ -149,8 +149,8 @@ export default {
     display: none;
     position: absolute;
     z-index: 1;
-    top: 15px;
-    left: 12%;
+    top: 60px;
+    left: 0;
     overflow-y: auto;
     min-width: 250px;
     max-width: 300px;
