@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home';
-import Album from '@/components/Album';
 import Artist from '@/components/artist/Artist';
-import Playlist from '@/components/Playlists';
+import Album from '@/components/album/Album';
+import Playlists from '@/components/playlists/Playlists';
 
 Vue.use(Router);
 
@@ -24,7 +24,7 @@ export default new Router({
     }, {
       path: '/playlists',
       name: 'Playlist',
-      component: Playlist
+      component: Playlists
     }
   ],
 });
