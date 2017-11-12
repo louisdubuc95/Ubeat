@@ -25,7 +25,9 @@
                 :track="track"
                 :playlistData="{ id: playlist.id, index: index }"
                 @trackAdded="onTrackAdded"
-                @trackRemoved="onTrackRemoved"></album-track>
+                @trackRemoved="onTrackRemoved"
+                @songPlaying="onSongPlaying"
+                @songStopped="onSongStopped"></album-track>
         </div>
     </div>
 </template>
@@ -82,6 +84,12 @@ export default {
         this.toggleTracks();
       }
       this.playlist.tracks.splice(index, 1);
+    },
+    onSongPlaying(audio) {
+      this.$emit('songPlaying', audio);
+    },
+    onSongStopped(audio) {
+      this.$emit('songStopped', audio);
     }
   }
 };

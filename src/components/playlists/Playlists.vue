@@ -21,7 +21,9 @@
                         :key="playlist.id"
                         :playlist="playlist"
                         @playlistDeleted="onPlaylistDeleted"
-                        @trackAdded="onTrackAdded"></playlist>
+                        @trackAdded="onTrackAdded"
+                        @songPlaying="onSongPlaying"
+                        @songStopped="onSongStopped"></playlist>
                 </div>
             </div>
         </section>
@@ -40,7 +42,8 @@ export default {
   data() {
     return {
       playlists: [],
-      playlistName: ''
+      playlistName: '',
+      audio: null
     };
   },
   created() {
@@ -73,6 +76,17 @@ export default {
           this.playlists[i].tracks.push(track);
           return;
         }
+      }
+    },
+    onSongPlaying(audio) {
+      if (this.audio) {
+        this.audio.pause();
+      }
+      this.audio = audio;
+    },
+    onSongStopped(audio) {
+      if (this.audio === audio) {
+        this.audio = null;
       }
     }
   }

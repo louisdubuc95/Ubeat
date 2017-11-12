@@ -2,8 +2,8 @@
     <div :id="id" class="track pure-g">
         <div class="pure-u-md-1-24 pure-u-2-24">{{ (playlistData) ? playlistData.index + 1 : track.trackNumber }}</div>
         <div class="pure-u-md-2-24 pure-u-sm-4-24 pure-u-6-24">
-            <a v-show="playing.track !== track" class="pure-button pure-button-play" @click="toggleAudio()"><i class="fa fa-play"></i></a>
-            <a v-show="playing.track === track" class="pure-button pure-button-pause" @click="toggleAudio()"><i class="fa fa-pause"></i></a>
+            <a v-show="!playing" class="pure-button pure-button-play" @click="playAudio()"><i class="fa fa-play"></i></a>
+            <a v-show="playing" class="pure-button pure-button-pause" @click="stopAudio()"><i class="fa fa-pause"></i></a>
             <a class="pure-button pure-button-add" @click="togglePlaylists()"><i class="fa fa-plus"></i></a>
         </div>
         <div :class="trackColumnSize">{{ track.trackName }}</div>
@@ -12,7 +12,7 @@
         <div class="pure-u-md-2-24 pure-u-sm-2-24 pure-u-4-24">{{ track.trackTimeMinutes }}</div>
         <div v-if="playlistData" class="text-right pure-u-md-1-24 pure-u-2-24"><a class="pure-button pure-button-delete" @click="removeFromPlaylist()"><i class="fa fa-trash-o"></i></a></div>
 
-        <audio :src="track.previewUrl" @ended="toggleAudio()"></audio>
+        <audio :src="track.previewUrl" @pause="resetAudio()" @ended="stopAudio()"></audio>
 
         <div :class="{ active: trackPlaylistsActive }" class="playlists-selector">
             <ul>
@@ -43,10 +43,8 @@ export default {
       playlists: [],
       trackPlaylistsActive: false,
       trackColumnSize: 'pure-u-md-19-24 pure-u-sm-15-24 pure-u-12-24',
-      playing: {
-        el: null,
-        track: null
-      }
+      audio: null,
+      playing: false
     };
   },
   created() {
@@ -58,28 +56,24 @@ export default {
       this.trackColumnSize = 'pure-u-md-9-24 pure-u-sm-8-24 pure-u-9-24';
     }
   },
+  mounted() {
+    const root = document.getElementById(this.id);
+    this.audio = root.getElementsByTagName('audio')[0];
+  },
   methods: {
-    toggleAudio() {
-      // WILL FIX THIS ASAP
-      const root = document.getElementById(this.id);
-      const audio = root.getElementsByTagName('audio')[0];
-
-      if (this.playing.track) {
-        this.playing.el.pause();
-        this.playing.el = audio;
-
-        if (this.playing.track !== this.track) {
-          this.playing.track = this.track;
-          this.playing.el = audio;
-          this.playing.el.play();
-        } else {
-          this.playing.track = null;
-        }
-      } else {
-        this.playing.track = this.track;
-        this.playing.el = audio;
-        this.playing.el.play();
-      }
+    playAudio() {
+      this.audio.play();
+      this.$emit('songPlaying', this.audio);
+      this.playing = true;
+    },
+    stopAudio() {
+      this.audio.pause();
+      this.$emit('songStopped', null);
+    },
+    resetAudio() {
+      this.audio.currentTime = 0;
+      this.$emit('songStopped', this.audio);
+      this.playing = false;
     },
     togglePlaylists() {
       this.trackPlaylistsActive = !this.trackPlaylistsActive;

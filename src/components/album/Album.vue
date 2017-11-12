@@ -32,7 +32,12 @@
                     <div class="pure-u-md-2-24 pure-u-sm-2-24 pure-u-4-24">Length</div>
                 </div>
 
-                <album-track v-for="track in tracks" :key="track.trackId" :track="track"></album-track>
+                <album-track
+                    v-for="track in tracks"
+                    :key="track.trackId"
+                    :track="track"
+                    @songPlaying="onSongPlaying"
+                    @songStopped="onSongStopped"></album-track>
             </div>
         </section>
     </main>
@@ -53,7 +58,8 @@ export default {
       album: {},
       tracks: [],
       playlists: [],
-      playlistsActive: false
+      playlistsActive: false,
+      audio: null
     };
   },
   created() {
@@ -83,6 +89,17 @@ export default {
         PlaylistApi.addToPlaylist(id, this.tracks[i]);
       }
       this.togglePlaylists();
+    },
+    onSongPlaying(audio) {
+      if (this.audio) {
+        this.audio.pause();
+      }
+      this.audio = audio;
+    },
+    onSongStopped(audio) {
+      if (this.audio === audio) {
+        this.audio = null;
+      }
     }
   }
 };
