@@ -7,23 +7,23 @@
 
 \title{UBeat: Web development project}
 \author{Team 11}
-\date{1\up{st} October 2017}
+\date{12\up{th} November 2017}
 
 \begin{document}
 
     \maketitle
     \newpage
-    
+
     \section{Introduction}
-    
+
         \subsection{Project}
-        
+
         \noindent
         The UBeat project is a web application created for the GLO-3102 class. Its main goal is to create
         a music platform where a user can create playlists and share them with friends.
-    
+
         \subsection{Team}
-        
+
         \noindent
         Our team is composed of 5 people: \\
 
@@ -34,19 +34,61 @@
         \item[Guillaume Binet] (gubin1, 903195070)
         \item[Lionel Karmes] (likar7, 111190966)
         \end{description}
-        
+
     \section{Getting started}
-    
+
         \subsection{Setup}
-    
+
         \noindent
         Well, you just have to \texttt{ npm install } , and \texttt{ npm start } afterwards.
-        
-        \subsection{Links}
-        
+
+        \subsection{Content}
+
 		\noindent
-		On the home page, you will find the links to the artist page and the album page at the bottom. \\
-		On the artist page, you can click on the album "The Beginning" to reach the album page. \\
-		On the album page, you can click on the artist name under the album name to reach the artist page.
+		On the home page:
+		\begin{itemize}
+		\item Click on "View our artist page" to reach an example artist page (id in the url).
+		\item Click on "View our album page" to reach an example album page (id in the url).
+		\end{itemize}
+
+		\noindent \\
+		On the artist page:
+		\begin{itemize}
+        \item Click on the "Listen on apple music" button to reach the artist page on Apple Music.
+        \item Click on any album to reach a new page and see the tracklist, listen to samples, ...
+        \end{itemize}
+
+        \noindent \\
+        On the album page:
+        \begin{itemize}
+        \item Click on the artist name to go back to the artist page.
+        \item Click on the "Listen on apple music" button to reach the artist page on Apple Music.
+        \item Click on "Add to playlist" and choose a playlist to add the entire album to it.
+            \begin{itemize}
+            \item Click again on the button to cancel
+            \end{itemize}
+        \item Click on a "Play" button to listen to a short music sample.
+        \item Click on the "Plus" button and choose a playlist to add the song to it.
+            \begin{itemize}
+            \item Click again on the button to cancel
+            \end{itemize}
+        \end{itemize}
+        
+        \noindent \\
+        On the playlists page:
+        \begin{itemize}
+        \item Choose a name and click on "Create a new playlist" to create one. Its name cannot be empty.
+        \item Click on a playlist's name to display its tracks. Nothing happens if there aren't any.
+            \begin{itemize}
+            \item Click on a track's "Trash" button to remove it from the playlist
+            \item Other track controls are identical to the ones on the album page.
+            \end{itemize}
+        \item Click on the "Pencil" button to rename a playlist. Its name cannot be empty.
+            \begin{itemize}
+            \item Press enter to apply
+            \item Press escape or click again on the button to cancel
+            \end{itemize}
+        \item Click on the "Trash" button to delete a playlist
+        \end{itemize}
 
 \end{document}
