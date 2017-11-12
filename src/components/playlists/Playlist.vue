@@ -6,7 +6,7 @@
                 <h4 v-show="!renamingPlaylist" @click="toggleTracks()">{{ playlist.name }}</h4>
                 <input v-show="renamingPlaylist" v-model="newName" type="text" class="pure-input" @keyup.enter="submitPlaylistName()" @keyup.esc="renamePlaylist()" />
             </div>
-            <div class="pure-u-md-3-24 pure-u-sm-4-24 pure-u-8-24">{{ playlist.tracks.length }} musiques</div>
+            <div class="pure-u-md-3-24 pure-u-sm-4-24 pure-u-8-24">{{ playlist.tracks.length }} song{{ (playlist.tracks.length !== 1) ? 's' : '' }}</div>
             <div class="text-right pure-u-md-1-24 pure-u-2-24"><a class="pure-button pure-button-delete" @click="deletePlaylist()"><i class="fa fa-trash-o"></i></a></div>
         </div>
 
