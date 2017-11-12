@@ -1,5 +1,5 @@
 body {
-    background: url('../images/background.png') #282828;
+    background: url('/static/images/background.png') #282828;
 }
 
 a {
