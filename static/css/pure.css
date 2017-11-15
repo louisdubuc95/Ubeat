@@ -1,5 +1,16 @@
-a.pure-button-primary {
-    background-color: #1abc9c;
+.pure-input {
+    background-color: #fff;
+    border-radius: 25px;
+    font-size: 13px;
+    padding: .8em 2em;
+    border: none;
+    box-sizing: border-box;
+    color: #000;
+}
+
+a.pure-button-primary,
+input.pure-button-primary {
+    background-color: #1db954;
     border-radius: 25px;
     min-width: 150px;
     text-transform: uppercase;
@@ -8,9 +19,12 @@ a.pure-button-primary {
     padding: .8em 2em;
 }
 
-a.pure-button-play {
+a.pure-button-play,
+a.pure-button-pause,
+a.pure-button-add,
+a.pure-button-edit,
+a.pure-button-delete {
     position: relative;
-    background-color: #1abc9c;
     width: 30px;
     height: 30px;
     padding: 0;
@@ -18,44 +32,48 @@ a.pure-button-play {
     color: #FFF;
 }
 
-a.pure-button-play i {
+a.pure-button-play i,
+a.pure-button-pause i,
+a.pure-button-add i,
+a.pure-button-edit i,
+a.pure-button-delete i {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-40%) translateY(-50%);
 }
 
-a.pure-button-pause {
-    position: relative;
-    background-color: #ffa500;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border-radius: 50%;
-    color: #FFF;
+a.pure-button-play   { background-color: #1db954; }
+a.pure-button-play i { transform: translateX(-40%) translateY(-50%); }
+
+a.pure-button-pause   { background-color: #ffa500; }
+a.pure-button-pause i { transform: translateX(-47%) translateY(-50%); }
+
+a.pure-button-add   { background-color: #53b9e8; }
+a.pure-button-add i { transform: translateX(-47%) translateY(-50%); }
+
+a.pure-button-edit   { background-color: #53b9e8; }
+a.pure-button-edit i { transform: translateX(-47%) translateY(-50%); }
+
+a.pure-button-delete   { background-color: #d52929; }
+a.pure-button-delete i { transform: translateX(-47%) translateY(-50%); }
+
+.hidden-xs,
+.hidden-sm {
+    display: none;
 }
 
-a.pure-button-pause i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-45%) translateY(-50%);
+@media screen and (min-width: 35.5em) {
+
+    .hidden-xs {
+        display: block;
+    }
+
 }
 
+@media screen and (min-width: 48em) {
 
-.pure-button-add {
-    position: relative;
-    background-color: #53b9e8;
-    width: 22px;
-    height: 22px;
-    padding: 0;
-    border-radius: 50%;
-    color: #FFF;
-}
+    .hidden-sm {
+        display: block;
+    }
 
-a.pure-button-add i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-47%) translateY(-50%);
 }
