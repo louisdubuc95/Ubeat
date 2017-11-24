@@ -6,6 +6,7 @@
                 <div id="artist-specs">
                     <p id="specs-genre">{{ artist.primaryGenreName }}</p>
                     <a :href="artist.artistLinkUrl" class="apple-music"></a>
+                    <img class="pure-img" :src="image" />
                 </div>
             </div>
         </section>
@@ -15,12 +16,16 @@
                 <div class="pure-g">
                     <artist-album v-for="album in albums" :album="album" :key="album.collectionId"></artist-album>
                 </div>
+                <div style="color: white;" id="artist-bio">
+                  {{ biography }}
+                </div>
             </div>
         </section>
     </main>
 </template>
 
 <script>
+
 import ArtistApi from '@/assets/ArtistApi';
 import ArtistAlbum from './ArtistAlbum';
 
@@ -32,7 +37,9 @@ export default {
   data() {
     return {
       artist: {},
-      albums: []
+      albums: [],
+      biography: '',
+      image: '',
     };
   },
   created() {
@@ -44,6 +51,18 @@ export default {
       .then((albums) => {
         this.albums = albums;
       });
+  },
+  mounted() {
+    this.$http.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${this.artist.artistName}&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
+    // this.$http.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=metallica&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
+    .then((response) => {
+      console.log(this.artist.artistName);
+      if (response.body.artist.name !== 'Undefined') {
+        this.biography = response.body.artist.bio.content;
+      }
+      this.image = response.body.artist.image[5]['#text'];
+      console.log(response);
+    });
   }
 };
 </script>
@@ -84,5 +103,10 @@ export default {
     font-size: 14px;
     font-weight: normal;
     color: #FFF;
+}
+
+#artist #artist-bio {
+  color: #000;
+  white-space: pre-wrap;
 }
 </style>
