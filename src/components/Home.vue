@@ -7,7 +7,6 @@
                 <p>With UBeat, you can easily create your playlists and share them with your friends!</p>
             </div>
         </div>
-
         <section id="description">
             <h3>See what you can do with UBeat</h3>
             <div class="pure-g">
@@ -52,9 +51,15 @@
                 </div>
             </div>
         </section>
-    </div>
-</template>
 
+    </div>
+
+</template>
+<script>
+  export default {
+    name: 'Home'
+  };
+</script>
 <style>
 #home #landing {
     height: 100vh;
@@ -147,4 +152,5 @@
 #home #templates .templates-content a:hover {
     font-size: 1.8em;
 }
+
 </style>

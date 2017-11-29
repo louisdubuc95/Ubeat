@@ -13,39 +13,85 @@
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-user"></i> <span>My profile</span></router-link>
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-cog"></i> <span>Settings</span></router-link>
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign out</span></router-link>
+                <router-link to="/" id="show-modal"  @click.native="showm" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign in</span></router-link>
             </div>
         </nav>
+      <modal v-if="showmodal">
+        <transition name="modal">
+          <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div id="login_signup" class="login-page">
+                  <div class="form">
+                    <form v-if="isdisplay" class="login-form">
+                      <h1>Create account </h1>
+                      <input type="text" placeholder="username"/>
+                      <input type="password" placeholder="password"/>
+                      <input type="text" placeholder="email address"/>
+                      <button @click="notshow">create</button>
+                      <p class="message">Already registered? <a @click="signintemplate()">Sign In</a></p>
+                    </form>
+                    <form v-if="hide"class="login-form">
+                      <h1>Sign in</h1>
+                      <input type="text" placeholder="username"/>
+                      <input type="password" placeholder="password"/>
+                      <button @click="notshow">Login</button>
+                      <p class="message">Not registered? <a  @click="creatusertemplate()">Create an account</a></p>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </transition>
+      </modal>
+
     </header>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      items: null,
-      opened: false
-    };
-  },
-  created() {
-    this.items = document.getElementsByClassName('menu-link');
-  },
-  methods: {
-    hideMenu() {
-      if (this.opened) {
-        for (let i = 0; i < this.items.length; i += 1) {
-          this.items[i].classList.remove('menu-opened');
+  export default {
+    data() {
+      return {
+        items: null,
+        opened: false,
+        showmodal: false,
+        isdisplay: true,
+        hide: false
+      };
+    },
+    created() {
+      this.items = document.getElementsByClassName('menu-link');
+    },
+    methods: {
+      hideMenu() {
+        if (this.opened) {
+          for (let i = 0; i < this.items.length; i += 1) {
+            this.items[i].classList.remove('menu-opened');
+          }
+          this.opened = false;
         }
-        this.opened = false;
+      },
+      toggleMenu() {
+        this.opened = !this.opened;
+        for (let i = 0; i < this.items.length; i += 1) {
+          this.items[i].classList.toggle('menu-opened');
+        }
+      },
+      showm() {
+        this.showmodal = true;
+      },
+      notshow() {
+        this.showmodal = false;
+      },
+      signintemplate() {
+        this.isdisplay = false;
+        this.hide = true;
+      },
+      creatusertemplate() {
+        this.isdisplay = true;
+        this.hide = false;
       }
     },
-    toggleMenu() {
-      this.opened = !this.opened;
-      for (let i = 0; i < this.items.length; i += 1) {
-        this.items[i].classList.toggle('menu-opened');
-      }
-    }
-  }
-};
+  };
 </script>
 
 <style>
@@ -164,4 +210,156 @@ header nav #menu-right {
     }
 
 }
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 300px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #1db954;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-default-button {
+  float: right;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all ;
+  transition: all ;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #EF3B3A;
+}
+
 </style>
