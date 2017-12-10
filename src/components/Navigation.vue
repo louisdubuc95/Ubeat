@@ -13,49 +13,73 @@
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-user"></i> <span>My profile</span></router-link>
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-cog"></i> <span>Settings</span></router-link>
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign out</span></router-link>
-                <router-link to="/" id="show-modal"  @click.native="showm" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign in</span></router-link>
+                <router-link to="/" id="show-modal"  @click.native="showmSignMenu" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign in</span></router-link>
             </div>
         </nav>
-      <modal v-if="showmodal">
-        <transition name="modal">
-          <div class="modal-mask">
-            <div class="modal-wrapper">
-                <div id="login_signup" class="login-page">
-                  <div class="form">
-                    <form v-if="isdisplay" class="login-form">
-                      <h1>Create account </h1>
-                      <input type="text" placeholder="username"/>
-                      <input type="password" placeholder="password"/>
-                      <input type="text" placeholder="email address"/>
-                      <button @click="notshow">create</button>
-                      <p class="message">Already registered? <a @click="signintemplate()">Sign In</a></p>
-                    </form>
-                    <form v-if="hide"class="login-form">
-                      <h1>Sign in</h1>
-                      <input type="text" placeholder="username"/>
-                      <input type="password" placeholder="password"/>
-                      <button @click="notshow">Login</button>
-                      <p class="message">Not registered? <a  @click="creatusertemplate()">Create an account</a></p>
-                    </form>
-                  </div>
+        <div v-if="showmodal">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div id="login_signup" class="login-page">
+                            <div class="form">
+                              <form v-if="signUp" class="login-form">
+                                <a href="#" class="close" @click="notshow"></a>
+                                <h1>Create account </h1>
+                                <input type="text" placeholder="username" v-model="newusername"/>
+                                <input type="password" placeholder="password" v-model="newpassword"/>
+                                <input type="text" placeholder="email address" v-model="newemail"/>
+                                <button @click="signup">create</button>
+                                <p class="message">Already registered? <a @click="signintemplate()">Sign In</a></p>
+                              </form>
+                              <form v-if="signIn"class="login-form">
+                                <a href="#" class="close"  @click="notshow"></a>
+                                <img class="pure-img pure-u-1-2" style="width: 40%"src="/static/images/profile.png">
+                                <p></p>
+                                <input type="text" placeholder="email" v-model="useremail"/>
+                                <input type="password" placeholder="password" v-model="userpassword"/>
+                                <button @click="signin">Login</button>
+                                <p class="message">Not registered? <a  @click="creatusertemplate()">Create an account</a></p>
+                              </form>
+                              <form v-if="success" class="login-form">
+                                <div class="success-msg" style="color: #1db954">
+                                  <i class="fa fa-check"></i>
+                                  The account as been created!
+                                </div>
+                              </form>
+                              <form v-if="failure" class="login-form">
+                                <div class="error-msg" style="color: #d52929">
+                                  <i class="fa fa-times-circle"></i>
+                                  An error occured. the account and not been created
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-        </transition>
-      </modal>
-
+            </transition>
+        </div>
     </header>
 </template>
 
 <script>
+  import SignupApi from '../assets/SignupApi';
+
   export default {
     data() {
       return {
         items: null,
         opened: false,
         showmodal: false,
-        isdisplay: true,
-        hide: false,
+        signUp: false,
+        signIn: false,
+        success: false,
+        failure: false,
+        newusername: '',
+        newpassword: '',
+        newemail: '',
+        useremail: '',
+        userpassword: '',
+        newuserinfo: {},
         searchAll: ''
       };
     },
@@ -77,24 +101,62 @@
           this.items[i].classList.toggle('menu-opened');
         }
       },
-      showm() {
+      showmSignMenu() {
         this.showmodal = true;
+        this.signIn = true;
+        this.signUp = false;
+        this.success = false;
+        this.failure = false;
+      },
+      signup() {
+        SignupApi.postsignup(this.newusername, this.newemail, this.newpassword)
+          .then((response) => {
+            this.newuserinfo = response;
+            if (this.newuserinfo.name === this.newusername) {
+              this.signIn = false;
+              this.signUp = false;
+              this.failure = false;
+              this.success = true;
+              console.log('sucess');
+              setTimeout(this.close, 2000);
+            } else {
+              this.signUp = false;
+              this.failure = true;
+              console.log('FAIL');
+              setTimeout(this.closefail, 2000);
+              this.showmodal = true;
+            }
+          });
+      },
+      signin() {
+        SignupApi.postlogin(this.useremail, this.userpassword);
+        setTimeout(this.close, 2000);
       },
       notshow() {
         this.showmodal = false;
       },
       signintemplate() {
-        this.isdisplay = false;
-        this.hide = true;
+        this.signIn = true;
+        this.signUp = false;
       },
       creatusertemplate() {
-        this.isdisplay = true;
-        this.hide = false;
+        this.signIn = false;
+        this.signUp = true;
+      },
+      signout() {
+        SignupApi.getlogout(this.useremail, this.userpassword);
+      },
+      closefail() {
+        this.failure = false;
+        this.signUp = true;
+      },
+      close() {
+        this.showmodal = false;
       },
       submitSearch() {
         // eslint-disable-next-line // cette ligne est SOOO USEFUL <3
         this.$router.push({ name: 'Search', query: { all: this.searchAll } });
-      }
+      },
     },
   };
 </script>
@@ -366,5 +428,33 @@ header nav #menu-right {
 .container .info span .fa {
   color: #EF3B3A;
 }
+
+.close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
+
 
 </style>
