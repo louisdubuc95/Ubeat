@@ -51,6 +51,7 @@ export default {
       this.userName = user.name;
       this.email = user.email;
     });
+  },
   mounted() {
     PlaylistApi.get()
       .then((playlists) => {
