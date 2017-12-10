@@ -62,7 +62,7 @@
 </template>
 
 <script>
-  import SignupApi from '../assets/SignupApi';
+  import SignupApi from './../assets/SignupApi';
 
   export default {
     data() {
@@ -129,7 +129,10 @@
           });
       },
       signin() {
-        SignupApi.postlogin(this.useremail, this.userpassword);
+        SignupApi.postlogin(this.useremail, this.userpassword)
+        .then((response) => {
+          console.log(response);
+        });
         setTimeout(this.close, 2000);
       },
       notshow() {

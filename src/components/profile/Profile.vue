@@ -44,7 +44,13 @@ export default {
       userName: 'Alexandre',
     };
   },
-  created() {},
+  created() {
+      // UserSearchApi.get(this.$route.params.id)
+      //   .then((user) => {
+      //     this.userName = user.name;
+      //     this.email = user.email;
+      //   });
+  },
   mounted() {
     PlaylistApi.get()
       .then((playlists) => {
