@@ -1,8 +1,9 @@
 import Vue from 'vue';
+import UsersApi from './UsersApi';
 
 export default class PlaylistsApi {
   static get() {
-    return Vue.http.get('playlists')
+    return Vue.http.get('playlists', { headers: { authorization: UsersApi.getToken() } })
       .then(response => response.json());
   }
 

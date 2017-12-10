@@ -17,8 +17,7 @@ export default class SignupApi {
   }
   static postlogin(useremail, userpassword) {
     return Vue.http.post('login', { email: useremail, password: userpassword })
-      .then(response => response.json())
-      .then(what => what.token);
+      .then(response => response.json());
   }
   static getlogout(usermail, userpassword) {
     return Vue.http.get('logout', { email: usermail, password: userpassword })

@@ -79,6 +79,7 @@
         newemail: '',
         useremail: '',
         userpassword: '',
+        userId: '',
         newuserinfo: {},
         searchAll: ''
       };
@@ -131,6 +132,8 @@
       signin() {
         SignupApi.postlogin(this.useremail, this.userpassword)
         .then((response) => {
+          document.cookie = `token=${response.token}`;
+          this.userId = response.id;
           console.log(response);
         });
         setTimeout(this.close, 2000);

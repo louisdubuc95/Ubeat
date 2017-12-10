@@ -27,6 +27,7 @@
 <script>
 import PlaylistApi from '@/assets/PlaylistApi';
 import GravatarApi from '@/assets/GravatarApi';
+import UsersApi from '@/assets/UsersApi';
 import Playlist from './Playlist';
 
 export default {
@@ -37,19 +38,19 @@ export default {
   data() {
     return {
       audio: null,
-      email: 'equipe00011@gmail.com',
+      email: '',
       image: '',
       playlists: [],
       playlistName: '',
-      userName: 'Alexandre',
+      userName: '',
     };
   },
   created() {
-      // UserSearchApi.get(this.$route.params.id)
-      //   .then((user) => {
-      //     this.userName = user.name;
-      //     this.email = user.email;
-      //   });
+    UsersApi.getTokenInfo()
+    .then((user) => {
+      this.userName = user.name;
+      this.email = user.email;
+    });
   },
   mounted() {
     PlaylistApi.get()
