@@ -139,6 +139,7 @@ export default {
         });
     },
     signin() {
+      document.cookie = '';
       SignupApi.postlogin(this.useremail, this.userpassword)
       .then((response) => {
         document.cookie = `token=${response.token}`;

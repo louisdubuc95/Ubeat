@@ -5,10 +5,20 @@
               <h4>{{ userName }}</h4>
               <h4>{{ email }}</h4>
               <img :src="image" />
+              <i class="fa fa-user-plus fa-2x" id="add-user" @click="followUser()"></i>
             </div>
         </section>
         <section class="content">
+            <h3 v-if="following.length > 0"> Friend(s) </h3>
+            <div v-for="user in following" id="friends-container">
+              <span><img :src="user.image" class="pure-g" /></span>
+              <span>
+                <p> {{ user.name }} </p>
+                <p> {{ user.email }} </p>
+              </span>
+            </div>
             <div id="playlists-container">
+                <h3 v-if="playlists.length > 0"> Playlists </h3>
                 <div class="container">
                     <playlist
                         v-for="playlist in playlists"
@@ -39,6 +49,7 @@ export default {
     return {
       audio: null,
       email: '',
+      following: [],
       image: '',
       playlists: [],
       playlistName: '',
@@ -50,6 +61,19 @@ export default {
     .then((user) => {
       this.userName = user.name;
       this.email = user.email;
+      this.following = user.following;
+      console.log(this.following);
+      for (let i = 0; i < this.following.length; i += 1) {
+        GravatarApi.getAvatar(this.following[i].email)
+        .then((image) => {
+          if (image !== undefined) {
+            this.following[i].image = image;
+          }
+        })
+        .catch(() => {
+          this.following[i].image = '/static/images/randomGuy.png';
+        });
+      }
     });
   },
   mounted() {
@@ -71,6 +95,9 @@ export default {
         if (image !== undefined) {
           this.image = image;
         }
+      })
+      .catch(() => {
+        this.image = '/static/images/randomGuy.png';
       });
   },
   methods: {
@@ -100,6 +127,9 @@ export default {
       if (this.audio === audio) {
         this.audio = null;
       }
+    },
+    followUser() {
+      UsersApi.follow(this.$route.params.id);
     }
   }
 };
@@ -118,7 +148,7 @@ export default {
     border-bottom: 1px solid rgba(255, 255, 255, .3);
 }
 
-#profile .header {
+#profile .header, #friends-container {
     color: rgba(255, 255, 255, .4);
 }
 
@@ -145,5 +175,13 @@ export default {
     font-size: 14px;
     font-weight: normal;
     color: #FFF;
+}
+
+#profile #add-user {
+    margin-left: 20px;
+}
+
+#profile #friends-container {
+  text-align: left;
 }
 </style>
