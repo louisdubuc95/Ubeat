@@ -10,7 +10,7 @@
             </div>
             <div id="menu-right">
                 <input id="menu-search" v-model="searchAll" @keyup.enter="submitSearch" class="menu-link" type="search" placeholder="Looking for something ?" />
-                <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-user"></i> <span>My profile</span></router-link>
+                <router-link :to="{path: '/profile/' + userId}" @click.native="hideMenu" class="menu-link"><i class="fa fa-user"></i> <span>My profile</span></router-link>
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-cog"></i> <span>Settings</span></router-link>
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign out</span></router-link>
                 <router-link to="/" id="show-modal"  @click.native="showmSignMenu" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign in</span></router-link>
@@ -62,109 +62,119 @@
 </template>
 
 <script>
-  import SignupApi from './../assets/SignupApi';
+import SignupApi from './../assets/SignupApi';
+import UsersApi from './../assets/UsersApi';
 
-  export default {
-    data() {
-      return {
-        items: null,
-        opened: false,
-        showmodal: false,
-        signUp: false,
-        signIn: false,
-        success: false,
-        failure: false,
-        newusername: '',
-        newpassword: '',
-        newemail: '',
-        useremail: '',
-        userpassword: '',
-        userId: '',
-        newuserinfo: {},
-        searchAll: ''
-      };
-    },
-    created() {
-      this.items = document.getElementsByClassName('menu-link');
-    },
-    methods: {
-      hideMenu() {
-        if (this.opened) {
-          for (let i = 0; i < this.items.length; i += 1) {
-            this.items[i].classList.remove('menu-opened');
-          }
-          this.opened = false;
-        }
-      },
-      toggleMenu() {
-        this.opened = !this.opened;
+export default {
+  data() {
+    return {
+      items: null,
+      opened: false,
+      showmodal: false,
+      signUp: false,
+      signIn: false,
+      success: false,
+      failure: false,
+      newusername: '',
+      newpassword: '',
+      newemail: '',
+      useremail: '',
+      userpassword: '',
+      userId: '',
+      token: undefined,
+      newuserinfo: {},
+      searchAll: ''
+    };
+  },
+  created() {
+    this.items = document.getElementsByClassName('menu-link');
+    this.token = UsersApi.getToken();
+    if (this.token !== undefined) {
+      UsersApi.getTokenInfo()
+      .then((response) => {
+        this.userId = response.id;
+      });
+    }
+  },
+  methods: {
+    hideMenu() {
+      if (this.opened) {
         for (let i = 0; i < this.items.length; i += 1) {
-          this.items[i].classList.toggle('menu-opened');
+          this.items[i].classList.remove('menu-opened');
         }
-      },
-      showmSignMenu() {
-        this.showmodal = true;
-        this.signIn = true;
-        this.signUp = false;
-        this.success = false;
-        this.failure = false;
-      },
-      signup() {
-        SignupApi.postsignup(this.newusername, this.newemail, this.newpassword)
-          .then((response) => {
-            this.newuserinfo = response;
-            if (this.newuserinfo.name === this.newusername) {
-              this.signIn = false;
-              this.signUp = false;
-              this.failure = false;
-              this.success = true;
-              console.log('sucess');
-              setTimeout(this.close, 2000);
-            } else {
-              this.signUp = false;
-              this.failure = true;
-              console.log('FAIL');
-              setTimeout(this.closefail, 2000);
-              this.showmodal = true;
-            }
-          });
-      },
-      signin() {
-        SignupApi.postlogin(this.useremail, this.userpassword)
-        .then((response) => {
-          document.cookie = `token=${response.token}`;
-          this.userId = response.id;
-          console.log(response);
-        });
-        setTimeout(this.close, 2000);
-      },
-      notshow() {
-        this.showmodal = false;
-      },
-      signintemplate() {
-        this.signIn = true;
-        this.signUp = false;
-      },
-      creatusertemplate() {
-        this.signIn = false;
-        this.signUp = true;
-      },
-      signout() {
-        SignupApi.getlogout(this.useremail, this.userpassword);
-      },
-      closefail() {
-        this.failure = false;
-        this.signUp = true;
-      },
-      close() {
-        this.showmodal = false;
-      },
-      submitSearch() {
-        // eslint-disable-next-line // cette ligne est SOOO USEFUL <3
-        this.$router.push({ name: 'Search', query: { all: this.searchAll } });
-      },
+        this.opened = false;
+      }
     },
-  };
+    toggleMenu() {
+      this.opened = !this.opened;
+      for (let i = 0; i < this.items.length; i += 1) {
+        this.items[i].classList.toggle('menu-opened');
+      }
+    },
+    showmSignMenu() {
+      this.showmodal = true;
+      this.signIn = true;
+      this.signUp = false;
+      this.success = false;
+      this.failure = false;
+    },
+    signup() {
+      SignupApi.postsignup(this.newusername, this.newemail, this.newpassword)
+        .then((response) => {
+          this.newuserinfo = response;
+          if (this.newuserinfo.name === this.newusername) {
+            this.signIn = false;
+            this.signUp = false;
+            this.failure = false;
+            this.success = true;
+            console.log('sucess');
+            setTimeout(this.close, 2000);
+          } else {
+            this.signUp = false;
+            this.failure = true;
+            console.log('FAIL');
+            setTimeout(this.closefail, 2000);
+            this.showmodal = true;
+          }
+        });
+    },
+    signin() {
+      SignupApi.postlogin(this.useremail, this.userpassword)
+      .then((response) => {
+        document.cookie = `token=${response.token}`;
+        this.token = response.token;
+        this.userId = response.id;
+        console.log(response);
+      });
+      setTimeout(this.close, 2000);
+    },
+    notshow() {
+      this.showmodal = false;
+    },
+    signintemplate() {
+      this.signIn = true;
+      this.signUp = false;
+    },
+    creatusertemplate() {
+      this.signIn = false;
+      this.signUp = true;
+    },
+    signout() {
+      SignupApi.getlogout(this.useremail, this.userpassword);
+    },
+    closefail() {
+      this.failure = false;
+      this.signUp = true;
+    },
+    close() {
+      this.showmodal = false;
+    },
+    submitSearch() {
+      // eslint-disable-next-line // cette ligne est SOOO USEFUL <3
+      this.$router.push({ name: 'Search', query: { all: this.searchAll } });
+    },
+  },
+};
 </script>
 
 <style>

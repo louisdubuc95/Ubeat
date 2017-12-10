@@ -46,7 +46,7 @@ export default {
     };
   },
   created() {
-    UsersApi.getTokenInfo()
+    UsersApi.getUser(this.$route.params.id)
     .then((user) => {
       this.userName = user.name;
       this.email = user.email;
