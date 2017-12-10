@@ -6,7 +6,7 @@ import router from './router';
 Vue.use(VueResource);
 
 Vue.config.productionTip = false;
-Vue.http.options.root = 'http://ubeat.herokuapp.com/';
+Vue.http.options.root = 'http://ubeat.herokuapp.com/unsecure/'
 
 /* eslint-disable no-new */
 new Vue({
