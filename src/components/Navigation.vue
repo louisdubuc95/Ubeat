@@ -25,6 +25,7 @@
                               <form v-if="signUp" class="login-form">
                                 <a href="#" class="close" @click="notshow"></a>
                                 <h1>Create account </h1>
+                                <p v-if="errorEmailExistsNot" class="modal-error"> An error occurs. Email doens't exists. </p>
                                 <input type="text" placeholder="username" v-model="newusername"/>
                                 <input type="password" placeholder="password" v-model="newpassword"/>
                                 <input type="text" placeholder="email address" v-model="newemail"/>
@@ -35,6 +36,7 @@
                                 <a href="#" class="close"  @click="notshow"></a>
                                 <img class="pure-img pure-u-1-2" style="width: 40%"src="/static/images/profile.png">
                                 <p></p>
+                                <p v-if="errorLogin" class="modal-error"> Not possible to log - wrong login/password. </p>
                                 <input type="text" placeholder="email" v-model="useremail"/>
                                 <input type="password" placeholder="password" v-model="userpassword"/>
                                 <button @click="signin">Login</button>
@@ -83,7 +85,9 @@ export default {
       userId: '',
       token: undefined,
       newuserinfo: {},
-      searchAll: ''
+      searchAll: '',
+      errorEmailExistsNot: false,
+      errorLogin: false,
     };
   },
   created() {
@@ -136,6 +140,9 @@ export default {
             setTimeout(this.closefail, 2000);
             this.showmodal = true;
           }
+        })
+        .catch(() => {
+          this.errorEmailExistsNot = true;
         });
     },
     signin() {
@@ -146,6 +153,9 @@ export default {
         this.token = response.token;
         this.userId = response.id;
         console.log(response);
+      })
+      .catch(() => {
+        this.errorLogin = true;
       });
       setTimeout(this.close, 2000);
     },
@@ -439,6 +449,8 @@ header nav #menu-right {
   transform: rotate(-45deg);
 }
 
-
-
+.modal-error {
+  color: #b00b0b;
+  font-weight: bold;
+}
 </style>
