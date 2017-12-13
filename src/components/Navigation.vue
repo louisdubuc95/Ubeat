@@ -93,7 +93,7 @@ export default {
   created() {
     this.items = document.getElementsByClassName('menu-link');
     this.token = UsersApi.getToken();
-    if (this.token !== undefined) {
+    if (this.token) {
       UsersApi.getTokenInfo()
       .then((response) => {
         this.userId = response.id;
@@ -418,6 +418,7 @@ header nav #menu-right {
 .form .message a {
   color: #4CAF50;
   text-decoration: none;
+  cursor: pointer;
 }
 .form .register-form {
   display: none;

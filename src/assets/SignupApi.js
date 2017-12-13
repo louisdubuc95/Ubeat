@@ -3,7 +3,7 @@ import Vue from 'vue';
 export default class SignupApi {
   static postsignup(newname, newemail, newpassword) {
     try {
-      const post = Vue.http.post('signup', { name: newname, email: newemail, password: newpassword })
+      const post = Vue.http.post('signup', { name: newname, email: newemail, password: newpassword }, { emulateJSON: true })
         .then((response) => {
           if (response.status === 200) {
             return response.json();
