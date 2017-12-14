@@ -62,7 +62,6 @@ export default {
       this.userName = user.name;
       this.email = user.email;
       this.following = user.following;
-      console.log(this.following);
       for (let i = 0; i < this.following.length; i += 1) {
         GravatarApi.getAvatar(this.following[i].email)
         .then((image) => {
@@ -129,7 +128,14 @@ export default {
       }
     },
     followUser() {
-      UsersApi.follow(this.$route.params.id);
+      let userId;
+      UsersApi.getTokenInfo()
+      .then((response) => {
+        userId = response.id;
+        if (userId !== this.$route.params.id) {
+          UsersApi.follow(this.$route.params.id);
+        }
+      });
     }
   }
 };

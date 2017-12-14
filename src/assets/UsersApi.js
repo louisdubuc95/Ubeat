@@ -37,7 +37,6 @@ export default class UsersApi {
   }
 
   static follow(userId) {
-    console.log(userId);
     return Vue.http.post('follow',
       { id: userId },
       { headers: { authorization: this.getToken() } })
