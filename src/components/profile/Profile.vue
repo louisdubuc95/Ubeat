@@ -1,6 +1,7 @@
 <template>
     <main id="profile">
         <section class="header">
+            <search-input :typeSearch="'users'"></search-input>
             <div class="container">
               <h4>{{ userName }}</h4>
               <h4>{{ email }}</h4>
@@ -39,10 +40,12 @@ import PlaylistApi from '@/assets/PlaylistApi';
 import GravatarApi from '@/assets/GravatarApi';
 import UsersApi from '@/assets/UsersApi';
 import Playlist from './Playlist';
+import SearchInput from '../searchInput/SearchInput';
 
 export default {
   name: 'Profile',
   components: {
+    SearchInput,
     Playlist
   },
   data() {

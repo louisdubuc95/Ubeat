@@ -31,10 +31,6 @@ export default class UsersApi {
       .then(response => response.json());
   }
 
-  static searchUsers(query) {
-    return Vue.http.get(`search/users?q=${query}`, { headers: { authorization: this.getToken() } })
-      .then(response => response.json());
-  }
 
   static follow(userId) {
     return Vue.http.post('follow',

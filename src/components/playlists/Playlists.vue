@@ -1,6 +1,7 @@
 <template>
     <main id="playlists">
         <section class="header">
+            <search-input :typeSearch="'tracks'"></search-input>
             <div class="container">
                 <h1>Browse playlists</h1>
             </div>
@@ -33,10 +34,12 @@
 <script>
 import PlaylistApi from '@/assets/PlaylistApi';
 import Playlist from './Playlist';
+import SearchInput from '../searchInput/SearchInput';
 
 export default {
   name: 'playlists',
   components: {
+    SearchInput,
     Playlist
   },
   data() {

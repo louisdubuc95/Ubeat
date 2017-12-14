@@ -1,6 +1,7 @@
 <template>
     <main id="album">
         <section class="header">
+            <search-input :typeSearch="'albums'"></search-input>
             <div class="pure-g container">
                 <div id="album-cover" class="pure-u-sm-1-6 pure-u-1">
                     <img class="pure-img" :src="album.artworkUrl100" />
@@ -46,11 +47,13 @@
 <script>
 import PlaylistApi from '@/assets/PlaylistApi';
 import AlbumApi from '@/assets/AlbumApi';
+import SearchInput from '../searchInput/SearchInput';
 import AlbumTrack from './AlbumTrack';
 
 export default {
   name: 'Album',
   components: {
+    SearchInput,
     AlbumTrack
   },
   data() {

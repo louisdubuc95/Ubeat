@@ -1,6 +1,7 @@
 <template>
     <main id="artist">
         <section class="header">
+            <search-input :typeSearch="'artists'"></search-input>
             <div class="container">
                 <h1>{{ artist.artistName }}</h1>
                 <div id="artist-specs">
@@ -28,10 +29,12 @@
 
 import ArtistApi from '@/assets/ArtistApi';
 import ArtistAlbum from './ArtistAlbum';
+import SearchInput from '../searchInput/SearchInput';
 
 export default {
   name: 'Artist',
   components: {
+    SearchInput,
     ArtistAlbum
   },
   data() {

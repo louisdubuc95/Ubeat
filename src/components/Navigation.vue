@@ -9,7 +9,7 @@
                 <router-link to="/playlists" @click.native="hideMenu" class="menu-link"><i class="fa fa-folder-open"></i> Browse playlists</router-link>
             </div>
             <div id="menu-right">
-                <input id="menu-search" v-model="searchAll" @keyup.enter="submitSearch" class="menu-link" type="search" placeholder="Looking for something ?" />
+                <input id="menu-search" v-model="globalSearch" @keyup.enter="submitSearch" class="menu-link" type="search" placeholder="Looking for something ?" />
                 <router-link :to="{path: '/profile/' + userId}" @click.native="hideMenu" class="menu-link"><i class="fa fa-user"></i> <span>My profile</span></router-link>
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-cog"></i> <span>Settings</span></router-link>
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign out</span></router-link>
@@ -85,7 +85,7 @@ export default {
       userId: '',
       token: undefined,
       newuserinfo: {},
-      searchAll: '',
+      globalSearch: '',
       errorEmailExistsNot: false,
       errorLogin: false,
     };
@@ -182,7 +182,7 @@ export default {
     },
     submitSearch() {
       // eslint-disable-next-line // cette ligne est SOOO USEFUL <3
-      this.$router.push({ name: 'Search', query: { all: this.searchAll } });
+      this.$router.push({ name: 'Search', query: { global: this.globalSearch } });
     },
   },
 };
