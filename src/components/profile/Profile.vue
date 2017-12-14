@@ -62,6 +62,15 @@ export default {
       this.userName = user.name;
       this.email = user.email;
       this.following = user.following;
+      GravatarApi.getAvatar(this.email)
+        .then((image) => {
+          if (image !== undefined) {
+            this.image = image;
+          }
+        })
+        .catch(() => {
+          this.image = '/static/images/randomGuy.png';
+        });
       for (let i = 0; i < this.following.length; i += 1) {
         GravatarApi.getAvatar(this.following[i].email)
         .then((image) => {
@@ -90,15 +99,6 @@ export default {
             this.playlists.push(start[i]);
           }
         }
-      });
-    GravatarApi.getAvatar(this.email)
-      .then((image) => {
-        if (image !== undefined) {
-          this.image = image;
-        }
-      })
-      .catch(() => {
-        this.image = '/static/images/randomGuy.png';
       });
   },
   methods: {
