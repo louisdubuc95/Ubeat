@@ -11,7 +11,7 @@
         <section class="content">
             <h3 v-if="following.length > 0"> Friend(s) </h3>
             <div v-for="user in following" id="friends-container">
-              <span><img :src="user.image" class="pure-g" /></span>
+              <span><img :src="user.image" /></span>
               <span>
                 <p> {{ user.name }} </p>
                 <p> {{ user.email }} </p>
@@ -67,6 +67,8 @@ export default {
         .then((image) => {
           if (image !== undefined) {
             this.following[i].image = image;
+          } else {
+            this.following[i].image = '/static/images/randomGuy.png';
           }
         })
         .catch(() => {
