@@ -211,4 +211,12 @@ export default {
 #profile .friends-links {
   color: black;
 }
+
+#profile #add-user:hover {
+  color: white;
+}
+
+#profile #add-user:active {
+  color: #0b0bbb;
+}
 </style>
