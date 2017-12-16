@@ -10,10 +10,10 @@
             </div>
             <div id="menu-right">
                 <input id="menu-search" v-model="globalSearch" @keyup.enter="submitSearch" class="menu-link" type="search" placeholder="Looking for something ?" />
-                <router-link :to="{path: '/profile/' + userId}" @click.native="hideMenu" class="menu-link"><i class="fa fa-user"></i> <span>My profile</span></router-link>
+                <router-link v-if="userconnect" to="{path: '/profile/' + userId}" @click.native="hideMenu" class="menu-link"><i class="fa fa-user"></i> <span>My profile</span></router-link>
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-cog"></i> <span>Settings</span></router-link>
-                <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign out</span></router-link>
-                <router-link to="/" id="show-modal"  @click.native="showmSignMenu" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign in</span></router-link>
+                <router-link v-if="userconnect == false"to="/" id="signin_button"  @click.native="showmSignMenu" class="menu-link"><i class="fa fa-sign-in"></i> <span>Sign in</span></router-link>
+                <router-link v-if="userconnect" to="/" id="signout_button"  @click.native="signout" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign out</span></router-link>
             </div>
         </nav>
         <div v-if="showmodal">
@@ -22,38 +22,38 @@
                     <div class="modal-wrapper">
                         <div id="login_signup" class="login-page">
                             <div class="form">
-                              <form v-if="signUp" class="login-form">
-                                <a href="#" class="close" @click="notshow"></a>
-                                <h1>Create account </h1>
-                                <p v-if="errorEmailExistsNot" class="modal-error"> An error occurs. Email doens't exists. </p>
-                                <input type="text" placeholder="username" v-model="newusername"/>
-                                <input type="password" placeholder="password" v-model="newpassword"/>
-                                <input type="text" placeholder="email address" v-model="newemail"/>
-                                <button @click="signup">create</button>
-                                <p class="message">Already registered? <a @click="signintemplate()">Sign In</a></p>
-                              </form>
-                              <form v-if="signIn"class="login-form">
-                                <a href="#" class="close"  @click="notshow"></a>
-                                <img class="pure-img pure-u-1-2" style="width: 40%"src="/static/images/profile.png">
-                                <p></p>
-                                <p v-if="errorLogin" class="modal-error"> Not possible to log - wrong login/password. </p>
-                                <input type="text" placeholder="email" v-model="useremail"/>
-                                <input type="password" placeholder="password" v-model="userpassword"/>
-                                <button @click="signin">Login</button>
-                                <p class="message">Not registered? <a  @click="creatusertemplate()">Create an account</a></p>
-                              </form>
-                              <form v-if="success" class="login-form">
-                                <div class="success-msg" style="color: #1db954">
-                                  <i class="fa fa-check"></i>
-                                  The account as been created!
-                                </div>
-                              </form>
-                              <form v-if="failure" class="login-form">
-                                <div class="error-msg" style="color: #d52929">
-                                  <i class="fa fa-times-circle"></i>
-                                  An error occured. the account and not been created
-                                </div>
-                              </form>
+                                <form v-if="modaltype == 'signup'" class="login-form">
+                                    <a href="#" class="close" @click="closemodal"></a>
+                                    <h1>Create account </h1>
+                                    <p v-if="error" class="modal-error"> An error occurs. Email already exists. </p>
+                                    <input type="text" placeholder="username" v-model="username"/>
+                                    <input type="password" placeholder="password" v-model="password"/>
+                                    <input type="text" placeholder="email address" v-model="email"/>
+                                    <button @click="signup">create</button>
+                                    <p class="message">Already registered? <a @click="switchform()">Sign In</a></p>
+                                </form>
+                                <form v-if="modaltype == 'signin'"class="login-form">
+                                    <a href="#" class="close"  @click="closemodal"></a>
+                                    <img class="pure-img pure-u-1-2" style="width: 40%"src="/static/images/profile.png">
+                                    <p></p>
+                                    <p v-if="error" class="modal-error"> Not possible to log - wrong login/password. </p>
+                                    <input type="text" placeholder="email" v-model="email"/>
+                                    <input type="password" placeholder="password" v-model="password"/>
+                                    <button @click="signin">Login</button>
+                                    <p class="message">Not registered? <a  @click="switchform()">Create an account</a></p>
+                                </form>
+                                <form v-if="succesmodal == true" class="login-form">
+                                  <div class="success-msg" style="color: #1db954">
+                                    <i class="fa fa-check"></i>
+                                    The account as been created!
+                                  </div>
+                                </form>
+                                <form v-if="erreurmodal == true" class="login-form">
+                                  <div class="error-msg" style="color: #d52929">
+                                    <i class="fa fa-times-circle"></i>
+                                    An error occured. the account had not been created
+                                  </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -73,21 +73,18 @@ export default {
       items: null,
       opened: false,
       showmodal: false,
-      signUp: false,
-      signIn: false,
-      success: false,
-      failure: false,
-      newusername: '',
-      newpassword: '',
-      newemail: '',
-      useremail: '',
-      userpassword: '',
+      username: '',
+      password: '',
+      email: '',
       userId: '',
       token: undefined,
       newuserinfo: {},
       globalSearch: '',
-      errorEmailExistsNot: false,
-      errorLogin: false,
+      error: false,
+      modaltype: 'signup',
+      succesmodal: false,
+      erreurmodal: false,
+      userconnect: false,
     };
   },
   created() {
@@ -117,73 +114,58 @@ export default {
     },
     showmSignMenu() {
       this.showmodal = true;
-      this.signIn = true;
-      this.signUp = false;
-      this.success = false;
-      this.failure = false;
+      this.modaltype = 'signin';
     },
     signup() {
-      SignupApi.postsignup(this.newusername, this.newemail, this.newpassword)
+      SignupApi.postsignup(this.username, this.email, this.password)
         .then((response) => {
           this.newuserinfo = response;
-          if (this.newuserinfo.name === this.newusername) {
-            this.signIn = false;
-            this.signUp = false;
-            this.failure = false;
-            this.success = true;
-            console.log('sucess');
-            setTimeout(this.close, 2000);
-          } else {
-            this.signUp = false;
-            this.failure = true;
-            console.log('FAIL');
-            setTimeout(this.closefail, 2000);
-            this.showmodal = true;
-          }
+          this.modaltype = '';
+          this.userconnect = true;
+          this.succesmodal = true;
+          setTimeout(this.succesmodal = false, 2000);
+          this.showmodal = false;
         })
         .catch(() => {
-          this.errorEmailExistsNot = true;
+          this.error = true;
         });
     },
     signin() {
       document.cookie = '';
-      SignupApi.postlogin(this.useremail, this.userpassword)
+      SignupApi.postlogin(this.email, this.password)
       .then((response) => {
         document.cookie = `token=${response.token}`;
         this.token = response.token;
         this.userId = response.id;
         console.log(response);
+        this.modaltype = '';
+        this.userconnect = true;
+        this.succesmodal = true;
+        setTimeout(this.succesmodal = false, 2000);
+        this.showmodal = false;
       })
       .catch(() => {
-        this.errorLogin = true;
+        this.error = true;
       });
-      setTimeout(this.close, 2000);
     },
-    notshow() {
-      this.showmodal = false;
-    },
-    signintemplate() {
-      this.signIn = true;
-      this.signUp = false;
-    },
-    creatusertemplate() {
-      this.signIn = false;
-      this.signUp = true;
+    switchform() {
+      this.modaltype = this.modaltype === 'signup' ? 'signin' : 'signup';
     },
     signout() {
-      SignupApi.getlogout(this.useremail, this.userpassword);
+      SignupApi.getlogout(this.email, this.password);
     },
-    closefail() {
-      this.failure = false;
-      this.signUp = true;
-    },
-    close() {
+    closemodal() {
       this.showmodal = false;
     },
     submitSearch() {
       // eslint-disable-next-line // cette ligne est SOOO USEFUL <3
       this.$router.push({ name: 'Search', query: { global: this.globalSearch } });
     },
+    close() {
+      if (this.succesmodal === true) {
+        console.log('test');
+      }
+    }
   },
 };
 </script>
