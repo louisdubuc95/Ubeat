@@ -107,14 +107,7 @@ export default {
           this.userconnect = false;
         });
     } catch (e) {
-      return;
-    }
-    this.token = UsersApi.getToken();
-    if (this.token) {
-      UsersApi.getTokenInfo(this.$cookie.get('token'))
-        .then((response) => {
-          this.userId = response.id;
-        });
+      console.log('erreur');
     }
   },
   methods: {
