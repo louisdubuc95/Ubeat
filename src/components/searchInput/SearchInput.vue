@@ -47,4 +47,7 @@ export default {
     font-weight: normal;
     color: #fff;
 }
+.search-container input {
+  color: black;
+}
 </style>
