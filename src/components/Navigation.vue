@@ -146,7 +146,7 @@ export default {
         this.showmodal = false;
       })
       .catch(() => {
-        this.error = true;
+        this.erreurmodal = true;
       });
     },
     switchform() {
@@ -161,6 +161,14 @@ export default {
     submitSearch() {
       // eslint-disable-next-line // cette ligne est SOOO USEFUL <3
       this.$router.push({ name: 'Search', query: { global: this.globalSearch } });
+    },
+    erreur() {
+      this.erreurmodal = false;
+      this.switchform();
+    },
+    succes() {
+      this.succesmodal = false;
+      this.showmodal = false;
     },
     close() {
       if (this.succesmodal === true) {
