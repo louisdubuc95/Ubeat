@@ -7,6 +7,7 @@
               <h4>{{ email }}</h4>
               <img :src="image" />
               <i class="fa fa-user-plus fa-2x" id="add-user" @click="followUser()"></i>
+              <i class="fa fa-user-times fa-2x" id="not-user" @click="stopFollowUser()"></i>
             </div>
         </section>
         <section class="content">
@@ -146,6 +147,22 @@ export default {
           UsersApi.follow(this.$route.params.id);
         }
       });
+    },
+    stopFollowUser() {
+      let userId;
+      UsersApi.getTokenInfo()
+      .then((response) => {
+        userId = response.id;
+        if (userId === this.$route.params.id) {
+          UsersApi.stopFollow(this.$route.params.id)
+          .then((e) => {
+            console.log(e);
+          })
+          .catch((e) => {
+            console.err(e);
+          });
+        }
+      });
     }
   }
 };
@@ -193,7 +210,7 @@ export default {
     color: #FFF;
 }
 
-#profile #add-user {
+#profile #add-user, #profile #not-user {
     margin-left: 20px;
 }
 
@@ -212,11 +229,11 @@ export default {
   color: black;
 }
 
-#profile #add-user:hover {
+#profile #add-user:hover, #profile #not-user:hover {
   color: white;
 }
 
-#profile #add-user:active {
+#profile #add-user:active, #profile #not-user:active {
   color: #0b0bbb;
 }
 </style>

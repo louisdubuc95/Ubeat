@@ -32,16 +32,17 @@
                                     <button @click="signup">create</button>
                                     <p class="message">Already registered? <a @click="switchform()">Sign In</a></p>
                                 </form>
-                                <form v-if="modaltype == 'signin'"class="login-form">
+                                <div v-if="modaltype == 'signin'"class="login-form">
                                     <a href="#" class="close"  @click="closemodal"></a>
                                     <img class="pure-img pure-u-1-2" style="width: 40%"src="/static/images/profile.png">
                                     <p></p>
                                     <p v-if="error" class="modal-error"> Not possible to log - wrong login/password. </p>
                                     <input type="text" placeholder="email" v-model="email"/>
                                     <input type="password" placeholder="password" v-model="password"/>
+                                    <input hidden />
                                     <button @click="signin">Login</button>
                                     <p class="message">Not registered? <a  @click="switchform()">Create an account</a></p>
-                                </form>
+                                </div>
                                 <form v-if="succesmodal == true" class="login-form">
                                   <div class="success-msg" style="color: #1db954">
                                     <i class="fa fa-check"></i>
@@ -137,6 +138,7 @@ export default {
     },
     signin() {
       document.cookie = '';
+      window.alert('ici');
       SignupApi.postlogin(this.email, this.password)
         .then((response) => {
           document.cookie = `token=${response.token}`;
@@ -147,9 +149,11 @@ export default {
           this.userconnect = true;
           this.succesmodal = true;
           this.successText = 'You are now connected!';
+          window.alert('ici THEN');
           setTimeout(() => { this.succesmodal = false; this.showmodal = false; }, 2000);
         })
         .catch(() => {
+          window.alert('ici CATCH');
           this.erreurmodal = true;
           this.modaltype = '';
           this.failText = ' An error occured. you were not able to connected.';
