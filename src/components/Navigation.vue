@@ -160,7 +160,10 @@ export default {
       this.modaltype = this.modaltype === 'signup' ? 'signin' : 'signup';
     },
     signout() {
-      SignupApi.getlogout(this.email, this.password);
+      this.userconnect = false;
+      document.cookie = '';
+      this.token = '';
+      this.userId = '';
     },
     closemodal() {
       this.showmodal = false;
