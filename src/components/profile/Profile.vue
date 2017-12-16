@@ -140,7 +140,7 @@ export default {
     },
     followUser() {
       let userId;
-      UsersApi.getTokenInfo()
+      UsersApi.getTokenInfo(this.$cookie.get('token'))
       .then((response) => {
         userId = response.id;
         if (userId !== this.$route.params.id) {
@@ -150,7 +150,7 @@ export default {
     },
     stopFollowUser() {
       let userId;
-      UsersApi.getTokenInfo()
+      UsersApi.getTokenInfo(this.$cookie.get('token'))
       .then((response) => {
         userId = response.id;
         if (userId === this.$route.params.id) {
