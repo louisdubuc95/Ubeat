@@ -124,10 +124,9 @@ export default {
         .then((response) => {
           this.newuserinfo = response;
           this.modaltype = '';
-          this.userconnect = true;
           this.succesmodal = true;
           this.successText = 'The account as been created!';
-          setTimeout(() => { this.succesmodal = false; this.showmodal = false; }, 2000);
+          setTimeout(() => { this.succesmodal = false; this.modaltype = 'signin'; }, 2000);
         })
         .catch(() => {
           this.erreurmodal = true;
