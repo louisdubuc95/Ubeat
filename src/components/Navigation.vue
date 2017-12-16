@@ -138,7 +138,6 @@ export default {
     },
     signin() {
       document.cookie = '';
-      window.alert('ici');
       SignupApi.postlogin(this.email, this.password)
         .then((response) => {
           document.cookie = `token=${response.token}`;
@@ -149,11 +148,9 @@ export default {
           this.userconnect = true;
           this.succesmodal = true;
           this.successText = 'You are now connected!';
-          window.alert('ici THEN');
           setTimeout(() => { this.succesmodal = false; this.showmodal = false; }, 2000);
         })
         .catch(() => {
-          window.alert('ici CATCH');
           this.erreurmodal = true;
           this.modaltype = '';
           this.failText = ' An error occured. you were not able to connected.';
