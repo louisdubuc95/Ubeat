@@ -115,6 +115,7 @@ export default {
     showmSignMenu() {
       this.showmodal = true;
       this.modaltype = 'signin';
+      this.error = false;
     },
     signup() {
       SignupApi.postsignup(this.username, this.email, this.password)
