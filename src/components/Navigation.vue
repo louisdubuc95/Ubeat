@@ -95,9 +95,9 @@ export default {
     this.token = UsersApi.getToken();
     if (this.token) {
       UsersApi.getTokenInfo()
-      .then((response) => {
-        this.userId = response.id;
-      });
+        .then((response) => {
+          this.userId = response.id;
+        });
     }
   },
   methods: {
@@ -137,10 +137,9 @@ export default {
         });
     },
     signin() {
-      document.cookie = '';
       SignupApi.postlogin(this.email, this.password)
         .then((response) => {
-          document.cookie = `token=${response.token}`;
+          this.$cookie.set('token', response.token);
           this.token = response.token;
           this.userId = response.id;
           console.log(response);
@@ -161,8 +160,8 @@ export default {
       this.modaltype = this.modaltype === 'signup' ? 'signin' : 'signup';
     },
     signout() {
+      this.$cookie.delete('token');
       this.userconnect = false;
-      document.cookie = '';
       this.token = '';
       this.userId = '';
     },

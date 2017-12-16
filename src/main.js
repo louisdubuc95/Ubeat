@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
+import VueCookie from 'vue-cookie';
 import App from './App';
 import router from './router';
 
+Vue.use(VueCookie);
 Vue.use(VueResource);
 
 Vue.config.productionTip = false;
