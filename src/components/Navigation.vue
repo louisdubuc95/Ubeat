@@ -10,7 +10,7 @@
             </div>
             <div id="menu-right">
                 <input id="menu-search" v-model="globalSearch" @keyup.enter="submitSearch" class="menu-link" type="search" placeholder="Looking for something ?" />
-                <router-link v-if="userconnect" to="{path: '/profile/' + userId}" @click.native="hideMenu" class="menu-link"><i class="fa fa-user"></i> <span>My profile</span></router-link>
+                <router-link v-if="userconnect" :to="{path: '/profile/' + userId}" @click.native="hideMenu" class="menu-link"><i class="fa fa-user"></i> <span>My profile</span></router-link>
                 <router-link to="/" @click.native="hideMenu" class="menu-link"><i class="fa fa-cog"></i> <span>Settings</span></router-link>
                 <router-link v-if="userconnect == false"to="/" id="signin_button"  @click.native="showmSignMenu" class="menu-link"><i class="fa fa-sign-in"></i> <span>Sign in</span></router-link>
                 <router-link v-if="userconnect" to="/" id="signout_button"  @click.native="signout" class="menu-link"><i class="fa fa-sign-out"></i> <span>Sign out</span></router-link>
