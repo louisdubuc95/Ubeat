@@ -11,12 +11,17 @@
         </section>
         <section class="content">
             <h3 v-if="following.length > 0"> Friend(s) </h3>
-            <div v-for="user in following" id="friends-container">
-              <span><img :src="user.image" /></span>
-              <span>
-                <p> {{ user.name }} </p>
-                <p> {{ user.email }} </p>
-              </span>
+            <div id="following-section">
+              <div v-for="user in following" class="friends-container">
+                <router-link v-bind:to="{path: '/profile/' + user._id}"
+                             class="friends-links">
+                  <span><img v-bind:src="user.image" class="friend-image"/></span>
+                  <span>
+                    <p> {{ user.name }} </p>
+                    <p> {{ user.email }} </p>
+                  </span>
+                </router-link>
+              </div>
             </div>
             <div id="playlists-container">
                 <h3 v-if="playlists.length > 0"> Playlists </h3>
@@ -159,7 +164,7 @@ export default {
     border-bottom: 1px solid rgba(255, 255, 255, .3);
 }
 
-#profile .header, #friends-container {
+#profile .header, .friends-container {
     color: rgba(255, 255, 255, .4);
 }
 
@@ -169,7 +174,7 @@ export default {
 }
 
 #profile .content {
-    padding: 30px 10px;
+    paddi3ng: 30px 10px;
     box-sizing: border-box;
     text-align: center;
 }
@@ -192,7 +197,18 @@ export default {
     margin-left: 20px;
 }
 
-#profile #friends-container {
+#profile .friends-container {
+  background-color: #dddddd;
+  border-radius: 3px;
+  color: black;
+  margin-bottom: 7px;
+  max-width: 500px;
+  padding: 3px;
   text-align: left;
+  width: 100%;
+}
+
+#profile .friends-links {
+  color: black;
 }
 </style>
