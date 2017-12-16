@@ -7,7 +7,7 @@
 
 \title{UBeat: Web development project}
 \author{Team 11}
-\date{12\up{th} November 2017}
+\date{December 17\up{th} 2017}
 
 \begin{document}
 
@@ -43,18 +43,33 @@
         Well, you just have to \texttt{ npm install } , and \texttt{ npm start } afterwards.
 
         \subsection{Content}
-
 		\noindent
+		Navigation bar:
+		\begin{itemize}
+		\item  Click on "Home" to go on Home page ;
+		\item  Click on "Browse playlists" to go on playlists' page - for creating and searching one ;
+		\item The input is for the global search ;
+		\item When signed in : "My profile" button go to the profile of signed id person ;
+		\item Sign in can be use to display sign up or sign in modal.
+		\end{itemize}		
+		\noindent \\
+		Sign in modal:
+		\begin{itemize}
+		\item By default it displays sign in modal ;
+		\item One can reach sign up by clicking "Create an account" ;
+		\item Sign in : write a valid email and password then click "login"  ;
+		\item Sign up : write a username, a valid email and a password then click "Create".
+		\end{itemize}
+		\noindent \\
 		On the home page:
 		\begin{itemize}
-		\item Click on "View our artist page" to reach an example artist page (id in the url).
+		\item Click on "View our artist page" to reach an example artist page (id in the url) ;
 		\item Click on "View our album page" to reach an example album page (id in the url).
 		\end{itemize}
-
 		\noindent \\
 		On the artist page:
 		\begin{itemize}
-        \item Click on the "Listen on apple music" button to reach the artist page on Apple Music.
+		\item Click on the "Listen on apple music" button to reach the artist page on Apple Music ;
         \item Click on any album to reach a new page and see the tracklist, listen to samples, ...
         \end{itemize}
 
@@ -77,6 +92,9 @@
         \noindent \\
         On the playlists page:
         \begin{itemize}
+     	\item Input on top right is for searhing ;
+        \item Input with placeholder "Choose a name" : one can write the name of the playlist to create ;
+   		\item When signed in, one can see playlists of users ;
         \item Choose a name and click on "Create a new playlist" to create one. Its name cannot be empty.
         \item Click on a playlist's name to display its tracks. Nothing happens if there aren't any.
             \begin{itemize}
@@ -90,5 +108,12 @@
             \end{itemize}
         \item Click on the "Trash" button to delete a playlist
         \end{itemize}
+
+	\section{Special features}
+	\noindent
+	When a biography and/or a picture of the group is on LastFM databases, they will be displayed on artist's page.
+	\\
+	\\
+	In profile and users' search, we can see gravatar. A default picture if one doesn't have a gravatar image or the real picture.
 
 \end{document}
