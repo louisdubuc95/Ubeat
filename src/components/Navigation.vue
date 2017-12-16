@@ -45,13 +45,13 @@
                                 <form v-if="succesmodal == true" class="login-form">
                                   <div class="success-msg" style="color: #1db954">
                                     <i class="fa fa-check"></i>
-                                    The account as been created!
+                                    {{ successText }}
                                   </div>
                                 </form>
                                 <form v-if="erreurmodal == true" class="login-form">
                                   <div class="error-msg" style="color: #d52929">
                                     <i class="fa fa-times-circle"></i>
-                                    An error occured. the account had not been created
+                                    {{ failText }}
                                   </div>
                                 </form>
                             </div>
@@ -85,6 +85,8 @@ export default {
       succesmodal: false,
       erreurmodal: false,
       userconnect: false,
+      successText: '',
+      failText: ''
     };
   },
   created() {
@@ -124,30 +126,36 @@ export default {
           this.modaltype = '';
           this.userconnect = true;
           this.succesmodal = true;
-          setTimeout(this.succesmodal = false, 2000);
-          this.showmodal = false;
+          this.successText = 'The account as been created!';
+          setTimeout(() => { this.succesmodal = false; this.showmodal = false; }, 2000);
         })
         .catch(() => {
-          this.error = true;
+          this.erreurmodal = true;
+          this.modaltype = '';
+          this.failText = ' An error occured. we were not able to create an account.';
+          setTimeout(() => { this.erreurmodal = false; this.modaltype = 'signup'; }, 2000);
         });
     },
     signin() {
       document.cookie = '';
       SignupApi.postlogin(this.email, this.password)
-      .then((response) => {
-        document.cookie = `token=${response.token}`;
-        this.token = response.token;
-        this.userId = response.id;
-        console.log(response);
-        this.modaltype = '';
-        this.userconnect = true;
-        this.succesmodal = true;
-        setTimeout(this.succesmodal = false, 2000);
-        this.showmodal = false;
-      })
-      .catch(() => {
-        this.erreurmodal = true;
-      });
+        .then((response) => {
+          document.cookie = `token=${response.token}`;
+          this.token = response.token;
+          this.userId = response.id;
+          console.log(response);
+          this.modaltype = '';
+          this.userconnect = true;
+          this.succesmodal = true;
+          this.successText = 'You are now connected!';
+          setTimeout(() => { this.succesmodal = false; this.showmodal = false; }, 2000);
+        })
+        .catch(() => {
+          this.erreurmodal = true;
+          this.modaltype = '';
+          this.failText = ' An error occured. you were not able to connected.';
+          setTimeout(() => { this.erreurmodal = false; this.modaltype = 'signin'; }, 2000);
+        });
     },
     switchform() {
       this.modaltype = this.modaltype === 'signup' ? 'signin' : 'signup';
