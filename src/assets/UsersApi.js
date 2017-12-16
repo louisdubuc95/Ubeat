@@ -26,8 +26,8 @@ export default class UsersApi {
       .then(response => response.json());
   }
 
-  static getTokenInfo() {
-    return Vue.http.get('tokenInfo', { headers: { authorization: this.getToken() } })
+  static getTokenInfo(token) {
+    return Vue.http.get('tokenInfo', { headers: { authorization: token } })
       .then(response => response.json());
   }
 

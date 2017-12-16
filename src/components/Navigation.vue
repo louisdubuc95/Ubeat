@@ -87,14 +87,31 @@ export default {
       erreurmodal: false,
       userconnect: false,
       successText: '',
-      failText: ''
+      failText: '',
+      tokenpresent: false
     };
   },
   created() {
     this.items = document.getElementsByClassName('menu-link');
+    try {
+      UsersApi.getTokenInfo(this.$cookie.get('token'))
+        .then((response) => {
+          this.userId = response.id;
+          this.token = response.token;
+          console.log(response);
+          this.userconnect = true;
+        })
+        .catch(() => {
+          this.userId = '';
+          this.token = '';
+          this.userconnect = false;
+        });
+    } catch (e) {
+      return;
+    }
     this.token = UsersApi.getToken();
     if (this.token) {
-      UsersApi.getTokenInfo()
+      UsersApi.getTokenInfo(this.$cookie.get('token'))
         .then((response) => {
           this.userId = response.id;
         });
@@ -140,6 +157,7 @@ export default {
       SignupApi.postlogin(this.email, this.password)
         .then((response) => {
           this.$cookie.set('token', response.token);
+          console.log(this.$cookie.get('token'));
           this.token = response.token;
           this.userId = response.id;
           console.log(response);
