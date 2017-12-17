@@ -26,45 +26,45 @@
                   <h3>Artist</h3>
                   <div class="pure-g">
                       <div class="artist-album pure-u-lg-1-5 pure-u-md-1-3 pure-u-sm-1-2 pure-u-1" v-for="artist in artists">
-                        <router-link :to="`/artist/${artist.artistId}`">
-                          {{ artist.artistName }}
-                          {{ artist.primaryGenreName }}
-                          <a :href="artist.artistLinkUrl" class="apple-music"></a>
-                        </router-link>
+                          <router-link :to="`/artist/${artist.artistId}`">
+                            <h4>{{ artist.artistName }}</h4>
+                            <h4>{{ artist.primaryGenreName }}</h4>
+                            <a :href="artist.artistLinkUrl" class="apple-music"></a>
+                          </router-link>
                       </div>
                   </div>
               </div>
           </div>
       </section>
-
-      <div class="artists" v-if="artists.length">
-        <div v-for="artist in artists">
-          <router-link :to="`/artist/${artist.artistId}`">
-            {{ artist.artistName }}
-            {{ artist.primaryGenreName }}
-            <a :href="artist.artistLinkUrl" class="apple-music"></a>
-          </router-link>
-        </div>
-      </div>
-      <div class="tracks" v-if="tracks.length">
-        <i class="fa fa-music fa-2x icon-result" >   TRACKS</i>
-        <album-track
-          v-for="track in tracks"
-          :key="track.trackId"
-          :track="track"
-          @songPlaying="onSongPlaying"
-          @songStopped="onSongStopped">
-        </album-track>
-      </div>
-      <div class="users" v-if="users.length">
-        <i class="fa fa-user fa-2x icon-result" >   USERS</i>
-        <div v-for="user in users" class="user">
-          {{ user.name }}
-          {{ user.email }}
-          <i class="fa fa-user-plus fa-2x" id="add-user" @click="followUser(user.id)"></i>
-          <i class="fa fa-user-times fa-2x" id="not-user" @click="stopFollowUser(user.id)"></i>
-        </div>
-      </div>
+      <section class="content">
+          <div class="container">
+              <div class="tracks" v-if="tracks.length">
+                  <h3>Tracks</h3>
+                  <album-track
+                    v-for="track in tracks"
+                    :key="track.trackId"
+                    :track="track"
+                    @songPlaying="onSongPlaying"
+                    @songStopped="onSongStopped">
+                  </album-track>
+              </div>
+          </div>
+      </section>
+      <section class="content">
+          <div class="container">
+              <div class="users" v-if="users.length">
+                  <h3>Users</h3>
+                  <div class="pure-g">
+                      <div v-for="user in users" class="user">
+                        {{ user.name }}
+                        {{ user.email }}
+                        <i class="fa fa-user-plus fa-2x" id="add-user" @click="followUser(user.id)"></i>
+                        <i class="fa fa-user-times fa-2x" id="not-user" @click="stopFollowUser(user.id)"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
     </main>
 </template>
 
@@ -92,7 +92,8 @@ export default {
         collection: 'albums',
         artist: 'artists',
         track: 'tracks',
-        user: 'users'
+        user: 'users',
+        image: '',
       }
     };
   },
