@@ -1,16 +1,43 @@
 <template>
     <main id="search">
-      <div class="albums" v-if="albums.length">
-        <i class="fa fa-book fa-2x icon-result" >   ALBUMS</i>
-        <div v-for="album in albums">
-          <router-link :to="`/album/${album.collectionId}`">
-            <img class="pure-img" :src="album.artworkUrl60" />
-            {{ album.collectionName }}
-          </router-link>
+      <section class="header">
+        <div class="container">
+          <h1> Search Results : {{ this.$route.query.global }}</h1>
         </div>
-      </div>
+      </section>
+      <section class="content">
+          <div class="container">
+              <div class="albums" v-if="albums.length">
+                  <h3>Albums</h3>
+                  <div class="pure-g">
+                      <div class="artist-album pure-u-lg-1-5 pure-u-md-1-3 pure-u-sm-1-2 pure-u-1" v-for="album in albums">
+                      <router-link :to="`/album/${album.collectionId}`">
+                          <img class="pure-img" :src="album.artworkUrl100" />
+                          <h4>{{ album.collectionName }}</h4>
+                      </router-link>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      <section class="content">
+          <div class="container">
+              <div class="artists" v-if="artists.length">
+                  <h3>Artist</h3>
+                  <div class="pure-g">
+                      <div class="artist-album pure-u-lg-1-5 pure-u-md-1-3 pure-u-sm-1-2 pure-u-1" v-for="artist in artists">
+                        <router-link :to="`/artist/${artist.artistId}`">
+                          {{ artist.artistName }}
+                          {{ artist.primaryGenreName }}
+                          <a :href="artist.artistLinkUrl" class="apple-music"></a>
+                        </router-link>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
       <div class="artists" v-if="artists.length">
-        <i class="fa fa-paint-brush fa-2x icon-result" >   ARTISTS</i>
         <div v-for="artist in artists">
           <router-link :to="`/artist/${artist.artistId}`">
             {{ artist.artistName }}
@@ -158,6 +185,42 @@ export default {
   padding: 5px;
   text-align: right;
 }
+#search .header h1 {
+  color: #FFF;
+  padding: 0 0 15px 0;
+  font-size: 4rem;
+  font-weight: normal;
+  border-bottom: 1px solid rgba(255, 255, 255, .3);
+}
+#search .content h3 {
+  margin-top: 0;
+  color: #fff;
+}
+
+#search .content .artist-album {
+  padding: 30px 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#search .content .artist-album a {
+  text-decoration: none;
+}
+
+#search .content .artist-album img {
+  margin: auto;
+}
+
+#search .content .artist-album h4 {
+  font-size: 14px;
+  font-weight: normal;
+  color: #FFF;
+}
+
+#search #artist-bio {
+  color: #000;
+  white-space: pre-wrap;
+}
 #search #add-user, #search #not-user {
     margin-left: 20px;
     color: #000;
@@ -177,7 +240,7 @@ export default {
 }
 
  #search .icon-result {
-   color: #b00b0b;
+   color: #ffffff;
    margin: 10px 0px 10px 5px;
  }
 </style>
