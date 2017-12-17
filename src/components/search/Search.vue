@@ -27,7 +27,7 @@
                   <div class="pure-g">
                       <div class="artist-album pure-u-lg-1-5 pure-u-md-1-3 pure-u-sm-1-2 pure-u-1" v-for="artist in artists">
                           <router-link :to="`/artist/${artist.artistId}`">
-                            <img class="pure-img" :src="image" />
+                            <img class="pure-img" v-bind:src="artist.image" />
                             <h4>{{ artist.artistName }}</h4>
                             <h4>{{ artist.primaryGenreName }}</h4>
                             <a :href="artist.artistLinkUrl" class="apple-music"></a>
@@ -73,7 +73,6 @@
 
 import UsersApi from '@/assets/UsersApi';
 import SearchApi from '@/assets/SearchApi';
-import ArtistApi from '@/assets/ArtistApi';
 import AlbumTrack from '../album/AlbumTrack';
 
 export default {
@@ -87,7 +86,6 @@ export default {
       artists: [],
       tracks: [],
       users: [],
-      image: '',
       // correspondance entre le wrapperType de l'API et des tableaux de this.data
             // apparament la recherche globale ne permet pas de trouver des utilisateurs..
             //    je met quand met la correspondance user: users
@@ -96,6 +94,7 @@ export default {
         artist: 'artists',
         track: 'tracks',
         user: 'users',
+        image: '',
       }
     };
   },
@@ -118,18 +117,6 @@ export default {
         this.handleRep(SearchApi.users(this.$route.query.users), 'users');
       }
     }
-    ArtistApi.get(this.artist.id)
-      .then((artist) => {
-        this.artist = artist;
-        this.image = '';
-        this.$http.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${this.artist.artistName}&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
-          .then((response) => {
-            if (response.body.artist.name !== 'Undefined') {
-              this.biography = response.body.artist.bio.content;
-            }
-            this.image = response.body.artist.image[5]['#text'];
-          });
-      });
   },
   mounted() {
   },
@@ -149,6 +136,13 @@ export default {
             typeResult = this.typesResult[results[i].wrapperType];
           }
           this[typeResult].push(results[i]);
+        }
+        for (let i = 0; i < this.artists.length; i += 1) {
+          this.$http.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${this.artists[i].artistName}&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
+          .then((response) => {
+            this.artists[i].image = response.body.artist.image[5]['#text'];
+          });
+          console.log(this.artists[i]);
         }
       });
     },
