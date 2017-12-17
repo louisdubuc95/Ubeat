@@ -27,7 +27,7 @@
                   <div class="pure-g">
                       <div class="artist-album pure-u-lg-1-5 pure-u-md-1-3 pure-u-sm-1-2 pure-u-1" v-for="artist in artists">
                           <router-link :to="`/artist/${artist.artistId}`">
-                            <img class="pure-img" v-bind:src="artist.image" />
+                            <img class="pure-img" :src="artist.image" />
                             <h4>{{ artist.artistName }}</h4>
                             <h4>{{ artist.primaryGenreName }}</h4>
                             <a :href="artist.artistLinkUrl" class="apple-music"></a>
