@@ -1,7 +1,7 @@
 <template>
     <main id="search">
       <div class="albums" v-if="albums.length">
-        ALBUMS
+        <i class="fa fa-book fa-2x icon-result" >   ALBUMS</i>
         <div v-for="album in albums">
           <router-link :to="`/album/${album.collectionId}`">
             <img class="pure-img" :src="album.artworkUrl60" />
@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="artists" v-if="artists.length">
-        ARTISTS
+        <i class="fa fa-paint-brush fa-2x icon-result" >   ARTISTS</i>
         <div v-for="artist in artists">
           <router-link :to="`/artist/${artist.artistId}`">
             {{ artist.artistName }}
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="tracks" v-if="tracks.length">
-        TRACKS
+        <i class="fa fa-music fa-2x icon-result" >   TRACKS</i>
         <album-track
           v-for="track in tracks"
           :key="track.trackId"
@@ -30,7 +30,7 @@
         </album-track>
       </div>
       <div class="users" v-if="users.length">
-        USERS
+        <i class="fa fa-user fa-2x icon-result" >   USERS</i>
         <div v-for="user in users" class="user">
           {{ user.name }}
           {{ user.email }}
@@ -150,6 +150,9 @@ export default {
 </script>
 
 <style>
+#search {
+  margin-top: 50px;
+}
 #search .users {
   max-width: 600px;
   padding: 5px;
@@ -172,4 +175,9 @@ export default {
   border-radius: 4px;
   margin-top: 20px;
 }
+
+ #search .icon-result {
+   color: #b00b0b;
+   margin: 10px 0px 10px 5px;
+ }
 </style>
