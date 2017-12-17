@@ -92,7 +92,6 @@ export default {
   },
   created() {
     this.items = document.getElementsByClassName('menu-link');
-    debugger;
     if (this.$cookie.get('token')) {
       UsersApi.getTokenInfo(this.$cookie.get('token'))
         .then((response) => {
@@ -171,7 +170,6 @@ export default {
       this.showmodal = false;
     },
     submitSearch() {
-      // eslint-disable-next-line // cette ligne est SOOO USEFUL <3
       this.$router.push({ name: 'Search', query: { global: this.globalSearch } });
     },
     erreur() {
@@ -183,9 +181,6 @@ export default {
       this.showmodal = false;
     },
     close() {
-      if (this.succesmodal === true) {
-        console.log('test');
-      }
     }
   },
 };
