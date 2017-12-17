@@ -4,14 +4,14 @@ import UsersApi from './UsersApi';
 export default class PlaylistsApi {
   static get() {
     return Vue.http.get('playlists', { headers: { authorization: UsersApi.getToken() } })
-      .then(response => response.json());
+      .then(response => response.json(), UsersApi.unauthorized);
   }
 
   static create(newName) {
     return Vue.http.post('playlists',
     { name: newName },
     { headers: { authorization: UsersApi.getToken() } })
-      .then(response => response.json());
+      .then(response => response.json(), UsersApi.unauthorized);
   }
 
   static rename(id, newName) {

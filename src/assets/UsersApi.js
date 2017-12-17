@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import router from '@/router';
 
 export default class UsersApi {
 
@@ -16,19 +17,28 @@ export default class UsersApi {
     return '';
   }
 
+  // redirection vers la page d'accueil, l'utilisateur n'a pas les droits d'accès
+  static unauthorized(reject) {
+    if (reject.status === 401) {
+      console.log(Vue);
+      Vue.cookie.delete('token');
+      router.push({ name: 'Home' });
+    }
+  }
+
   static getUsers() {
     return Vue.http.get('users', { headers: { authorization: this.getToken() } })
-      .then(response => response.json());
+      .then(response => response.json(), this.unauthorized);
   }
 
   static getUser(id) {
     return Vue.http.get(`users/${id}`, { headers: { authorization: this.getToken() } })
-      .then(response => response.json());
+      .then(response => response.json(), this.unauthorized);
   }
 
   static getTokenInfo(token) {
     return Vue.http.get('tokenInfo', { headers: { authorization: token } })
-      .then(response => response.json());
+      .then(response => response.json(), this.unauthorized);
   }
 
 
@@ -36,11 +46,11 @@ export default class UsersApi {
     return Vue.http.post('follow',
       { id: userId },
       { headers: { authorization: this.getToken() } })
-      .then(response => response.json());
+      .then(response => response.json(), this.unauthorized);
   }
 
   static stopFollow(id) {
     return Vue.http.delete(`follow/${id}`, { headers: { authorization: this.getToken() } })
-      .then(response => response.json());
+      .then(response => response.json(), this.unauthorized);
   }
 }
