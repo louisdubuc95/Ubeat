@@ -121,7 +121,7 @@ export default {
         this.audio = null;
       }
     },
-    followUserprofile(userId) {
+    followUser(userId) {
       UsersApi.getTokenInfo(this.$cookie.get('token'))
       .then((response) => {
         if (response.id !== userId) {

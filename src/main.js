@@ -8,7 +8,7 @@ Vue.use(VueCookie);
 Vue.use(VueResource);
 
 Vue.config.productionTip = false;
-Vue.http.options.root = 'http://ubeat.herokuapp.com/';
+Vue.http.options.root = 'https://ubeat.herokuapp.com/';
 
 /* eslint-disable no-new */
 new Vue({
