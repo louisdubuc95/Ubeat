@@ -92,7 +92,6 @@ export default {
   },
   created() {
     this.items = document.getElementsByClassName('menu-link');
-    debugger;
     if (this.$cookie.get('token')) {
       UsersApi.getTokenInfo(this.$cookie.get('token'))
         .then((response) => {
