@@ -31,7 +31,7 @@
       </div>
       <div class="users" v-if="users.length">
         USERS
-        <div v-for="user in users">
+        <div v-for="user in users" class="user">
           {{ user.name }}
           {{ user.email }}
           <i class="fa fa-user-plus fa-2x" id="add-user" @click="followUser(user.id)"></i>
@@ -121,7 +121,7 @@ export default {
         this.audio = null;
       }
     },
-    followUser(userId) {
+    followUserprofile(userId) {
       UsersApi.getTokenInfo(this.$cookie.get('token'))
       .then((response) => {
         if (response.id !== userId) {
@@ -150,4 +150,26 @@ export default {
 </script>
 
 <style>
+#search .users {
+  max-width: 600px;
+  padding: 5px;
+  text-align: right;
+}
+#search #add-user, #search #not-user {
+    margin-left: 20px;
+    color: #000;
+}
+#search #add-user:hover, #search #not-user:hover {
+  color: white;
+}
+
+#search #add-user:active, #search #not-user:active {
+  color: #0b0bbb;
+}
+
+#search .user {
+  background-color: #d0d0d0;
+  border-radius: 4px;
+  margin-top: 20px;
+}
 </style>
