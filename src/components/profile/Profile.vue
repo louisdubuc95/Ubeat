@@ -92,6 +92,16 @@ export default {
         .catch(() => {
           this.following[i].image = '/static/images/randomGuy.png';
         });
+        UsersApi.getUsers()
+        .then((users) => {
+          for (let n = 0; n < users.length; n += 1) {
+            if (users[n].name === this.following[i].name) {
+              /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+              this.following[i]._id = users[n].id;
+              break;
+            }
+          }
+        });
       }
     });
   },
