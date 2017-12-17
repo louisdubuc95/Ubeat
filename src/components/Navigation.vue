@@ -98,7 +98,6 @@ export default {
         .then((response) => {
           this.userId = response.id;
           this.token = response.token;
-          console.log(response);
           this.userconnect = true;
         })
         .catch(() => {
@@ -107,7 +106,7 @@ export default {
           this.userconnect = false;
         });
     } catch (e) {
-      console.log('erreur');
+      console.err('erreur');
     }
   },
   methods: {
@@ -150,10 +149,8 @@ export default {
       SignupApi.postlogin(this.email, this.password)
         .then((response) => {
           this.$cookie.set('token', response.token);
-          console.log(this.$cookie.get('token'));
           this.token = response.token;
           this.userId = response.id;
-          console.log(response);
           this.modaltype = '';
           this.userconnect = true;
           this.succesmodal = true;
