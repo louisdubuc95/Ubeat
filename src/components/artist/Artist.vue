@@ -49,22 +49,24 @@ export default {
     ArtistApi.get(this.$route.params.id)
       .then((artist) => {
         this.artist = artist;
+        this.image = '';
+        console.log(this.artist);
+        this.$http.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${this.artist.artistName}&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
+        // this.$http.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=metallica&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
+        .then((response) => {
+          console.log(response);
+          if (response.body.artist.name !== 'Undefined') {
+            this.biography = response.body.artist.bio.content;
+          }
+          this.image = response.body.artist.image[5]['#text'];
+        });
       });
     ArtistApi.getAlbums(this.$route.params.id)
       .then((albums) => {
         this.albums = albums;
       });
   },
-  mounted() {
-    this.$http.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${this.artist.artistName}&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
-    // this.$http.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=metallica&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
-    .then((response) => {
-      if (response.body.artist.name !== 'Undefined') {
-        this.biography = response.body.artist.bio.content;
-      }
-      this.image = response.body.artist.image[5]['#text'];
-    });
-  }
+  mounted() { }
 };
 </script>
 
