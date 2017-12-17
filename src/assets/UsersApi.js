@@ -20,7 +20,6 @@ export default class UsersApi {
   // redirection vers la page d'accueil, l'utilisateur n'a pas les droits d'accès
   static unauthorized(reject) {
     if (reject.status === 401) {
-      console.log(Vue);
       Vue.cookie.delete('token');
       router.push({ name: 'Home' });
     }
