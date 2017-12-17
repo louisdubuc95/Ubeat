@@ -10,7 +10,7 @@
         <div v-if="playlistData" class="pure-u-md-4-24 pure-u-sm-6-24 pure-u-5-24 hidden-xs"><router-link :to="`/artist/${track.artistId}`">{{ track.artistName }}</router-link></div>
         <div v-if="playlistData" class="pure-u-md-5-24 pure-u-5-24 hidden-sm"><router-link :to="`/album/${track.collectionId}`">{{ track.collectionName }}</router-link></div>
         <div class="pure-u-md-2-24 pure-u-sm-2-24 pure-u-4-24">{{ track.trackTimeMinutes }}</div>
-        <div v-if="playlistData" class="text-right pure-u-md-1-24 pure-u-2-24"><a class="pure-button pure-button-delete" @click="removeFromPlaylist()"><i class="fa fa-trash-o"></i></a></div>
+        <div v-if="playlistData" class="text-right pure-u-md-1-24 pure-u-2-24"><a v-show="editable" class="pure-button pure-button-delete" @click="removeFromPlaylist()"><i class="fa fa-trash-o"></i></a></div>
 
         <audio :src="track.previewUrl" @pause="resetAudio()" @ended="stopAudio()"></audio>
 
@@ -34,6 +34,11 @@ export default {
     },
     playlistData: {
       default: null,
+      required: false
+    },
+    editable: {
+      type: Boolean,
+      default: true,
       required: false
     }
   },

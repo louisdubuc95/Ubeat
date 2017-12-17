@@ -1,7 +1,6 @@
 <template>
     <main id="playlists">
         <section class="header">
-            <search-input :typeSearch="'tracks'"></search-input>
             <div class="container">
                 <h1>Browse playlists</h1>
             </div>
@@ -21,6 +20,7 @@
                         v-for="playlist in playlists"
                         :key="playlist.id"
                         :playlist="playlist"
+                        :editable="ownedPlaylist(playlist.owner)"
                         @playlistDeleted="onPlaylistDeleted"
                         @trackAdded="onTrackAdded"
                         @songPlaying="onSongPlaying"
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import UsersApi from '@/assets/UsersApi';
 import PlaylistApi from '@/assets/PlaylistApi';
 import Playlist from './Playlist';
 import SearchInput from '../searchInput/SearchInput';
@@ -50,9 +51,14 @@ export default {
     };
   },
   created() {
-    PlaylistApi.get()
-      .then((playlists) => {
-        this.playlists = playlists;
+    UsersApi.getTokenInfo(this.$cookie.get('token'))
+      .then((user) => {
+        this.authenticatedUser = user.id;
+
+        PlaylistApi.get()
+          .then((playlists) => {
+            this.playlists = playlists;
+          });
       });
   },
   methods: {
@@ -64,6 +70,12 @@ export default {
             this.playlistName = '';
           });
       }
+    },
+    ownedPlaylist(owner) {
+      if (owner && owner.id && owner.id === this.authenticatedUser) {
+        return true;
+      }
+      return false;
     },
     onPlaylistDeleted(id) {
       for (let i = 0; i < this.playlists.length; i += 1) {

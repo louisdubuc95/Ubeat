@@ -1,13 +1,13 @@
 <template>
     <div :id="id" class="playlist">
         <div class="playlist-header pure-g">
-            <div class="pure-u-md-1-24 pure-u-sm-2-24 pure-u-3-24"><a class="pure-button pure-button-edit" @click="renamePlaylist()"><i class="fa fa-pencil"></i></a></div>
+            <div class="pure-u-md-1-24 pure-u-sm-2-24 pure-u-3-24"><a v-show="editable" class="pure-button pure-button-edit" @click="renamePlaylist()"><i class="fa fa-pencil"></i></a></div>
             <div class="pure-u-md-19-24 pure-u-sm-16-24 pure-u-11-24">
                 <h4 v-show="!renamingPlaylist" @click="toggleTracks()">{{ playlist.name }}</h4>
                 <input v-show="renamingPlaylist" v-model="newName" type="text" class="pure-input" @keyup.enter="submitPlaylistName()" @keyup.esc="renamePlaylist()" />
             </div>
             <div class="pure-u-md-3-24 pure-u-sm-4-24 pure-u-8-24">{{ playlist.tracks.length }} song{{ (playlist.tracks.length !== 1) ? 's' : '' }}</div>
-            <div class="text-right pure-u-md-1-24 pure-u-2-24"><a class="pure-button pure-button-delete" @click="deletePlaylist()"><i class="fa fa-trash-o"></i></a></div>
+            <div class="text-right pure-u-md-1-24 pure-u-2-24"><a v-show="editable" class="pure-button pure-button-delete" @click="deletePlaylist()"><i class="fa fa-trash-o"></i></a></div>
         </div>
 
         <div v-show="displayTracks" class="playlist-tracks">
@@ -23,6 +23,7 @@
                 v-for="(track, index) in playlist.tracks"
                 :key="track.trackId"
                 :track="track"
+                :editable="editable"
                 :playlistData="{ id: playlist.id, index: index }"
                 @trackAdded="onTrackAdded"
                 @trackRemoved="onTrackRemoved"
@@ -38,7 +39,17 @@ import AlbumTrack from '../album/AlbumTrack';
 
 export default {
   name: 'playlist',
-  props: ['playlist'],
+  props: {
+    playlist: {
+      type: Object,
+      required: true
+    },
+    editable: {
+      type: Boolean,
+      default: true,
+      required: false
+    }
+  },
   components: {
     AlbumTrack
   },

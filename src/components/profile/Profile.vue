@@ -1,40 +1,54 @@
 <template>
     <main id="profile">
         <section class="header">
-            <search-input :typeSearch="'users'"></search-input>
             <div class="container">
-              <h4>{{ userName }}</h4>
-              <h4>{{ email }}</h4>
-              <img :src="image" />
-              <i class="fa fa-user-plus fa-2x" id="add-user" @click="followUser()"></i>
-              <i class="fa fa-user-times fa-2x" id="not-user" @click="stopFollowUser()"></i>
+                <h1>User profile</h1>
+
+                <div class="pure-g">
+                    <div class="pure-u-10-24 pure-u-sm-6-24 pure-u-md-4-24 pure-u-lg-2-24">
+                        <img class="pure-img" :src="user.image" />
+                    </div>
+                    <div class="pure-u-14-24 pure-u-md-18-24 pure-u-md-20-24 pure-u-lg-22-24">
+                        <p>{{ user.name }}</p>
+                        <p>{{ user.email }}</p>
+                        <p v-if="authenticatedUser != user.id">
+                            <a class="pure-button pure-button-primary" @click="follow()">Follow user</a>
+                            <a class="pure-button pure-button-primary" @click="unfollow()">Unfollow user</a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
+
         <section class="content">
-            <h3 v-if="following.length > 0"> Friend(s) </h3>
-            <div id="following-section">
-              <div v-for="user in following" class="friends-container">
-                <router-link v-bind:to="{path: '/profile/' + user._id}"
-                             class="friends-links">
-                  <span><img v-bind:src="user.image" class="friend-image"/></span>
-                  <span>
-                    <p> {{ user.name }} </p>
-                    <p> {{ user.email }} </p>
-                  </span>
-                </router-link>
-              </div>
-            </div>
-            <div id="playlists-container">
-                <h3 v-if="playlists.length > 0"> Playlists </h3>
-                <div class="container">
+            <div class="container">
+                <h3>Playlists</h3>
+                <div id="playlists-container">
                     <playlist
                         v-for="playlist in playlists"
+                        v-if="ownedPlaylist(playlist.owner)"
                         :key="playlist.id"
+                        :editable="authenticatedUser === user.id"
                         :playlist="playlist"
                         @playlistDeleted="onPlaylistDeleted"
                         @trackAdded="onTrackAdded"
                         @songPlaying="onSongPlaying"
                         @songStopped="onSongStopped"></playlist>
+                </div>
+
+                <h3>Followed users</h3>
+                <div id="friends-container" class="pure-g">
+                    <div v-for="followed in user.following" class="pure-u-1 pure-u-sm-12-24 pure-u-lg-6-24 friend-container">
+                        <div class="pure-g friend">
+                            <div class="pure-u-8-24">
+                                <img :src="followed.image" class="pure-img"/>
+                            </div>
+                            <div class="pure-u-16-24">
+                              <p><router-link :to="{ path: '/profile/' + followed._id }" class="friends-links">{{ followed.name }}</router-link></p>
+                              <p>{{ followed.email }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -45,7 +59,7 @@
 import PlaylistApi from '@/assets/PlaylistApi';
 import GravatarApi from '@/assets/GravatarApi';
 import UsersApi from '@/assets/UsersApi';
-import Playlist from './Playlist';
+import Playlist from '../playlists/Playlist';
 import SearchInput from '../searchInput/SearchInput';
 
 export default {
@@ -57,60 +71,59 @@ export default {
   data() {
     return {
       audio: null,
-      email: '',
-      following: [],
-      image: '',
+      user: {},
       playlists: [],
       playlistName: '',
-      userName: '',
     };
   },
   created() {
+    UsersApi.getTokenInfo(this.$cookie.get('token'))
+      .then((user) => {
+        this.authenticatedUser = user.id;
+
+        PlaylistApi.get().then((playlists) => {
+          this.playlists = playlists;
+        });
+      });
+
     UsersApi.getUser(this.$route.params.id)
     .then((user) => {
-      this.userName = user.name;
-      this.email = user.email;
-      this.following = user.following;
-      GravatarApi.getAvatar(this.email)
+      this.user = user;
+
+      GravatarApi.getAvatar(this.user.email)
         .then((image) => {
           if (image !== undefined) {
-            this.image = image;
-          }
-        })
-        .catch(() => {
-          this.image = '/static/images/randomGuy.png';
-        });
-      for (let i = 0; i < this.following.length; i += 1) {
-        GravatarApi.getAvatar(this.following[i].email)
-        .then((image) => {
-          if (image !== undefined) {
-            this.following[i].image = image;
+            this.user.image = image;
           } else {
-            this.following[i].image = '/static/images/randomGuy.png';
+            this.user.image = '/static/images/randomGuy.png';
           }
         })
         .catch(() => {
-          this.following[i].image = '/static/images/randomGuy.png';
+          this.user.image = '/static/images/randomGuy.png';
+        });
+
+      for (let i = 0; i < this.user.following.length; i += 1) {
+        GravatarApi.getAvatar(this.user.following[i].email)
+        .then((image) => {
+          if (image !== undefined) {
+            this.user.following[i].image = image;
+          } else {
+            this.user.following[i].image = '/static/images/randomGuy.png';
+          }
+        })
+        .catch(() => {
+          this.user.following[i].image = '/static/images/randomGuy.png';
         });
       }
     });
   },
-  mounted() {
-    PlaylistApi.get()
-      .then((playlists) => {
-        const start = playlists;
-
-        for (let i = 0; i < start.length; i += 1) {
-          if (start[i].owner !== undefined &&
-              start[i].owner.name !== undefined &&
-              start[i].owner.name !== '' &&
-              start[i].owner.name === this.userName) {
-            this.playlists.push(start[i]);
-          }
-        }
-      });
-  },
   methods: {
+    ownedPlaylist(owner) {
+      if (owner && owner.name && owner.name === this.user.name) {
+        return true;
+      }
+      return false;
+    },
     onPlaylistDeleted(id) {
       for (let i = 0; i < this.playlists.length; i += 1) {
         if (this.playlists[i].id === id) {
@@ -138,102 +151,62 @@ export default {
         this.audio = null;
       }
     },
-    followUser() {
-      let userId;
-      UsersApi.getTokenInfo(this.$cookie.get('token'))
-      .then((response) => {
-        userId = response.id;
-        if (userId !== this.$route.params.id) {
-          UsersApi.follow(this.$route.params.id);
-        }
-      });
+    follow() {
+      UsersApi.follow(this.user.id);
     },
-    stopFollowUser() {
-      let userId;
-      UsersApi.getTokenInfo(this.$cookie.get('token'))
-      .then((response) => {
-        userId = response.id;
-        if (userId === this.$route.params.id) {
-          UsersApi.stopFollow(this.$route.params.id)
-          .then((e) => {
-            console.log(e);
-          })
-          .catch((e) => {
-            console.err(e);
-          });
-        }
-      });
+    unfollow() {
+      UsersApi.stopFollow(this.user.id);
     }
   }
 };
 </script>
 
 <style>
-#profile #playlists #playlists-container {
-    padding-top: 20px;
+#profile {
+    color: #fff;
 }
 
-#profile  .header h1 {
-    color: #FFF;
-    padding: 0 0 15px 0;
-    font-size: 4rem;
-    font-weight: normal;
-    border-bottom: 1px solid rgba(255, 255, 255, .3);
-}
-
-#profile .header, .friends-container {
-    color: rgba(255, 255, 255, .4);
+#profile .header h1 {
+    margin-bottom: 25px;
 }
 
 #profile .content h3 {
     margin-top: 0;
-    color: #fff;
 }
 
-#profile .content {
-    paddi3ng: 30px 10px;
+#profile #playlists-container {
+    margin-bottom: 25px;
+}
+
+#profile #friends-container {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+#profile .friend-container {
+    padding: 10px;
     box-sizing: border-box;
-    text-align: center;
 }
 
-#profile .content a {
-    text-decoration: none;/* eslint-disable */
+#profile .friend {
+    padding: 10px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, .5);
 }
 
-#profile .content img {
-    margin: auto;
+#profile .friend img {
+    display: block;
 }
 
-#profile .content h4 {
-    font-size: 14px;
-    font-weight: normal;
-    color: #FFF;
+#profile .friend p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 10px;
 }
 
-#profile #add-user, #profile #not-user {
-    margin-left: 20px;
-}
-
-#profile .friends-container {
-  background-color: #dddddd;
-  border-radius: 3px;
-  color: black;
-  margin-bottom: 7px;
-  max-width: 500px;
-  padding: 3px;
-  text-align: left;
-  width: 100%;
-}
-
-#profile .friends-links {
-  color: black;
-}
-
-#profile #add-user:hover, #profile #not-user:hover {
-  color: white;
-}
-
-#profile #add-user:active, #profile #not-user:active {
-  color: #0b0bbb;
+#profile .friend p,
+#profile .friend a {
+    color: #fff;
 }
 </style>
