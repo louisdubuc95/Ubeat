@@ -174,7 +174,13 @@ export default {
       this.authentication.show = false;
     },
     submitSearch() {
-      this.$router.push({ name: 'Search', query: { global: this.globalSearch } });
+      this.$router.push({
+        name: 'Search',
+        query: {
+          mode: 'global',
+          q: this.globalSearch
+        }
+      });
     }
   },
 };
