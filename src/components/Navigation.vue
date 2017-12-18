@@ -34,7 +34,7 @@
 
                                 <form v-else-if="authentication.type == 'signin'" class="login-form" @submit.prevent="signin">
                                     <a href="#" class="close" @click="closemodal"></a>
-                                    <img class="pure-img pure-u-1-2" style="width: 40%" src="/static/images/profile.png">
+                                    <img class="pure-img pure-u-1-2" style="width: 40%;  margin-bottom: 15px;" src="/static/images/profile.png">
                                     <input type="email" placeholder="e-Mail" v-model="authentication.email" />
                                     <input type="password" placeholder="Password" v-model="authentication.password" />
                                     <input type="submit" value="Login" />
