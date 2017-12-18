@@ -12,9 +12,9 @@
                         <p>{{ user.name }}</p>
                         <p>{{ user.email }}</p>
                         <p v-if="authenticatedUser != user.id">
-                            <a class="pure-button pure-button-primary" @click="follow()">Follow user</a>
-                            <a class="pure-button pure-button-primary" @click="unfollow()">Unfollow user</a>
+                            <a id="follow" class="pure-button pure-button-primary" @click="follow()">Follow user</a>
                         </p>
+                        <search-input :typeSearch="'users'"></search-input>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="pure-u-16-24">
                               <p><router-link :to="{ path: '/profile/' + followed._id }" class="friends-links">{{ followed.name }}</router-link></p>
-                              <p>{{ followed.email }}</p>
+                              <p><a class="unfollow" @click="unfollow(followed._id)">Unfollow this user</a></p>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@ import PlaylistApi from '@/assets/PlaylistApi';
 import GravatarApi from '@/assets/GravatarApi';
 import UsersApi from '@/assets/UsersApi';
 import Playlist from '../playlists/Playlist';
-import SearchInput from '../searchInput/SearchInput';
+import SearchInput from '../search/SearchInput';
 
 export default {
   name: 'Profile',
@@ -74,13 +74,15 @@ export default {
       user: {},
       playlists: [],
       playlistName: '',
+      authenticatedUser: 0
     };
   },
   created() {
     this.fetchUser(this.$route.params.id);
   },
-  beforeRouteUpdate(to) {
+  beforeRouteUpdate(to, from, next) {
     this.fetchUser(to.params.id);
+    next();
   },
   methods: {
     fetchUser(id) {
@@ -158,10 +160,17 @@ export default {
       }
     },
     follow() {
-      UsersApi.follow(this.user.id);
+      UsersApi.follow(this.user.id)
+        .then(() => {
+          document.getElementById('follow').setAttribute('disabled', 'disabled');
+          document.getElementById('follow').innerHTML = 'Followed!';
+        });
     },
-    unfollow() {
-      UsersApi.stopFollow(this.user.id);
+    unfollow(id) {
+      UsersApi.stopFollow(id)
+        .then((response) => {
+          this.user.following = response.following;
+        });
     }
   }
 };
@@ -214,5 +223,14 @@ export default {
 #profile .friend p,
 #profile .friend a {
     color: #fff;
+}
+
+#profile .friend a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#profile .friend .unfollow {
+  font-size: 11px;
 }
 </style>

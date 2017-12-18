@@ -101,10 +101,6 @@ export default {
           this.connected = false;
         });
     }
-    if (window.location.hash === '#/?login') {
-      this.authentication.show = true;
-      this.authentication.type = 'signin';
-    }
   },
   methods: {
     hideMenu() {

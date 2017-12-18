@@ -16,6 +16,20 @@ export default class ArtistApi {
 
   static getMore(name) {
     return Vue.http.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${name}&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
-      .then(response => response.body.artist);
+      .then((response) => {
+        const artist = response.body.artist;
+
+        if (artist.name === 'Undefined') {
+          return {
+            biography: 'Biography not found for this artist',
+            image: '/static/images/unknownArtist.png'
+          };
+        }
+
+        return {
+          biography: `${artist.bio.content.substr(0, 400)}...`,
+          image: artist.image[5]['#text']
+        };
+      });
   }
 }

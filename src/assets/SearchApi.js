@@ -2,7 +2,6 @@ import Vue from 'vue';
 import UsersApi from './UsersApi';
 
 export default class SearchApi {
-
   static global(query, limit = 10) {
     return Vue.http.get(`search?q=${query}&limit=${limit}`,
         { headers: { authorization: UsersApi.getToken() } })

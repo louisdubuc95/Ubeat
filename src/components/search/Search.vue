@@ -2,17 +2,17 @@
     <main id="search">
       <section class="header">
         <div class="container">
-          <h1> Search Results : {{ this.$route.query.global }}</h1>
+            <h1>Results for : {{ this.$route.query.q }}</h1>
         </div>
       </section>
-      <section class="content">
+      <section class="content" v-if="albums.length">
           <div class="container">
-              <div class="albums" v-if="albums.length">
+              <div class="albums">
                   <h3>Albums</h3>
                   <div class="pure-g">
                       <div class="artist-album pure-u-lg-1-5 pure-u-md-1-3 pure-u-sm-1-2 pure-u-1" v-for="album in albums">
                       <router-link :to="`/album/${album.collectionId}`">
-                          <img class="pure-img" :src="album.artworkUrl100" />
+                          <img class="pure-img" :src="album.artworkUrl100.replace('100x100', '300x300')" />
                           <h4>{{ album.collectionName }}</h4>
                       </router-link>
                       </div>
@@ -20,14 +20,13 @@
               </div>
           </div>
       </section>
-      <section class="content">
+      <section class="content" v-if="artists.length">
           <div class="container">
-              <div class="artists" v-if="artists.length">
+              <div class="artists">
                   <h3>Artist</h3>
                   <div class="pure-g">
                       <div class="artist-album pure-u-lg-1-5 pure-u-md-1-3 pure-u-sm-1-2 pure-u-1" v-for="artist in artists">
                           <router-link :to="`/artist/${artist.artistId}`">
-                            <img class="pure-img" v-bind:src="artist.image" />
                             <h4>{{ artist.artistName }}</h4>
                             <h4>{{ artist.primaryGenreName }}</h4>
                             <a :href="artist.artistLinkUrl" class="apple-music"></a>
@@ -37,13 +36,15 @@
               </div>
           </div>
       </section>
-      <section class="content">
+      <section class="content" v-if="tracks.length">
           <div class="container">
-              <div class="tracks" v-if="tracks.length">
+              <div class="tracks">
                   <h3>Tracks</h3>
                   <album-track
-                    v-for="track in tracks"
+                    v-for="(track, index) in tracks"
                     :key="track.trackId"
+                    :editable="false"
+                    :playlistData="{ index: index }"
                     :track="track"
                     @songPlaying="onSongPlaying"
                     @songStopped="onSongStopped">
@@ -51,16 +52,17 @@
               </div>
           </div>
       </section>
-      <section class="content">
+      <section class="content" v-if="users.length">
           <div class="container">
-              <div class="users" v-if="users.length">
+              <div class="users">
                   <h3>Users</h3>
-                  <div class="pure-g">
-                      <div v-for="user in users" class="user">
-                        {{ user.name }}
-                        {{ user.email }}
-                        <i class="fa fa-user-plus fa-2x" id="add-user" @click="followUser(user.id)"></i>
-                        <i class="fa fa-user-times fa-2x" id="not-user" @click="stopFollowUser(user.id)"></i>
+                  <div id="users-container" class="pure-g">
+                      <div v-for="user in users" class="user-container pure-u-1 pure-u-sm-12-24 pure-u-lg-6-24">
+                          <div class="user">
+                              <p><router-link :to="{ path: '/profile/' + user.id }">{{ user.name }}</router-link></p>
+                              <p>{{ user.email }}</p>
+                              <p><a class="follow" @click="followUser(user.id)">Follow this user</a></p>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -86,9 +88,6 @@ export default {
       artists: [],
       tracks: [],
       users: [],
-      // correspondance entre le wrapperType de l'API et des tableaux de this.data
-            // apparament la recherche globale ne permet pas de trouver des utilisateurs..
-            //    je met quand met la correspondance user: users
       typesResult: {
         collection: 'albums',
         artist: 'artists',
@@ -99,28 +98,39 @@ export default {
     };
   },
   created() {
-    // RQ: recherche de limit = 10 par défault
-    // recherche globale
-    if (this.$route.query.global !== undefined) {
-      this.handleRep(SearchApi.global(this.$route.query.global), 'global');
-    } else { // recherche par album/artist/track/user
-      if (this.$route.query.albums !== undefined) {
-        this.handleRep(SearchApi.albums(this.$route.query.albums), 'albums');
-      }
-      if (this.$route.query.artists !== undefined) {
-        this.handleRep(SearchApi.artists(this.$route.query.artists), 'artists');
-      }
-      if (this.$route.query.tracks !== undefined) {
-        this.handleRep(SearchApi.tracks(this.$route.query.tracks), 'tracks');
-      }
-      if (this.$route.query.users !== undefined) {
-        this.handleRep(SearchApi.users(this.$route.query.users), 'users');
-      }
-    }
+    this.search(this.$route.query.mode, this.$route.query.q);
   },
-  mounted() {
+  beforeRouteUpdate(to, from, next) {
+    this.search(to.query.mode, to.query.q);
+    next();
   },
   methods: {
+    search(mode, query) {
+      this.albums = [];
+      this.artists = [];
+      this.tracks = [];
+      this.users = [];
+
+      switch (mode) {
+        case 'global':
+          this.handleRep(SearchApi.users(query), 'users');
+          this.handleRep(SearchApi.global(query), 'global');
+          break;
+        case 'albums':
+          this.handleRep(SearchApi.albums(query), 'albums');
+          break;
+        case 'artists':
+          this.handleRep(SearchApi.artists(query), 'artists');
+          break;
+        case 'tracks':
+          this.handleRep(SearchApi.tracks(query), 'tracks');
+          break;
+        case 'users':
+          this.handleRep(SearchApi.users(query), 'users');
+          break;
+        default:
+      }
+    },
     handleRep(promise, searchMethod) {
       promise.then((res) => {
         let results;
@@ -136,13 +146,6 @@ export default {
             typeResult = this.typesResult[results[i].wrapperType];
           }
           this[typeResult].push(results[i]);
-        }
-        for (let i = 0; i < this.artists.length; i += 1) {
-          this.$http.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${this.artists[i].artistName}&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
-          .then((response) => {
-            this.artists[i].image = response.body.artist.image[5]['#text'];
-          });
-          console.log(this.artists[i]);
         }
       });
     },
@@ -164,43 +167,12 @@ export default {
           UsersApi.follow(userId);
         }
       });
-    },
-    stopFollowUser(userId) {
-      UsersApi.getTokenInfo(this.$cookie.get('token'))
-      .then((response) => {
-        if (response.id === userId) {
-          UsersApi.stopFollow(userId)
-          .then((e) => {
-            // eslint-disable-next-line
-            console.log(e);
-          })
-          .catch((e) => {
-            // eslint-disable-next-line
-            console.err(e);
-          });
-        }
-      });
     }
   }
 };
 </script>
 
 <style>
-#search {
-  margin-top: 50px;
-}
-#search .users {
-  max-width: 600px;
-  padding: 5px;
-  text-align: right;
-}
-#search .header h1 {
-  color: #FFF;
-  padding: 0 0 15px 0;
-  font-size: 4rem;
-  font-weight: normal;
-  border-bottom: 1px solid rgba(255, 255, 255, .3);
-}
 #search .content h3 {
   margin-top: 0;
   color: #fff;
@@ -230,25 +202,38 @@ export default {
   color: #000;
   white-space: pre-wrap;
 }
-#search #add-user, #search #not-user {
-    margin-left: 20px;
-    color: #000;
-}
-#search #add-user:hover, #search #not-user:hover {
-  color: white;
+
+#search #users-container {
+    margin-left: -10px;
+    margin-right: -10px;
 }
 
-#search #add-user:active, #search #not-user:active {
-  color: #0b0bbb;
+#search .user-container {
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 #search .user {
-  background-color: #d0d0d0;
-  border-radius: 4px;
-  margin-top: 20px;
+    padding: 10px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, .5);
 }
 
- #search .icon-result {
+#search .user p,
+#search .user p a {
+  color: #fff;
+}
+
+#search .user p a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#search .user .follow {
+    font-size: 11px;
+}
+
+#search .icon-result {
    color: #ffffff;
    margin: 10px 0px 10px 5px;
  }

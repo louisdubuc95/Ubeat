@@ -1,21 +1,20 @@
 <template>
     <main id="album">
         <section class="header">
-            <search-input :typeSearch="'albums'"></search-input>
             <div class="pure-g container">
                 <div id="album-cover" class="pure-u-sm-1-6 pure-u-1">
                     <img class="pure-img" :src="album.artworkUrl100.replace('100x100', '300x300')" />
                 </div>
                 <div id="album-text" class="pure-u-sm-5-6 pure-u-1">
-                    <h1>{{ album.collectionName }}</h1>
+                    <h1>{{ album.collectionName }} <a :href="album.collectionViewUrl" class="apple-music"></a></h1>
                     <h2><router-link :to="`/artist/${album.artistId}`">{{ album.artistName }}</router-link></h2>
 
                     <div id="album-specs">
                         <p><span>Release date :</span> {{ album.releaseDate }}</p>
                         <p><span>Tracks :</span> {{ album.trackCount }}</p>
                         <p><span>Genre :</span> {{ album.primaryGenreName }}</p>
-                        <p><a :href="album.collectionViewUrl" class="apple-music"></a></p>
                         <p><a class="pure-button pure-button-primary" @click="togglePlaylists()">Add to playlist</a></p>
+                        <search-input :typeSearch="'albums'"></search-input>
                         <div :class="{ active: playlistsActive }" class="playlists-selector">
                             <ul>
                                 <li v-for="playlist in playlists" @click="addToPlaylist(playlist.id)">{{ playlist.name }}</li>
@@ -47,7 +46,7 @@
 <script>
 import PlaylistApi from '@/assets/PlaylistApi';
 import AlbumApi from '@/assets/AlbumApi';
-import SearchInput from '../searchInput/SearchInput';
+import SearchInput from '../search/SearchInput';
 import AlbumTrack from './AlbumTrack';
 
 export default {
@@ -140,7 +139,7 @@ export default {
 
 #album .header .playlists-selector {
     width: 100%;
-    top: 220px;
+    top: 160px;
     left: 0;
 }
 
@@ -159,7 +158,7 @@ export default {
 @media screen and (min-width: 48em) {
 
     #album .header .playlists-selector {
-        top: 165px;
+        top: 105px;
         left: 200px;
     }
 

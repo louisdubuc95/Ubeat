@@ -3,6 +3,7 @@
         <section class="header">
             <div class="container">
                 <h1>Browse playlists</h1>
+                <search-input :typeSearch="'tracks'"></search-input>
             </div>
         </section>
         <section class="content">
@@ -35,7 +36,7 @@
 import UsersApi from '@/assets/UsersApi';
 import PlaylistApi from '@/assets/PlaylistApi';
 import Playlist from './Playlist';
-import SearchInput from '../searchInput/SearchInput';
+import SearchInput from '../search/SearchInput';
 
 export default {
   name: 'playlists',

@@ -1,17 +1,16 @@
 <template>
     <main id="artist">
         <section class="header">
-            <search-input :typeSearch="'artists'"></search-input>
             <div class="pure-g container">
               <div id="artist-image" class="pure-u-sm-1-6 pure-u-1">
                   <img class="pure-img" :src="image" />
               </div>
               <div id="artist-text" class="pure-u-sm-5-6 pure-u-1">
-                  <h1>{{ artist.artistName }}</h1>
+                  <h1>{{ artist.artistName }} <a :href="artist.artistLinkUrl" class="apple-music"></a></h1>
                   <div id="artist-specs">
                       <p id="specs-genre">{{ artist.primaryGenreName }}</p>
                       <p id="specs-bio" v-html="biography"></p>
-                      <a :href="artist.artistLinkUrl" class="apple-music"></a>
+                      <search-input :typeSearch="'artists'"></search-input>
                   </div>
               </div>
             </div>
@@ -31,7 +30,7 @@
 
 import ArtistApi from '@/assets/ArtistApi';
 import ArtistAlbum from './ArtistAlbum';
-import SearchInput from '../searchInput/SearchInput';
+import SearchInput from '../search/SearchInput';
 
 export default {
   name: 'Artist',
@@ -54,13 +53,8 @@ export default {
 
         ArtistApi.getMore(this.artist.artistName)
           .then((more) => {
-            if (more.name === 'Undefined') {
-              this.biography = 'Biography not found for this artist';
-              this.image = '/static/images/unknownArtist.png';
-            } else {
-              this.biography = `${more.bio.content.substr(0, 400)}...`;
-              this.image = more.image[5]['#text'];
-            }
+            this.biography = more.biography;
+            this.image = more.image;
           });
       });
     ArtistApi.getAlbums(this.$route.params.id)
