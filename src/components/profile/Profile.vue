@@ -77,47 +77,53 @@ export default {
     };
   },
   created() {
-    UsersApi.getTokenInfo(this.$cookie.get('token'))
-      .then((user) => {
-        this.authenticatedUser = user.id;
-
-        PlaylistApi.get().then((playlists) => {
-          this.playlists = playlists;
-        });
-      });
-
-    UsersApi.getUser(this.$route.params.id)
-    .then((user) => {
-      this.user = user;
-
-      GravatarApi.getAvatar(this.user.email)
-        .then((image) => {
-          if (image !== undefined) {
-            this.user.image = image;
-          } else {
-            this.user.image = '/static/images/randomGuy.png';
-          }
-        })
-        .catch(() => {
-          this.user.image = '/static/images/randomGuy.png';
-        });
-
-      for (let i = 0; i < this.user.following.length; i += 1) {
-        GravatarApi.getAvatar(this.user.following[i].email)
-        .then((image) => {
-          if (image !== undefined) {
-            this.user.following[i].image = image;
-          } else {
-            this.user.following[i].image = '/static/images/randomGuy.png';
-          }
-        })
-        .catch(() => {
-          this.user.following[i].image = '/static/images/randomGuy.png';
-        });
-      }
-    });
+    this.fetchUser(this.$route.params.id);
+  },
+  beforeRouteUpdate(to) {
+    this.fetchUser(to.params.id);
   },
   methods: {
+    fetchUser(id) {
+      UsersApi.getTokenInfo(this.$cookie.get('token'))
+        .then((user) => {
+          this.authenticatedUser = user.id;
+
+          PlaylistApi.get().then((playlists) => {
+            this.playlists = playlists;
+          });
+        });
+
+      UsersApi.getUser(id)
+      .then((user) => {
+        this.user = user;
+
+        GravatarApi.getAvatar(this.user.email)
+          .then((image) => {
+            if (image !== undefined) {
+              this.user.image = image;
+            } else {
+              this.user.image = '/static/images/randomGuy.png';
+            }
+          })
+          .catch(() => {
+            this.user.image = '/static/images/randomGuy.png';
+          });
+
+        for (let i = 0; i < this.user.following.length; i += 1) {
+          GravatarApi.getAvatar(this.user.following[i].email)
+          .then((image) => {
+            if (image !== undefined) {
+              this.user.following[i].image = image;
+            } else {
+              this.user.following[i].image = '/static/images/randomGuy.png';
+            }
+          })
+          .catch(() => {
+            this.user.following[i].image = '/static/images/randomGuy.png';
+          });
+        }
+      });
+    },
     ownedPlaylist(owner) {
       if (owner && owner.name && owner.name === this.user.name) {
         return true;
