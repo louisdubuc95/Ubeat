@@ -3,7 +3,7 @@
         <section class="header">
             <div class="pure-g container">
                 <div id="album-cover" class="pure-u-sm-1-6 pure-u-1">
-                    <img class="pure-img" :src="album.artworkUrl100.replace('100x100', '300x300')" />
+                    <img class="pure-img" :src="album.artworkUrl100" />
                 </div>
                 <div id="album-text" class="pure-u-sm-5-6 pure-u-1">
                     <h1>{{ album.collectionName }} <a :href="album.collectionViewUrl" class="apple-music"></a></h1>
@@ -68,6 +68,7 @@ export default {
     AlbumApi.get(this.$route.params.id)
       .then((album) => {
         this.album = album;
+        this.album.artworkUrl100 = this.album.artworkUrl100.replace('100x100', '300x300');
         this.album.releaseDate = this.album.releaseDate.substr(0, 10);
       });
     AlbumApi.getTracks(this.$route.params.id)
