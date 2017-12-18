@@ -13,4 +13,9 @@ export default class ArtistApi {
       .then(response => response.json(), UsersApi.unauthorized)
       .then(response => response.results);
   }
+
+  static getMore(name) {
+    return Vue.http.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${name}&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
+      .then(response => response.body.artist);
+  }
 }

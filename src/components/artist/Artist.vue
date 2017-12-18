@@ -2,23 +2,25 @@
     <main id="artist">
         <section class="header">
             <search-input :typeSearch="'artists'"></search-input>
-            <div class="container">
-                <h1>{{ artist.artistName }}</h1>
-                <div id="artist-specs">
-                    <p id="specs-genre">{{ artist.primaryGenreName }}</p>
-                    <a :href="artist.artistLinkUrl" class="apple-music"></a>
-                    <img class="pure-img" :src="image" />
-                </div>
+            <div class="pure-g container">
+              <div id="artist-image" class="pure-u-sm-1-6 pure-u-1">
+                  <img class="pure-img" :src="image" />
+              </div>
+              <div id="artist-text" class="pure-u-sm-5-6 pure-u-1">
+                  <h1>{{ artist.artistName }}</h1>
+                  <div id="artist-specs">
+                      <p id="specs-genre">{{ artist.primaryGenreName }}</p>
+                      <p id="specs-bio" v-html="biography"></p>
+                      <a :href="artist.artistLinkUrl" class="apple-music"></a>
+                  </div>
+              </div>
             </div>
         </section>
         <section class="content">
             <div class="container">
                 <h3>Albums</h3>
-                <div class="pure-g">
+                <div id="albums-container" class="pure-g">
                     <artist-album v-for="album in albums" :album="album" :key="album.collectionId"></artist-album>
-                </div>
-                <div style="color: white;" id="artist-bio">
-                  {{ biography }}
                 </div>
             </div>
         </section>
@@ -41,7 +43,7 @@ export default {
     return {
       artist: {},
       albums: [],
-      biography: '',
+      biography: 'Loading biography...',
       image: '',
     };
   },
@@ -49,40 +51,67 @@ export default {
     ArtistApi.get(this.$route.params.id)
       .then((artist) => {
         this.artist = artist;
-        this.image = '';
-        this.$http.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${this.artist.artistName}&api_key=923b6ee93d08364b910129468fc2a024&format=json`)
-        .then((response) => {
-          if (response.body.artist.name !== 'Undefined') {
-            this.biography = response.body.artist.bio.content;
-          }
-          this.image = response.body.artist.image[5]['#text'];
-        });
+
+        ArtistApi.getMore(this.artist.artistName)
+          .then((more) => {
+            if (more.name === 'Undefined') {
+              this.biography = 'Biography not found for this artist';
+              this.image = '/static/images/unknownArtist.png';
+            } else {
+              this.biography = `${more.bio.content.substr(0, 400)}...`;
+              this.image = more.image[5]['#text'];
+            }
+          });
       });
     ArtistApi.getAlbums(this.$route.params.id)
       .then((albums) => {
         this.albums = albums;
       });
-  },
-  mounted() { }
+  }
 };
 </script>
 
 <style>
+#artist .header #artist-image img {
+    margin: auto;
+    border-radius: 50%;
+}
+
+#artist .header #artist-text {
+    box-sizing: border-box;
+}
+
 #artist .header h1 {
     color: #FFF;
     padding: 0 0 15px 0;
     font-size: 4rem;
     font-weight: normal;
     border-bottom: 1px solid rgba(255, 255, 255, .3);
+    text-align: center;
 }
 
-#artist .header #artist-specs #specs-genre {
+#artist .header #artist-specs #specs-genre,
+#artist .header #artist-specs #specs-bio {
     color: rgba(255, 255, 255, .4);
+    text-align: justify;
+}
+
+#artist .header p a {
+    color: #fff;
+}
+
+#artist .header p a:hover {
+    text-decoration: underline;
 }
 
 #artist .content h3 {
     margin-top: 0;
     color: #fff;
+}
+
+#artist .content #albums-container {
+    margin-left: -10px;
+    margin-right: -10px;
 }
 
 #artist .content .artist-album {
@@ -105,8 +134,19 @@ export default {
     color: #FFF;
 }
 
-#artist #artist-bio {
-  color: #000;
-  white-space: pre-wrap;
+@media screen and (min-width: 35.5em) {
+
+    #artist .header #artist-image img {
+        margin: 0;
+    }
+
+    #artist .header #artist-text {
+        padding-left: 30px;
+    }
+
+    #artist .header h1 {
+      text-align: left;
+    }
+
 }
 </style>
