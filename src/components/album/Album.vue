@@ -4,7 +4,7 @@
             <search-input :typeSearch="'albums'"></search-input>
             <div class="pure-g container">
                 <div id="album-cover" class="pure-u-sm-1-6 pure-u-1">
-                    <img class="pure-img" :src="album.artworkUrl100" />
+                    <img class="pure-img" :src="album.artworkUrl100.replace('100x100', '300x300')" />
                 </div>
                 <div id="album-text" class="pure-u-sm-5-6 pure-u-1">
                     <h1>{{ album.collectionName }}</h1>
